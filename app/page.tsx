@@ -288,7 +288,8 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Projects section */}
+
+          {/*
           <section id="projects" className="mb-20 scroll-mt-6 section-fade">
             <h2 className="text-3xl font-bold mb-6">Projects</h2>
             <div className="space-y-6">
@@ -327,7 +328,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-
+*/}
           {/* Talks & Interviews section */}
           <section id="talks" className="mb-20 scroll-mt-6 section-fade">
             <h2 className="text-3xl font-bold mb-6">Notable Reading</h2>
