@@ -21,7 +21,6 @@ export default function Home() {
     { id: "about", label: "About" },
     { id: "research", label: "Research" },
     { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
     { id: "talks", label: "Reading" },
   ];
 
