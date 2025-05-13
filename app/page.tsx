@@ -177,7 +177,7 @@ export default function Home() {
               <p>
                 I'm interested in LLMs, VLMs, Reasoning models, and generally the whole field of language modeling. I'm
                 also really into voice models and anything to do with sound! Besides tuning hyperparams, you'll probably
-                catch me watching an F1 race, soccer game, or playing video games!
+                catch me watching an Formula 1 race, soccer game, or playing video games!
               </p>
             </div>
           </section>
