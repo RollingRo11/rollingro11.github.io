@@ -167,14 +167,14 @@ export default function Home() {
         <div className="w-full max-w-3xl">
           {/* About section */}
           <section id="about" className="mb-20 pt-20 lg:pt-32 scroll-mt-6 section-fade">
-            <h2 className="text-3xl font-bold mb-6">About</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6">About</h2>
             <div className="space-y-4">
-              <p>
+              <p className="text-sm sm:text-base">
                 I'm a student at Northeastern University, majoring in Computer Science with a concentration in
                 Artificial Intelligence. I'm interested in training deep neural nets to build tools that connect people
                 to intelligence. I believe in creating tech that empowers people, not replaces them.
               </p>
-              <p>
+              <p className="text-sm sm:text-base">
                 I'm interested in LLMs, VLMs, Reasoning models, and generally the field of language modeling. I'm
                 also really into voice models and anything to do with sound! Besides tuning hyperparams, you'll probably
                 catch me watching an Formula 1 race, soccer game, or playing video games!
@@ -183,60 +183,57 @@ export default function Home() {
           </section>
           {/* Research section */}
           <section id="research" className="mb-20 scroll-mt-6 section-fade">
-            <h2 className="text-3xl font-bold mb-6">Research</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6">Research</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold mb-2">Paper Implementations</h3>
-                <p className="mb-2">Currently implementing a multitude of popular machine learning papers:</p>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Paper Implementations</h3>
+                <p className="mb-2 text-sm sm:text-base">Currently implementing a multitude of popular machine learning papers:</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>
+                  <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/NP-Language-Model"
-                      className="text-gray-700 hover:underline inline-flex items-center"
+                      className="flex items-center text-gray-700 hover:underline"
                     >
                       A Neural Probabalistic Language Model (Bengio et al.)
-                      <ArrowUpRight className="ml-1 h-3 w-3" />
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/dropout"
-                      className="text-gray-700 hover:underline inline-flex items-center"
+                      className="flex items-center text-gray-700 hover:underline"
                     >
-                      Dropout (Srivastava et al.) <ArrowUpRight className="ml-1 h-3 w-3" />
+                      Dropout (Srivastava et al.)
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/alexnet"
-                      className="text-gray-700 hover:underline inline-flex items-center"
+                      className="flex items-center text-gray-700 hover:underline"
                     >
                       Alexnet: ImageNet Classification with Deep Convolutional Networks (Krizhevsky et al.)
-                      <ArrowUpRight className="ml-1 h-3 w-3" />
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/ADAM"
-                      className="text-gray-700 hover:underline inline-flex items-center"
+                      className="flex items-center text-gray-700 hover:underline"
                     >
-                      ADAM: A Method for Stochastic Optimization (P. Kingma & Ba){" "}
-                      <ArrowUpRight className="ml-1 h-3 w-3" />
+                      ADAM: A Method for Stochastic Optimization (P. Kingma & Ba)
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/attention-is-all-you-need"
-                      className="text-gray-700 hover:underline inline-flex items-center"
+                      className="flex items-center text-gray-700 hover:underline"
                     >
-                      Attention Is All You Need (Vaswani et al.) <ArrowUpRight className="ml-1 h-3 w-3" />
+                      Attention Is All You Need (Vaswani et al.)
                     </Link>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-2">Combinatorics</h3>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Combinatorics</h3>
                 <p className="mb-2">
                   Currently working with{" "}
                   <Link
@@ -254,22 +251,22 @@ export default function Home() {
 
           {/* Experience section */}
           <section id="experience" className="mb-20 scroll-mt-6 section-fade">
-            <h2 className="text-3xl font-bold mb-6">Experience</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6">Experience</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold mb-2">Northeastern University Artificial Intelligence Clinic</h3>
-                <p className="text-gray-600 mb-4">Founder + AI Consultant • Nov 2024 - Present</p>
-                <p className="mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Northeastern University Artificial Intelligence Clinic</h3>
+                <p className="text-gray-600 mb-4 text-sm sm:text-base">Founder + AI Consultant • Nov 2024 - Present</p>
+                <p className="mb-2 text-sm sm:text-base">
                   I worked with Northeastern University Oakland staff to launch a program for small businesses in the
                   Oakland area to come to Northeastern's Oakland Campus, get paired 1-1 with students, and learn to use
                   many popular AI tools (ChatGPT, Claude, Adobe Creative Cloud), and some less popular ones (SalesForce
                   AgentForce, Relevance AI). (See article at the bottom of the page!)
                 </p>
-                <p className="mb-2">
+                <p className="mb-2 text-sm sm:text-base">
                   We're currently expanding the Artificial Intelligence Clinic to work with the City of Oakland, and
                   expand Artificial Intelligence trainings across the Bay Area!
                 </p>
-                <p className="mb-2">
+                <p className="mb-2 text-sm sm:text-base">
                   We're also currently designing a course curriculum for Northeastern University so students can learn
                   from instructors on how to use these tools, and how to consult with companies, before they spend a
                   semester working with small businesses in the area.
@@ -277,9 +274,9 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-2">Northeastern University Oakland Makerspace</h3>
-                <p className="text-gray-600 mb-4">Shop Assistant • Oct 2024 - Apr 2025</p>
-                <p className="mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Northeastern University Oakland Makerspace</h3>
+                <p className="text-gray-600 mb-4 text-sm sm:text-base">Shop Assistant • Oct 2024 - Apr 2025</p>
+                <p className="mb-2 text-sm sm:text-base">
                   I spent a majority of my time helping students with 3d printers, 3d printing tools and parts for the
                   makerspace, and developing a camera system that tracks projects as they are printed.
                 </p>
@@ -330,46 +327,46 @@ export default function Home() {
 */}
           {/* Talks & Interviews section */}
           <section id="talks" className="mb-20 scroll-mt-6 section-fade">
-            <h2 className="text-3xl font-bold mb-6">Notable Reading</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6">Notable Reading</h2>
             <div>
               <ul className="space-y-3">
-                <li>
+                <li className="flex items-center text-sm sm:text-base">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
-                    className="text-gray-700 hover:underline"
+                    className="flex items-center text-gray-700 hover:underline"
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
-                  <span className="text-sm text-gray-600 ml-2">(2025)</span>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(2025)</span>
                 </li>
 
-                <h4 className="text-xl font-semibold mb-2">Rohan Recommends</h4>
-                <li>
+                <h4 className="text-lg sm:text-xl font-semibold mb-2">Rohan Recommends</h4>
+                <li className="flex items-center text-sm sm:text-base">
                   <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace#basic-assumptions-and-framework"
-                    className="text-gray-700 hover:underline"
+                    className="flex items-center text-gray-700 hover:underline"
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="text-sm text-gray-600 ml-2">(2025)</span>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(2025)</span>
                 </li>
-                <li>
+                <li className="flex items-center text-sm sm:text-base">
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
-                    className="text-gray-700 hover:underline"
+                    className="flex items-center text-gray-700 hover:underline"
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
-                  <span className="text-sm text-gray-600 ml-2">(2024)</span>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(2024)</span>
                 </li>
-                <li>
+                <li className="flex items-center text-sm sm:text-base">
                   <Link
                     href="https://en.wikipedia.org/wiki/Brave_New_World"
-                    className="text-gray-700 hover:underline"
+                    className="flex items-center text-gray-700 hover:underline"
                   >
-                      My favorite book
+                    My favorite book
                   </Link>
-                  <span className="text-sm text-gray-600 ml-2">(1932)</span>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(1932)</span>
                 </li>
               </ul>
             </div>
