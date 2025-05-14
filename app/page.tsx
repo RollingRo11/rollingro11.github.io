@@ -175,9 +175,14 @@ export default function Home() {
                 to intelligence. I believe in creating tech that empowers people, not replaces them.
               </p>
               <p className="text-sm sm:text-base">
-                I'm interested in LLMs, VLMs, Reasoning models, and generally the field of language modeling. I'm
-                also really into voice models and anything to do with sound! Besides tuning hyperparams, you'll probably
+                I'm interested in LLMs, VLMs, Reasoning models, and generally the field of language modeling. I'm also
+                really into voice models and anything to do with sound! Besides tuning hyperparams, you'll probably
                 catch me watching an Formula 1 race, soccer game, or playing video games!
+              </p>
+
+              <p className="text-sm sm:text-base">
+                <b>Status:</b> Currently in the Bay Area taking summer classes on Northeastern's Oakland Campus!
+                (CS4100: Artificial Intelligence, CS3500: Object Oriented Design )
               </p>
             </div>
           </section>
@@ -187,7 +192,9 @@ export default function Home() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">Paper Implementations</h3>
-                <p className="mb-2 text-sm sm:text-base">Currently implementing a multitude of popular machine learning papers:</p>
+                <p className="mb-2 text-sm sm:text-base">
+                  Currently implementing a multitude of popular machine learning papers:
+                </p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li className="text-sm sm:text-base">
                     <Link
@@ -254,7 +261,9 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl font-bold mb-6">Experience</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">Northeastern University Artificial Intelligence Clinic</h3>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">
+                  Northeastern University Artificial Intelligence Clinic
+                </h3>
                 <p className="text-gray-600 mb-4 text-sm sm:text-base">Founder + AI Consultant • Nov 2024 - Present</p>
                 <p className="mb-2 text-sm sm:text-base">
                   I worked with Northeastern University Oakland staff to launch a program for small businesses in the
@@ -283,7 +292,6 @@ export default function Home() {
               </div>
             </div>
           </section>
-
 
           {/*
           <section id="projects" className="mb-20 scroll-mt-6 section-fade">
@@ -348,7 +356,7 @@ export default function Home() {
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(2025)</span>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(2024)</span>
                 </li>
                 <li className="flex items-center text-sm sm:text-base">
                   <Link
@@ -373,9 +381,7 @@ export default function Home() {
           </section>
           {/* Footer */}
           <footer className="border-t pt-6 text-sm text-gray-500">
-            <p className="mb-4">
-              Feel free to reach out if you wanna talk F1, Barca/Bayern, or Machine/Deep Learning!
-            </p>
+            <p className="mb-4">Feel free to reach out if you wanna talk F1, Barca/Bayern, or Machine/Deep Learning!</p>
             <div className="space-y-2">
               <p>
                 <Link href="mailto:rohan.kathuria@live.com" className="text-gray-700 hover:underline">
