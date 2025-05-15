@@ -171,11 +171,10 @@ export default function Home() {
             <div className="space-y-4">
               <p className="text-sm sm:text-base">
                 I'm a student at Northeastern University, majoring in Computer Science with a concentration in
-                Artificial Intelligence. I'm interested in training deep neural nets to build tools that connect people
-                to intelligence. I believe in creating tech that empowers people, not replaces them.
+                Artificial Intelligence. I like training deep neural nets to build cool and useful systems!
               </p>
               <p className="text-sm sm:text-base">
-                I'm interested in LLMs, VLMs, Reasoning models, and generally the field of language modeling. I'm also
+                I'm interested in LLMs, VLMs, reasoning models, and generally the field of language modeling. I'm also
                 really into voice models and anything to do with sound! Besides tuning hyperparams, you'll probably
                 catch me watching an Formula 1 race, soccer game, or playing video games!
               </p>
@@ -199,7 +198,7 @@ export default function Home() {
                   <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/NP-Language-Model"
-                      className="flex items-center text-gray-700 hover:underline"
+                      className="flex items-center text-gray-500 hover:underline"
                     >
                       A Neural Probabalistic Language Model (Bengio et al.)
                     </Link>
@@ -207,7 +206,7 @@ export default function Home() {
                   <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/dropout"
-                      className="flex items-center text-gray-700 hover:underline"
+                      className="flex items-center text-gray-500 hover:underline"
                     >
                       Dropout (Srivastava et al.)
                     </Link>
@@ -215,7 +214,7 @@ export default function Home() {
                   <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/alexnet"
-                      className="flex items-center text-gray-700 hover:underline"
+                      className="flex items-center text-gray-500 hover:underline"
                     >
                       Alexnet: ImageNet Classification with Deep Convolutional Networks (Krizhevsky et al.)
                     </Link>
@@ -223,7 +222,7 @@ export default function Home() {
                   <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/ADAM"
-                      className="flex items-center text-gray-700 hover:underline"
+                      className="flex items-center text-gray-500 hover:underline"
                     >
                       ADAM: A Method for Stochastic Optimization (P. Kingma & Ba)
                     </Link>
@@ -231,7 +230,7 @@ export default function Home() {
                   <li className="text-sm sm:text-base">
                     <Link
                       href="https://github.com/RollingRo11/attention-is-all-you-need"
-                      className="flex items-center text-gray-700 hover:underline"
+                      className="flex items-center text-gray-500 hover:underline"
                     >
                       Attention Is All You Need (Vaswani et al.)
                     </Link>
@@ -240,16 +239,38 @@ export default function Home() {
               </div>
 
               <div>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Mechanistic Interpretability @ NEURAI</h3>
+                <p className="mb-2">
+                  Currently working with Artificial Intelligence Professor{" "}
+                  <Link
+                    href="https://www.researchgate.net/profile/Nadim-Saad"
+                    className="text-gray-500 hover:underline inline-flex items-center"
+                  >
+                    Nadim Saad
+                  </Link>{" "}
+                  and the{" "}
+                  <Link
+                    href="https://neurai.sites.northeastern.edu/our-team-2/"
+                    className="text-gray-500 hover:underline inline-flex items-center"
+                  >
+                    Northeastern University Research in AI Lab
+                  </Link>{" "}
+                  on the field of Mechanistic Interpretability in Large Language Models.
+                </p>
+                <ul className="list-disc pl-5 space-y-1"></ul>
+              </div>
+
+              <div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">Combinatorics</h3>
                 <p className="mb-2">
-                  Currently working with{" "}
+                  Currently working with Mathematics Professor{" "}
                   <Link
                     href="https://scholar.google.com/citations?user=CyxXUkgAAAAJ&hl=en"
-                    className="text-gray-700 hover:underline inline-flex items-center"
+                    className="text-gray-500 hover:underline inline-flex items-center"
                   >
-                    Mathematics Professor Nathaniel Gallup
+                    Nathaniel Gallup
                   </Link>{" "}
-                  to prove that Infinite Matrix Schubert Varieties are Cohen-Macaulay.
+                  and other Mathematics Students to prove that Infinite Matrix Schubert Varieties are Cohen-Macaulay.
                 </p>
                 <ul className="list-disc pl-5 space-y-1"></ul>
               </div>
@@ -369,23 +390,27 @@ export default function Home() {
                 </li>
                 <li className="flex items-center text-sm sm:text-base">
                   <Link
-                    href="https://en.wikipedia.org/wiki/Brave_New_World"
+                    href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
                     className="flex items-center text-gray-700 hover:underline"
                   >
                     My favorite book
                   </Link>
-                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(1932)</span>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(1951)</span>
                 </li>
               </ul>
             </div>
           </section>
           {/* Footer */}
           <footer className="border-t pt-6 text-sm text-gray-500">
-            <p className="mb-4">Feel free to reach out if you wanna talk F1, Barca/Bayern, or Machine/Deep Learning!</p>
+            <p className="mb-4">Feel free to reach out if you wanna talk F1, Barca/Bayern, or Deep Learning!</p>
             <div className="space-y-2">
               <p>
                 <Link href="mailto:rohan.kathuria@live.com" className="text-gray-700 hover:underline">
                   rohan.kathuria@live.com
+                </Link>{" "}
+                |{" "}
+                <Link href="mailto:kathuria.r@northeastern.edu" className="text-gray-700 hover:underline">
+                  kathuria.r@northeastern.edu
                 </Link>
               </p>
             </div>
