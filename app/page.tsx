@@ -199,6 +199,8 @@ export default function Home() {
                     <Link
                       href="https://github.com/RollingRo11/NP-Language-Model"
                       className="flex items-center text-gray-500 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       A Neural Probabalistic Language Model (Bengio et al.)
                     </Link>
@@ -207,6 +209,8 @@ export default function Home() {
                     <Link
                       href="https://github.com/RollingRo11/dropout"
                       className="flex items-center text-gray-500 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Dropout (Srivastava et al.)
                     </Link>
@@ -215,6 +219,8 @@ export default function Home() {
                     <Link
                       href="https://github.com/RollingRo11/alexnet"
                       className="flex items-center text-gray-500 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Alexnet: ImageNet Classification with Deep Convolutional Networks (Krizhevsky et al.)
                     </Link>
@@ -223,6 +229,8 @@ export default function Home() {
                     <Link
                       href="https://github.com/RollingRo11/ADAM"
                       className="flex items-center text-gray-500 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       ADAM: A Method for Stochastic Optimization (P. Kingma & Ba)
                     </Link>
@@ -231,6 +239,8 @@ export default function Home() {
                     <Link
                       href="https://github.com/RollingRo11/attention-is-all-you-need"
                       className="flex items-center text-gray-500 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Attention Is All You Need (Vaswani et al.)
                     </Link>
@@ -245,6 +255,8 @@ export default function Home() {
                   <Link
                     href="https://www.researchgate.net/profile/Nadim-Saad"
                     className="text-gray-500 hover:underline inline-flex items-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Nadim Saad
                   </Link>{" "}
@@ -252,6 +264,8 @@ export default function Home() {
                   <Link
                     href="https://neurai.sites.northeastern.edu/our-team-2/"
                     className="text-gray-500 hover:underline inline-flex items-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Northeastern University Research in AI Lab
                   </Link>{" "}
@@ -267,6 +281,8 @@ export default function Home() {
                   <Link
                     href="https://scholar.google.com/citations?user=CyxXUkgAAAAJ&hl=en"
                     className="text-gray-500 hover:underline inline-flex items-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Nathaniel Gallup
                   </Link>{" "}
@@ -363,6 +379,8 @@ export default function Home() {
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
                     className="flex items-center text-gray-700 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
@@ -372,8 +390,10 @@ export default function Home() {
                 <h4 className="text-lg sm:text-xl font-semibold mb-2">Rohan Recommends</h4>
                 <li className="flex items-center text-sm sm:text-base">
                   <Link
-                    href="https://www.darioamodei.com/essay/machines-of-loving-grace#basic-assumptions-and-framework"
+                    href="https://www.darioamodei.com/essay/machines-of-loving-grace"
                     className="flex items-center text-gray-700 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
@@ -383,6 +403,8 @@ export default function Home() {
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
                     className="flex items-center text-gray-700 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
@@ -392,6 +414,8 @@ export default function Home() {
                   <Link
                     href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
                     className="flex items-center text-gray-700 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     My favorite book
                   </Link>
