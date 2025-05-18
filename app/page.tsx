@@ -171,12 +171,12 @@ export default function Home() {
             <div className="space-y-4">
               <p className="text-sm sm:text-base">
                 I'm a student at Northeastern University, majoring in Computer Science with a concentration in
-                Artificial Intelligence. I like training deep neural nets to build cool and useful systems!
+                Artificial Intelligence. I like training deep neural nets to build cool and useful systems.
               </p>
               <p className="text-sm sm:text-base">
                 I'm interested in LLMs, VLMs, reasoning models, and generally the field of language modeling. I'm also
-                really into voice models and anything to do with sound! Besides tuning hyperparams, you'll probably
-                catch me watching an Formula 1 race, soccer game, or playing video games!
+                really into voice models and anything to do with sound! Besides playing around with LMs, you'll probably
+                catch me watching an Formula 1 race, soccer game, or playing pickleball.
               </p>
 
               <p className="text-sm sm:text-base">
@@ -249,7 +249,7 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">Mechanistic Interpretability @ NEURAI</h3>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Mechanistic Interpretability @ NEURAI Lab</h3>
                 <p className="mb-2">
                   Currently working with Artificial Intelligence Professor{" "}
                   <Link
@@ -269,7 +269,7 @@ export default function Home() {
                   >
                     Northeastern University Research in AI Lab
                   </Link>{" "}
-                  on the field of Mechanistic Interpretability in Large Language Models.
+                  on understanding the internals of Large Language Models.
                 </p>
                 <ul className="list-disc pl-5 space-y-1"></ul>
               </div>
