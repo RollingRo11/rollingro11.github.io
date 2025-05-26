@@ -174,9 +174,9 @@ export default function Home() {
                 Artificial Intelligence. I like training deep neural nets to build cool and useful systems.
               </p>
               <p className="text-sm sm:text-base">
-                I'm interested in LLMs, VLMs, reasoning models, and generally the field of language modeling. I'm also
-                really into voice models and anything to do with sound! Besides playing around with LMs, you'll probably
-                catch me watching an Formula 1 race, soccer game, or playing pickleball.
+                I'm interested in exposing how large language models "think". In a world where the use of AI grows
+                rapidly, I believe it is increasingly important to put LLMs under the microscope and interpret their
+                thoughts (for purposes of both safety and innovation).
               </p>
 
               <p className="text-sm sm:text-base">
@@ -269,7 +269,8 @@ export default function Home() {
                   >
                     Northeastern University Research in AI Lab
                   </Link>{" "}
-                  on understanding the internals of Large Language Models.
+                  on understanding the internals of Large Language Models through sparse dictionary learning and
+                  cross-layer transcoders.
                 </p>
                 <ul className="list-disc pl-5 space-y-1"></ul>
               </div>
@@ -390,6 +391,17 @@ export default function Home() {
                 <h4 className="text-lg sm:text-xl font-semibold mb-2">Rohan Recommends</h4>
                 <li className="flex items-center text-sm sm:text-base">
                   <Link
+                    href="https://transformer-circuits.pub/"
+                    className="flex items-center text-gray-700 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Anything from Anthropic's Transformer Circuits thread
+                  </Link>
+                  <span className="ml-auto text-xs sm:text-sm text-gray-600">(2020 - present)</span>
+                </li>
+                <li className="flex items-center text-sm sm:text-base">
+                  <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace"
                     className="flex items-center text-gray-700 hover:underline"
                     target="_blank"
@@ -426,7 +438,7 @@ export default function Home() {
           </section>
           {/* Footer */}
           <footer className="border-t pt-6 text-sm text-gray-500">
-            <p className="mb-4">Feel free to reach out if you wanna talk F1, Barca/Bayern, or Deep Learning!</p>
+            <p className="mb-4">Feel free to reach out!</p>
             <div className="space-y-2">
               <p>
                 <Link href="mailto:rohan.kathuria@live.com" className="text-gray-700 hover:underline">
@@ -435,6 +447,10 @@ export default function Home() {
                 |{" "}
                 <Link href="mailto:kathuria.r@northeastern.edu" className="text-gray-700 hover:underline">
                   kathuria.r@northeastern.edu
+                </Link>{" "}
+                |{" "}
+                <Link href="https://www.linkedin.com/in/rohanekathuria" className="text-gray-700 hover:underline" target="_blank" rel="noopener noreferrer">
+                  LinkedIn
                 </Link>
               </p>
             </div>
