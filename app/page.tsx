@@ -309,15 +309,6 @@ export default function Home() {
                   many popular AI tools (ChatGPT, Claude, Adobe Creative Cloud), and some less popular ones (SalesForce
                   AgentForce, Relevance AI). (See article at the bottom of the page!)
                 </p>
-                <p className="mb-2 text-sm sm:text-base">
-                  We're currently expanding the Artificial Intelligence Clinic to work with the City of Oakland, and
-                  expand Artificial Intelligence trainings across the Bay Area!
-                </p>
-                <p className="mb-2 text-sm sm:text-base">
-                  We're also currently designing a course curriculum for Northeastern University so students can learn
-                  from instructors on how to use these tools, and how to consult with companies, before they spend a
-                  semester working with small businesses in the area.
-                </p>
               </div>
 
               <div>
@@ -449,7 +440,12 @@ export default function Home() {
                   kathuria.r@northeastern.edu
                 </Link>{" "}
                 |{" "}
-                <Link href="https://www.linkedin.com/in/rohanekathuria" className="text-gray-700 hover:underline" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://www.linkedin.com/in/rohanekathuria"
+                  className="text-gray-700 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   LinkedIn
                 </Link>
               </p>
