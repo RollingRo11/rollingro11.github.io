@@ -315,8 +315,9 @@ export default function Home() {
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">Northeastern University Oakland Makerspace</h3>
                 <p className="text-gray-600 mb-4 text-sm sm:text-base">Shop Assistant • Oct 2024 - Apr 2025</p>
                 <p className="mb-2 text-sm sm:text-base">
-                  I spent a majority of my time helping students with 3d printers, 3d printing tools and parts for the
-                  makerspace, and developing a camera system that tracks projects as they are printed.
+                  I spent a majority of my time training students to use 3d printers, laser cutters, and soldering
+                  irons. I also 3d printed tools and shelves for the makerspace, and helped organize events for makers
+                  around the campus to come innovate, socialize, and build.
                 </p>
               </div>
             </div>
