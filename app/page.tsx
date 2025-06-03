@@ -19,25 +19,30 @@ export default function Home() {
   const moonAscii = '☾';
 
   return (
-    <div className={`min-h-screen selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`}>
-      <div
-        className="mt-8 mb-8 text-2xl font-medium text-center lg:text-left lg:ml-16"
-      >
-        Rohan Emrick Kathuria
+    <div className={`min-h-screen selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`} style={{
+      paddingTop: 'env(safe-area-inset-top)',
+      paddingLeft: 'env(safe-area-inset-left)',
+      paddingRight: 'env(safe-area-inset-right)',
+      paddingBottom: 'env(safe-area-inset-bottom)'
+    }}>
+      <div className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16">
+        <div className="text-2xl font-medium">
+          Rohan Kathuria
+        </div>
+        <button
+          className="text-3xl bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
+          onClick={() => setDarkMode((d) => !d)}
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+        >
+          {darkMode ? sunAscii : moonAscii}
+        </button>
       </div>
-      <button
-        className="fixed top-8 right-8 lg:right-16 text-3xl z-20 bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
-        onClick={() => setDarkMode((d) => !d)}
-        aria-label="Toggle dark mode"
-        title="Toggle dark mode"
-      >
-        {darkMode ? sunAscii : moonAscii}
-      </button>
       {/* Main content - completely centered */}
       <main className="flex flex-col items-center p-8 lg:p-16">
         <div className="w-full max-w-4xl">
           {/* About section */}
-          <section id="about" className="mb-32 pt-20">
+          <section id="about" className="mb-16 pt-8 lg:mb-32 lg:pt-20">
             <div className="space-y-8 text-left">
               <p className="text-xl sm:text-4xl leading-relaxed">
                 I read this quote that said <i>"we are the universe trying to understand itself." </i> I think the most
@@ -53,15 +58,15 @@ export default function Home() {
 
           {/* Research section */}
           <section id="research" className="mb-32">
-            <h2 className="text-5xl font-bold mb-8 text-left">Research</h2>
+            <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Research</h2>
             <div className="space-y-8 text-left">
               <div>
-                <h3 className="text-3xl font-semibold mb-4">Paper Implementations</h3>
-                <p className="mb-4 text-2xl leading-relaxed">
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Paper Implementations</h3>
+                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   Currently implementing a multitude of popular machine learning papers:
                 </p>
                 <ul className="list-disc pl-8 space-y-2">
-                  <li className="text-xl leading-relaxed">
+                  <li className="text-base sm:text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/NP-Language-Model"
                       className="text-black dark:text-white hover:underline"
@@ -71,7 +76,7 @@ export default function Home() {
                       A Neural Probabalistic Language Model (Bengio et al.)
                     </Link>
                   </li>
-                  <li className="text-xl leading-relaxed">
+                  <li className="text-base sm:text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/dropout"
                       className="text-black dark:text-white hover:underline"
@@ -81,7 +86,7 @@ export default function Home() {
                       Dropout (Srivastava et al.)
                     </Link>
                   </li>
-                  <li className="text-xl leading-relaxed">
+                  <li className="text-base sm:text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/alexnet"
                       className="text-black dark:text-white hover:underline"
@@ -91,7 +96,7 @@ export default function Home() {
                       Alexnet: ImageNet Classification with Deep Convolutional Networks (Krizhevsky et al.)
                     </Link>
                   </li>
-                  <li className="text-xl leading-relaxed">
+                  <li className="text-base sm:text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/ADAM"
                       className="text-black dark:text-white hover:underline"
@@ -101,7 +106,7 @@ export default function Home() {
                       ADAM: A Method for Stochastic Optimization (P. Kingma & Ba)
                     </Link>
                   </li>
-                  <li className="text-xl leading-relaxed">
+                  <li className="text-base sm:text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/attention-is-all-you-need"
                       className="text-black dark:text-white hover:underline"
@@ -115,8 +120,8 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-3xl font-semibold mb-4">Mechanistic Interpretability @ NEURAI Lab</h3>
-                <p className="mb-4 text-2xl leading-relaxed">
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Mechanistic Interpretability @ NEURAI Lab</h3>
+                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   Currently working with Artificial Intelligence Professor{" "}
                   <Link
                     href="https://www.researchgate.net/profile/Nadim-Saad"
@@ -140,8 +145,8 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-3xl font-semibold mb-4">Quantitative Research @ Mathematics Department</h3>
-                <p className="mb-4 text-2xl leading-relaxed">
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Quantitative Research @ Mathematics Department</h3>
+                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   Currently working with Mathematics Professor{" "}
                   <Link
                     href="https://scholar.google.com/citations?user=CyxXUkgAAAAJ&hl=en"
@@ -159,12 +164,12 @@ export default function Home() {
 
           {/* Experience section */}
           <section id="experience" className="mb-32">
-            <h2 className="text-5xl font-bold mb-8 text-left">Experience</h2>
+            <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Experience</h2>
             <div className="space-y-8 text-left">
               <div>
-                <h3 className="text-3xl font-semibold mb-4">Northeastern University Artificial Intelligence Clinic</h3>
-                <p className="text-black dark:text-white mb-4 text-xl">Founder + AI Consultant • Nov 2024 - Present</p>
-                <p className="mb-4 text-2xl leading-relaxed">
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Northeastern University Artificial Intelligence Clinic</h3>
+                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">Founder + AI Consultant • Nov 2024 - Present</p>
+                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   I worked with Northeastern University Oakland staff to launch a program for small businesses in the
                   Oakland area to come to Northeastern's Oakland Campus, get paired 1-1 with students, and learn to use
                   AI tools in everyday activities.
@@ -172,9 +177,9 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-3xl font-semibold mb-4">Northeastern University Oakland Makerspace</h3>
-                <p className="text-black dark:text-white mb-4 text-xl">Shop Assistant • Oct 2024 - Apr 2025</p>
-                <p className="mb-4 text-2xl leading-relaxed">
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Northeastern University Oakland Makerspace</h3>
+                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">Shop Assistant • Oct 2024 - Apr 2025</p>
+                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   I spent a majority of my time training students to use 3d printers, laser cutters, and soldering
                   irons. I also 3d printed tools and shelves for the makerspace, and helped organize events for makers
                   around the campus to come innovate, socialize, and build.
@@ -185,11 +190,11 @@ export default function Home() {
 
           {/* Reading section */}
           <section id="reading" className="mb-32">
-            <h2 className="text-5xl font-bold mb-8 text-left">Reading</h2>
+            <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Reading</h2>
             <div className="space-y-6 text-left">
               <ul className="space-y-2">
-                <h4 className="text-3xl font-semibold mb-3">Recent News</h4>
-                <li className="flex items-center text-2xl leading-snug">
+                <h4 className="text-xl sm:text-3xl font-semibold mb-3">Recent News</h4>
+                <li className="flex items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
                     className="text-black dark:text-white hover:underline"
@@ -198,11 +203,11 @@ export default function Home() {
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
-                  <span className="ml-auto text-xl text-black dark:text-white">(2025)</span>
+                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2025)</span>
                 </li>
 
-                <h4 className="text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
-                <li className="flex items-center text-2xl leading-snug">
+                <h4 className="text-xl sm:text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
+                <li className="flex items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://transformer-circuits.pub/"
                     className="text-black dark:text-white hover:underline"
@@ -211,9 +216,9 @@ export default function Home() {
                   >
                     Anything from Anthropic's Transformer Circuits thread
                   </Link>
-                  <span className="ml-auto text-xl text-black dark:text-white">(2020 - present)</span>
+                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2020 - present)</span>
                 </li>
-                <li className="flex items-center text-2xl leading-snug">
+                <li className="flex items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace"
                     className="text-black dark:text-white hover:underline"
@@ -222,9 +227,9 @@ export default function Home() {
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="ml-auto text-xl text-black dark:text-white">(2024)</span>
+                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2024)</span>
                 </li>
-                <li className="flex items-center text-2xl leading-snug">
+                <li className="flex items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
                     className="text-black dark:text-white hover:underline"
@@ -233,9 +238,9 @@ export default function Home() {
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
-                  <span className="ml-auto text-xl text-black dark:text-white">(2024)</span>
+                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2024)</span>
                 </li>
-                <li className="flex items-center text-2xl leading-snug">
+                <li className="flex items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
                     className="text-black dark:text-white hover:underline"
@@ -244,17 +249,17 @@ export default function Home() {
                   >
                     My favorite book
                   </Link>
-                  <span className="ml-auto text-xl text-black dark:text-white">(1951)</span>
+                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(1951)</span>
                 </li>
               </ul>
             </div>
           </section>
 
           {/* Footer */}
-          <footer className="border-t border-black dark:border-white pt-8 text-xl text-black text-center">
-            <p className="mb-4 text-2xl text-black dark:text-white">Feel free to reach out!</p>
+          <footer className="border-t border-black dark:border-white pt-8 text-base sm:text-xl text-black text-center">
+            <p className="mb-4 text-lg sm:text-2xl text-black dark:text-white">Feel free to reach out!</p>
             <div className="space-y-2">
-              <p className="text-xl">
+              <p className="text-base sm:text-xl">
                 <Link href="mailto:rohan.kathuria@live.com" className="text-black dark:text-white hover:underline">
                   rohan.kathuria@live.com
                 </Link>{" "}
