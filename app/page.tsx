@@ -19,14 +19,14 @@ export default function Home() {
   const moonAscii = '☾';
 
   return (
-    <div className={`min-h-screen selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`} style={{
-      paddingTop: 'env(safe-area-inset-top)',
-      paddingLeft: 'env(safe-area-inset-left)',
-      paddingRight: 'env(safe-area-inset-right)',
-      paddingBottom: 'env(safe-area-inset-bottom)',
-      backgroundColor: darkMode ? '#0a1a12' : undefined
+    <div className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`} style={{
+      backgroundColor: darkMode ? '#0a1a12' : '#f5f0e6'
     }}>
-      <div className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16">
+      <div className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16" style={{
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingLeft: 'max(env(safe-area-inset-left), 2rem)',
+        paddingRight: 'max(env(safe-area-inset-right), 2rem)'
+      }}>
         <div className="text-2xl font-medium">
           Rohan Kathuria
         </div>
@@ -40,7 +40,11 @@ export default function Home() {
         </button>
       </div>
       {/* Main content - completely centered */}
-      <main className="flex flex-col items-center p-8 lg:p-16">
+      <main className="flex flex-col items-center p-8 lg:p-16" style={{
+        paddingLeft: 'max(env(safe-area-inset-left), 2rem)',
+        paddingRight: 'max(env(safe-area-inset-right), 2rem)',
+        paddingBottom: 'max(env(safe-area-inset-bottom), 2rem)'
+      }}>
         <div className="w-full max-w-4xl">
           {/* About section */}
           <section id="about" className="mb-16 pt-8 lg:mb-32 lg:pt-20">

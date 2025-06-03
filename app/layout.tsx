@@ -1,8 +1,9 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Crimson_Pro } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeMetaUpdater } from "@/components/theme-meta-updater"
 
 const crimsonPro = Crimson_Pro({ subsets: ["latin"] })
 
@@ -12,7 +13,25 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-  generator: 'v0.dev'
+  generator: 'v0.dev',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Rohan Kathuria'
+  },
+  formatDetection: {
+    telephone: false
+  }
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f5f0e6' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a1a12' }
+  ]
 }
 
 export default function RootLayout({
@@ -22,8 +41,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="format-detection" content="telephone=no" />
+      </head>
       <body className={crimsonPro.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <ThemeMetaUpdater />
           {children}
         </ThemeProvider>
       </body>
