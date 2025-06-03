@@ -247,62 +247,62 @@ export default function Home() {
             <div className="space-y-6 text-left">
               <ul className="space-y-2">
                 <h4 className="text-xl sm:text-3xl font-semibold mb-3">Recent News</h4>
-                <li className="flex items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
-                    className="text-black dark:text-white hover:underline"
+                    className="text-black dark:text-white hover:underline block sm:inline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
-                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2025)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2025)</span>
                 </li>
 
                 <h4 className="text-xl sm:text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
-                <li className="flex items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://transformer-circuits.pub/"
-                    className="text-black dark:text-white hover:underline"
+                    className="text-black dark:text-white hover:underline block sm:inline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Anything from Anthropic's Transformer Circuits thread
                   </Link>
-                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2020 - present)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2020 - present)</span>
                 </li>
-                <li className="flex items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace"
-                    className="text-black dark:text-white hover:underline"
+                    className="text-black dark:text-white hover:underline block sm:inline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2024)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2024)</span>
                 </li>
-                <li className="flex items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
-                    className="text-black dark:text-white hover:underline"
+                    className="text-black dark:text-white hover:underline block sm:inline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
-                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(2024)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2024)</span>
                 </li>
-                <li className="flex items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
                     href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
-                    className="text-black dark:text-white hover:underline"
+                    className="text-black dark:text-white hover:underline block sm:inline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     My favorite book
                   </Link>
-                  <span className="ml-auto text-base sm:text-xl text-black dark:text-white">(1951)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(1951)</span>
                 </li>
               </ul>
             </div>
