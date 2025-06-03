@@ -9,39 +9,56 @@ export default function Home() {
 
   // Initial setup on mount
   useEffect(() => {
-    // Set initial theme color on page load
-    const themeColorMeta = document.querySelector('meta[name="theme-color"]') || document.createElement('meta');
-    if (!themeColorMeta.hasAttribute('name')) {
+    // Force light mode colors on initial load
+    document.documentElement.classList.remove('dark');
+    document.body.style.backgroundColor = '#f5f0e6';
+    document.documentElement.style.backgroundColor = '#f5f0e6';
+    
+    // Set theme color meta tag
+    let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (!themeColorMeta) {
+      themeColorMeta = document.createElement('meta');
       themeColorMeta.setAttribute('name', 'theme-color');
       document.head.appendChild(themeColorMeta);
     }
     themeColorMeta.setAttribute('content', '#f5f0e6');
-    
-    // Set initial background colors
-    document.body.style.backgroundColor = '#f5f0e6';
-    document.documentElement.style.backgroundColor = '#f5f0e6';
   }, []);
 
   useEffect(() => {
+    // Force update theme color meta tag
+    let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (!themeColorMeta) {
+      themeColorMeta = document.createElement('meta');
+      themeColorMeta.setAttribute('name', 'theme-color');
+      document.head.appendChild(themeColorMeta);
+    }
+
     if (darkMode) {
       document.documentElement.classList.add('dark');
       document.body.style.backgroundColor = '#0a1a12';
       document.documentElement.style.backgroundColor = '#0a1a12';
-      // Update theme color meta tag immediately
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#0a1a12');
+      themeColorMeta.setAttribute('content', '#0a1a12');
+      
+      // Also update status bar style for iOS
+      let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+      if (statusBarMeta) {
+        statusBarMeta.setAttribute('content', 'black-translucent');
       }
     } else {
       document.documentElement.classList.remove('dark');
       document.body.style.backgroundColor = '#f5f0e6';
       document.documentElement.style.backgroundColor = '#f5f0e6';
-      // Update theme color meta tag immediately
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', '#f5f0e6');
+      themeColorMeta.setAttribute('content', '#f5f0e6');
+      
+      // Also update status bar style for iOS
+      let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+      if (statusBarMeta) {
+        statusBarMeta.setAttribute('content', 'default');
       }
     }
+    
+    // Force a repaint
+    document.body.offsetHeight;
   }, [darkMode]);
 
   const sunAscii = '☼';

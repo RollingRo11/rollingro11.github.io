@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   generator: 'v0.dev',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
     title: 'Rohan Kathuria'
   },
   formatDetection: {
@@ -28,10 +28,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f5f0e6' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a1a12' }
-  ]
+  themeColor: '#f5f0e6'
 }
 
 export default function RootLayout({
@@ -43,8 +40,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
+        <meta name="theme-color" content="#f5f0e6" />
       </head>
       <body className={crimsonPro.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
