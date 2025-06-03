@@ -23,7 +23,8 @@ export default function Home() {
       paddingTop: 'env(safe-area-inset-top)',
       paddingLeft: 'env(safe-area-inset-left)',
       paddingRight: 'env(safe-area-inset-right)',
-      paddingBottom: 'env(safe-area-inset-bottom)'
+      paddingBottom: 'env(safe-area-inset-bottom)',
+      backgroundColor: darkMode ? '#0a1a12' : undefined
     }}>
       <div className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16">
         <div className="text-2xl font-medium">
