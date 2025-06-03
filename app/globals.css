@@ -6,11 +6,11 @@
 
 :root {
   --foreground-rgb: 8, 7, 8;
-  --background-rgb: 255, 236, 204;
+  --background-rgb: 245, 240, 230;
 }
 
 ::selection {
-  background-color: #F06449;
+  background-color: #E8A598;
   color: white;
 }
 
@@ -147,5 +147,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
 
 

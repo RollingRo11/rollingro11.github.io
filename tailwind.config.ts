@@ -11,6 +11,8 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+  			'sea-breeze': '#8ca397',
+  			'coral': '#E8A598',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

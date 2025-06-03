@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen selection:bg-coral selection:text-white">
       {/* Main content - completely centered */}
       <main className="flex flex-col items-center p-8 lg:p-16">
         <div className="w-full max-w-4xl">
@@ -13,13 +13,13 @@ export default function Home() {
           <section id="about" className="mb-32 pt-20">
             <div className="space-y-8 text-left">
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I read this quote that said "we are the universe trying to understand itself". I think the most
+                I read this quote that said <i>"we are the universe trying to understand itself."</i> I think the most
                 promising thing about being able to interpret artificial intelligence, is that one day we may understand
                 our own knowledge just a little bit more.
               </p>
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I'm Rohan. I'm a student at Northeastern University, majoring in Computer Science with a concentration
-                in Artificial Intelligence. I like to train neural networks to understand neural networks.
+                I'm Rohan. I'm a student at Northeastern University majoring in Computer Science with a concentration in
+                Artificial Intelligence. I like to train neural networks that understand other neural networks.
               </p>
             </div>
           </section>
@@ -159,10 +159,10 @@ export default function Home() {
           {/* Reading section */}
           <section id="reading" className="mb-32">
             <h2 className="text-5xl font-bold mb-8 text-left">Reading</h2>
-            <div className="space-y-8 text-left">
-              <ul className="space-y-4">
-                <h4 className="text-3xl font-semibold mb-4">Recent News</h4>
-                <li className="flex items-center text-2xl leading-relaxed">
+            <div className="space-y-6 text-left">
+              <ul className="space-y-2">
+                <h4 className="text-3xl font-semibold mb-3">Recent News</h4>
+                <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
                     className="text-black hover:underline"
@@ -174,8 +174,8 @@ export default function Home() {
                   <span className="ml-auto text-xl text-black">(2025)</span>
                 </li>
 
-                <h4 className="text-3xl font-semibold mb-4 mt-8">Rohan Recommends</h4>
-                <li className="flex items-center text-2xl leading-relaxed">
+                <h4 className="text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
+                <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://transformer-circuits.pub/"
                     className="text-black hover:underline"
@@ -186,7 +186,7 @@ export default function Home() {
                   </Link>
                   <span className="ml-auto text-xl text-black">(2020 - present)</span>
                 </li>
-                <li className="flex items-center text-2xl leading-relaxed">
+                <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace"
                     className="text-black hover:underline"
@@ -197,7 +197,7 @@ export default function Home() {
                   </Link>
                   <span className="ml-auto text-xl text-black">(2024)</span>
                 </li>
-                <li className="flex items-center text-2xl leading-relaxed">
+                <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
                     className="text-black hover:underline"
@@ -208,7 +208,7 @@ export default function Home() {
                   </Link>
                   <span className="ml-auto text-xl text-black">(2024)</span>
                 </li>
-                <li className="flex items-center text-2xl leading-relaxed">
+                <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
                     className="text-black hover:underline"
