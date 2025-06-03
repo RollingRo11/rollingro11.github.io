@@ -7,11 +7,40 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
 
+  // Initial setup on mount
+  useEffect(() => {
+    // Set initial theme color on page load
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]') || document.createElement('meta');
+    if (!themeColorMeta.hasAttribute('name')) {
+      themeColorMeta.setAttribute('name', 'theme-color');
+      document.head.appendChild(themeColorMeta);
+    }
+    themeColorMeta.setAttribute('content', '#f5f0e6');
+    
+    // Set initial background colors
+    document.body.style.backgroundColor = '#f5f0e6';
+    document.documentElement.style.backgroundColor = '#f5f0e6';
+  }, []);
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
+      document.body.style.backgroundColor = '#0a1a12';
+      document.documentElement.style.backgroundColor = '#0a1a12';
+      // Update theme color meta tag immediately
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', '#0a1a12');
+      }
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.style.backgroundColor = '#f5f0e6';
+      document.documentElement.style.backgroundColor = '#f5f0e6';
+      // Update theme color meta tag immediately
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', '#f5f0e6');
+      }
     }
   }, [darkMode]);
 
@@ -20,7 +49,9 @@ export default function Home() {
 
   return (
     <div className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`} style={{
-      backgroundColor: darkMode ? '#0a1a12' : '#f5f0e6'
+      backgroundColor: darkMode ? '#0a1a12' : '#f5f0e6',
+      position: 'relative',
+      zIndex: 1
     }}>
       <div className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16" style={{
         paddingTop: 'env(safe-area-inset-top)',
