@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
-  --highlight-color: 210, 220, 240;
-  --active-color: 180, 200, 240;
-  --visited-color: 220, 225, 235;
+  --foreground-rgb: 8, 7, 8;
+  --background-rgb: 255, 236, 204;
 }
 
 ::selection {
-  background-color: black;
+  background-color: #F06449;
   color: white;
 }
 
@@ -21,55 +20,32 @@ body {
   font-feature-settings: "ss01", "ss02", "ss03", "ss04", "liga", "kern";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-size: 14px;
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-/* Navigation styling */
-.nav-link {
-  position: relative;
-  transition: all 0.3s ease;
-  font-weight: 400;
+/* Add underlines to all links by default */
+a {
+  text-decoration: underline;
 }
 
-.nav-link:hover {
-  font-weight: 600;
-  transition: font-weight 0.2s ease;
-}
-
-/* Navigation states */
-.nav-active {
-  background-color: rgba(var(--active-color), 0.5);
-  font-weight: 600;
-  color: black;
-}
-
-.nav-visited {
-  background-color: rgba(var(--visited-color), 0.2);
-  transition: background-color 0.5s ease;
-}
-
-/* Remove these classes or their effects */
-.nav-link-hover::before {
+/* Hide scrollbar for webkit browsers */
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
   display: none;
 }
 
-.nav-link-hover {
-  transition: none;
+/* Hide scrollbar on html element too */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-/* Section fade-in animation */
-.section-fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.section-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
 }
 
 @layer utilities {
@@ -78,14 +54,27 @@ body {
   }
 }
 
+/* Override Tailwind font sizes for consistent typography */
+@layer base {
+  .text-sm { font-size: 12px; }
+  .text-base { font-size: 14px; }
+  .text-lg { font-size: 16px; }
+  .text-xl { font-size: 18px; }
+  .text-2xl { font-size: 22px; }
+  .text-3xl { font-size: 28px; }
+  .text-4xl { font-size: 32px; }
+  .text-5xl { font-size: 36px; }
+  .text-6xl { font-size: 42px; }
+}
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    --background: 41 100% 90%;
+    --foreground: 0 0% 3%;
+    --card: 41 100% 90%;
+    --card-foreground: 0 0% 3%;
+    --popover: 41 100% 90%;
+    --popover-foreground: 0 0% 3%;
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
@@ -105,14 +94,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 41 100% 90%;
+    --sidebar-foreground: 0 0% 3%;
+    --sidebar-primary: 0 0% 3%;
+    --sidebar-primary-foreground: 41 100% 90%;
+    --sidebar-accent: 116 14% 65%;
+    --sidebar-accent-foreground: 0 0% 3%;
+    --sidebar-border: 116 14% 55%;
+    --sidebar-ring: 116 14% 45%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -159,69 +148,4 @@ body {
   }
 }
 
-/* Sidebar Cylinder Effect */
-.sidebar-cylinder {
-  position: relative;
-  min-height: 200px;
-  display: none; /* Hide by default on mobile */
-}
 
-@media (min-width: 1024px) {
-  .sidebar-cylinder {
-    display: block; /* Show on desktop */
-  }
-}
-
-.sidebar-cylinder .nav-link {
-  display: block;
-  width: 100%;
-  opacity: 0;
-  filter: blur(8px);
-  pointer-events: none;
-  transition: opacity 0.4s ease, filter 0.4s ease;
-  position: relative;
-  z-index: 1;
-  padding: 0.5rem 1rem;
-  margin: 0.125rem 0;
-  cursor: pointer;
-}
-
-/* Current section is always visible and unblurred */
-.sidebar-cylinder .nav-link.current {
-  opacity: 1 !important;
-  filter: blur(0) !important;
-  pointer-events: auto !important;
-  font-weight: bold;
-  color: black;
-  z-index: 2;
-}
-
-/* Adjacent sections are semi-visible and slightly blurred */
-.sidebar-cylinder .nav-link.adjacent {
-  opacity: 0.5 !important;
-  filter: blur(2px) !important;
-  pointer-events: auto !important;
-  z-index: 2;
-}
-
-/* On hover, all links are visible and clickable */
-.sidebar-cylinder:hover .nav-link {
-  opacity: 1 !important;
-  filter: blur(0) !important;
-  pointer-events: auto !important;
-  z-index: 2;
-}
-
-/* Remove highlight backgrounds for sidebar nav */
-.sidebar-cylinder .nav-link,
-.sidebar-cylinder .nav-link:hover,
-.sidebar-cylinder .nav-link.nav-active,
-.sidebar-cylinder .nav-link.nav-visited {
-  background: none !important;
-}
-
-/* Ensure the nav container is always clickable */
-.sidebar-cylinder > div {
-  position: relative;
-  z-index: 1;
-}
