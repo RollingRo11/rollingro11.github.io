@@ -148,6 +148,10 @@ body {
   }
 }
 
+body.dark, html.dark {
+  background-color: #0a1a12 !important;
+}
+
 
 
 

@@ -2,10 +2,37 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  const sunAscii = '☼';
+  const moonAscii = '☾';
+
   return (
-    <div className="min-h-screen selection:bg-coral selection:text-white">
+    <div className={`min-h-screen selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`}>
+      <div
+        className="mt-8 mb-8 text-2xl font-medium text-center lg:text-left lg:ml-16"
+      >
+        Rohan Emrick Kathuria
+      </div>
+      <button
+        className="fixed top-8 right-8 lg:right-16 text-3xl z-20 bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
+        onClick={() => setDarkMode((d) => !d)}
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        {darkMode ? sunAscii : moonAscii}
+      </button>
       {/* Main content - completely centered */}
       <main className="flex flex-col items-center p-8 lg:p-16">
         <div className="w-full max-w-4xl">
@@ -13,12 +40,12 @@ export default function Home() {
           <section id="about" className="mb-32 pt-20">
             <div className="space-y-8 text-left">
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I read this quote that said <i>"we are the universe trying to understand itself."</i> I think the most
-                promising thing about being able to interpret artificial intelligence, is that one day we may understand
-                our own knowledge just a little bit more.
+                I read this quote that said <i>"we are the universe trying to understand itself." </i> I think the most
+                promising thing about being able to interpret artificial intelligence, is that we one day may gain a
+                deeper understanding of our own intelligence.
               </p>
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I'm Rohan. I'm a student at Northeastern University majoring in Computer Science with a concentration in
+                I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a student at Northeastern University majoring in Computer Science with a concentration in
                 Artificial Intelligence. I like to train neural networks that understand other neural networks.
               </p>
             </div>
@@ -37,7 +64,7 @@ export default function Home() {
                   <li className="text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/NP-Language-Model"
-                      className="text-black hover:underline"
+                      className="text-black dark:text-white hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -47,7 +74,7 @@ export default function Home() {
                   <li className="text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/dropout"
-                      className="text-black hover:underline"
+                      className="text-black dark:text-white hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -57,7 +84,7 @@ export default function Home() {
                   <li className="text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/alexnet"
-                      className="text-black hover:underline"
+                      className="text-black dark:text-white hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -67,7 +94,7 @@ export default function Home() {
                   <li className="text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/ADAM"
-                      className="text-black hover:underline"
+                      className="text-black dark:text-white hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -77,7 +104,7 @@ export default function Home() {
                   <li className="text-xl leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/attention-is-all-you-need"
-                      className="text-black hover:underline"
+                      className="text-black dark:text-white hover:underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -93,7 +120,7 @@ export default function Home() {
                   Currently working with Artificial Intelligence Professor{" "}
                   <Link
                     href="https://www.researchgate.net/profile/Nadim-Saad"
-                    className="text-black hover:underline inline-flex items-center"
+                    className="text-black dark:text-white hover:underline inline-flex items-center"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -102,7 +129,7 @@ export default function Home() {
                   and the{" "}
                   <Link
                     href="https://neurai.sites.northeastern.edu/our-team-2/"
-                    className="text-black hover:underline inline-flex items-center"
+                    className="text-black dark:text-white hover:underline inline-flex items-center"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -118,7 +145,7 @@ export default function Home() {
                   Currently working with Mathematics Professor{" "}
                   <Link
                     href="https://scholar.google.com/citations?user=CyxXUkgAAAAJ&hl=en"
-                    className="text-black hover:underline inline-flex items-center"
+                    className="text-black dark:text-white hover:underline inline-flex items-center"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -136,7 +163,7 @@ export default function Home() {
             <div className="space-y-8 text-left">
               <div>
                 <h3 className="text-3xl font-semibold mb-4">Northeastern University Artificial Intelligence Clinic</h3>
-                <p className="text-black mb-4 text-xl">Founder + AI Consultant • Nov 2024 - Present</p>
+                <p className="text-black dark:text-white mb-4 text-xl">Founder + AI Consultant • Nov 2024 - Present</p>
                 <p className="mb-4 text-2xl leading-relaxed">
                   I worked with Northeastern University Oakland staff to launch a program for small businesses in the
                   Oakland area to come to Northeastern's Oakland Campus, get paired 1-1 with students, and learn to use
@@ -146,7 +173,7 @@ export default function Home() {
 
               <div>
                 <h3 className="text-3xl font-semibold mb-4">Northeastern University Oakland Makerspace</h3>
-                <p className="text-black mb-4 text-xl">Shop Assistant • Oct 2024 - Apr 2025</p>
+                <p className="text-black dark:text-white mb-4 text-xl">Shop Assistant • Oct 2024 - Apr 2025</p>
                 <p className="mb-4 text-2xl leading-relaxed">
                   I spent a majority of my time training students to use 3d printers, laser cutters, and soldering
                   irons. I also 3d printed tools and shelves for the makerspace, and helped organize events for makers
@@ -165,80 +192,80 @@ export default function Home() {
                 <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
-                    className="text-black hover:underline"
+                    className="text-black dark:text-white hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
-                  <span className="ml-auto text-xl text-black">(2025)</span>
+                  <span className="ml-auto text-xl text-black dark:text-white">(2025)</span>
                 </li>
 
                 <h4 className="text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
                 <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://transformer-circuits.pub/"
-                    className="text-black hover:underline"
+                    className="text-black dark:text-white hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Anything from Anthropic's Transformer Circuits thread
                   </Link>
-                  <span className="ml-auto text-xl text-black">(2020 - present)</span>
+                  <span className="ml-auto text-xl text-black dark:text-white">(2020 - present)</span>
                 </li>
                 <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace"
-                    className="text-black hover:underline"
+                    className="text-black dark:text-white hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="ml-auto text-xl text-black">(2024)</span>
+                  <span className="ml-auto text-xl text-black dark:text-white">(2024)</span>
                 </li>
                 <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
-                    className="text-black hover:underline"
+                    className="text-black dark:text-white hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
-                  <span className="ml-auto text-xl text-black">(2024)</span>
+                  <span className="ml-auto text-xl text-black dark:text-white">(2024)</span>
                 </li>
                 <li className="flex items-center text-2xl leading-snug">
                   <Link
                     href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
-                    className="text-black hover:underline"
+                    className="text-black dark:text-white hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     My favorite book
                   </Link>
-                  <span className="ml-auto text-xl text-black">(1951)</span>
+                  <span className="ml-auto text-xl text-black dark:text-white">(1951)</span>
                 </li>
               </ul>
             </div>
           </section>
 
           {/* Footer */}
-          <footer className="border-t border-black pt-8 text-xl text-black text-center">
-            <p className="mb-4 text-2xl">Feel free to reach out!</p>
+          <footer className="border-t border-black dark:border-white pt-8 text-xl text-black text-center">
+            <p className="mb-4 text-2xl text-black dark:text-white">Feel free to reach out!</p>
             <div className="space-y-2">
               <p className="text-xl">
-                <Link href="mailto:rohan.kathuria@live.com" className="text-black hover:underline">
+                <Link href="mailto:rohan.kathuria@live.com" className="text-black dark:text-white hover:underline">
                   rohan.kathuria@live.com
                 </Link>{" "}
-                |{" "}
-                <Link href="mailto:kathuria.r@northeastern.edu" className="text-black hover:underline">
+                <span className="text-black dark:text-white">|</span>{" "}
+                <Link href="mailto:kathuria.r@northeastern.edu" className="text-black dark:text-white hover:underline">
                   kathuria.r@northeastern.edu
                 </Link>{" "}
-                |{" "}
+                <span className="text-black dark:text-white">|</span>{" "}
                 <Link
                   href="https://www.linkedin.com/in/rohanekathuria"
-                  className="text-black hover:underline"
+                  className="text-black dark:text-white hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
