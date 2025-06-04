@@ -8,6 +8,7 @@ import { ThemeMetaUpdater } from "@/components/theme-meta-updater"
 const crimsonPro = Crimson_Pro({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://rkathuria.com'),
   title: "Rohan Kathuria",
   description: "Portfolio of Rohan Kathuria",
   icons: {
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Rohan Kathuria",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/title.png",
         width: 1200,
         height: 630,
         alt: "Rohan.",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rohan Kathuria",
     description: "Portfolio",
-    images: ["/opengraph-image"],
+    images: ["/title.png"],
   },
 }
 
