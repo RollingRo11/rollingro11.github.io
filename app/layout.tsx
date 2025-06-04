@@ -1,27 +1,27 @@
-import type React from "react"
-import type { Metadata, Viewport } from "next"
-import { Crimson_Pro } from "next/font/google"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { ThemeMetaUpdater } from "@/components/theme-meta-updater"
+import type React from "react";
+import type { Metadata, Viewport } from "next";
+import { Crimson_Pro } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeMetaUpdater } from "@/components/theme-meta-updater";
 
-const crimsonPro = Crimson_Pro({ subsets: ["latin"] })
+const crimsonPro = Crimson_Pro({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://rkathuria.com'),
+  metadataBase: new URL("https://rkathuria.com"),
   title: "Rohan Kathuria",
   description: "Portfolio of Rohan Kathuria",
   icons: {
     icon: "/favicon.svg",
   },
-  generator: 'v0.dev',
+  generator: "v0.dev",
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
-    title: 'Rohan Kathuria'
+    statusBarStyle: "default",
+    title: "Rohan Kathuria",
   },
   formatDetection: {
-    telephone: false
+    telephone: false,
   },
   openGraph: {
     title: "Rohan Kathuria",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Rohan Kathuria",
     images: [
       {
-        url: "/title.png",
+        url: "https://rkathuria.com/title.png?v=1",
         width: 1200,
         height: 630,
         alt: "Rohan.",
@@ -43,22 +43,18 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rohan Kathuria",
     description: "Portfolio",
-    images: ["/title.png"],
+    images: ["https://rkathuria.com/title.png?v=1"],
   },
-}
+};
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
-  viewportFit: 'cover',
-  themeColor: '#f5f0e6'
-}
+  viewportFit: "cover",
+  themeColor: "#f5f0e6",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -74,5 +70,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
