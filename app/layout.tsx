@@ -21,7 +21,29 @@ export const metadata: Metadata = {
   },
   formatDetection: {
     telephone: false
-  }
+  },
+  openGraph: {
+    title: "Rohan Kathuria",
+    description: "Portfolio",
+    url: "https://rkathuria.com",
+    siteName: "Rohan Kathuria",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Rohan.",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rohan Kathuria",
+    description: "Portfolio",
+    images: ["/opengraph-image"],
+  },
 }
 
 export const viewport: Viewport = {
