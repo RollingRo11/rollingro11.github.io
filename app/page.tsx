@@ -10,74 +10,78 @@ export default function Home() {
   // Initial setup on mount
   useEffect(() => {
     // Force light mode colors on initial load
-    document.documentElement.classList.remove('dark');
-    document.body.style.backgroundColor = '#f5f0e6';
-    document.documentElement.style.backgroundColor = '#f5f0e6';
-    
+    document.documentElement.classList.remove("dark");
+    document.body.style.backgroundColor = "#f5f0e6";
+    document.documentElement.style.backgroundColor = "#f5f0e6";
+
     // Set theme color meta tag
     let themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (!themeColorMeta) {
-      themeColorMeta = document.createElement('meta');
-      themeColorMeta.setAttribute('name', 'theme-color');
+      themeColorMeta = document.createElement("meta");
+      themeColorMeta.setAttribute("name", "theme-color");
       document.head.appendChild(themeColorMeta);
     }
-    themeColorMeta.setAttribute('content', '#f5f0e6');
+    themeColorMeta.setAttribute("content", "#f5f0e6");
   }, []);
 
   useEffect(() => {
     // Force update theme color meta tag
     let themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (!themeColorMeta) {
-      themeColorMeta = document.createElement('meta');
-      themeColorMeta.setAttribute('name', 'theme-color');
+      themeColorMeta = document.createElement("meta");
+      themeColorMeta.setAttribute("name", "theme-color");
       document.head.appendChild(themeColorMeta);
     }
 
     if (darkMode) {
-      document.documentElement.classList.add('dark');
-      document.body.style.backgroundColor = '#0a1a12';
-      document.documentElement.style.backgroundColor = '#0a1a12';
-      themeColorMeta.setAttribute('content', '#0a1a12');
-      
+      document.documentElement.classList.add("dark");
+      document.body.style.backgroundColor = "#0a1a12";
+      document.documentElement.style.backgroundColor = "#0a1a12";
+      themeColorMeta.setAttribute("content", "#0a1a12");
+
       // Also update status bar style for iOS
       let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
       if (statusBarMeta) {
-        statusBarMeta.setAttribute('content', 'black-translucent');
+        statusBarMeta.setAttribute("content", "black-translucent");
       }
     } else {
-      document.documentElement.classList.remove('dark');
-      document.body.style.backgroundColor = '#f5f0e6';
-      document.documentElement.style.backgroundColor = '#f5f0e6';
-      themeColorMeta.setAttribute('content', '#f5f0e6');
-      
+      document.documentElement.classList.remove("dark");
+      document.body.style.backgroundColor = "#f5f0e6";
+      document.documentElement.style.backgroundColor = "#f5f0e6";
+      themeColorMeta.setAttribute("content", "#f5f0e6");
+
       // Also update status bar style for iOS
       let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
       if (statusBarMeta) {
-        statusBarMeta.setAttribute('content', 'default');
+        statusBarMeta.setAttribute("content", "default");
       }
     }
-    
+
     // Force a repaint
     document.body.offsetHeight;
   }, [darkMode]);
 
-  const sunAscii = '☼';
-  const moonAscii = '☾';
+  const sunAscii = "☼";
+  const moonAscii = "☾";
 
   return (
-    <div className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`} style={{
-      backgroundColor: darkMode ? '#0a1a12' : '#f5f0e6',
-      position: 'relative',
-      zIndex: 1
-    }}>
-      <div className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16" style={{
-        paddingTop: 'env(safe-area-inset-top)',
-        paddingLeft: 'max(env(safe-area-inset-left), 2rem)',
-        paddingRight: 'max(env(safe-area-inset-right), 2rem)'
-      }}>
-        <div className="text-2xl font-medium">
-          Rohan Kathuria
-        </div>
+    <div
+      className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`}
+      style={{
+        backgroundColor: darkMode ? "#0a1a12" : "#f5f0e6",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      <div
+        className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16"
+        style={{
+          paddingTop: "env(safe-area-inset-top)",
+          paddingLeft: "max(env(safe-area-inset-left), 2rem)",
+          paddingRight: "max(env(safe-area-inset-right), 2rem)",
+        }}
+      >
+        <div className="text-2xl font-medium">Rohan Kathuria</div>
         <button
           className="text-3xl bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
           onClick={() => setDarkMode((d) => !d)}
@@ -88,11 +92,14 @@ export default function Home() {
         </button>
       </div>
       {/* Main content - completely centered */}
-      <main className="flex flex-col items-center p-8 lg:p-16" style={{
-        paddingLeft: 'max(env(safe-area-inset-left), 2rem)',
-        paddingRight: 'max(env(safe-area-inset-right), 2rem)',
-        paddingBottom: 'max(env(safe-area-inset-bottom), 2rem)'
-      }}>
+      <main
+        className="flex flex-col items-center p-8 lg:p-16"
+        style={{
+          paddingLeft: "max(env(safe-area-inset-left), 2rem)",
+          paddingRight: "max(env(safe-area-inset-right), 2rem)",
+          paddingBottom: "max(env(safe-area-inset-bottom), 2rem)",
+        }}
+      >
         <div className="w-full max-w-4xl">
           {/* About section */}
           <section id="about" className="mb-16 pt-8 lg:mb-32 lg:pt-20">
@@ -103,8 +110,9 @@ export default function Home() {
                 deeper understanding of our own intelligence.
               </p>
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a student at Northeastern University majoring in Computer Science with a concentration in
-                Artificial Intelligence. I like to train neural networks that understand other neural networks.
+                I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a student at
+                Northeastern University majoring in Computer Science with a concentration in Artificial Intelligence. I
+                like to train neural networks that understand other neural networks.
               </p>
             </div>
           </section>
@@ -198,7 +206,9 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Quantitative Research @ Mathematics Department</h3>
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">
+                  Combinatorics Research @ Khoury College of Computer Sciences
+                </h3>
                 <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   Currently working with Mathematics Professor{" "}
                   <Link
@@ -220,8 +230,12 @@ export default function Home() {
             <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Experience</h2>
             <div className="space-y-8 text-left">
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Northeastern University Artificial Intelligence Clinic</h3>
-                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">Founder + AI Consultant • Nov 2024 - Present</p>
+                <h3 className="text-xl sm:text-3xl font-semibold mb-4">
+                  Northeastern University Artificial Intelligence Clinic
+                </h3>
+                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">
+                  Founder + AI Consultant • Nov 2024 - Present
+                </p>
                 <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   I worked with Northeastern University Oakland staff to launch a program for small businesses in the
                   Oakland area to come to Northeastern's Oakland Campus, get paired 1-1 with students, and learn to use
@@ -231,7 +245,9 @@ export default function Home() {
 
               <div>
                 <h3 className="text-xl sm:text-3xl font-semibold mb-4">Northeastern University Oakland Makerspace</h3>
-                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">Shop Assistant • Oct 2024 - Apr 2025</p>
+                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">
+                  Shop Assistant • Oct 2024 - Apr 2025
+                </p>
                 <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
                   I spent a majority of my time training students to use 3d printers, laser cutters, and soldering
                   irons. I also 3d printed tools and shelves for the makerspace, and helped organize events for makers
@@ -256,7 +272,9 @@ export default function Home() {
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2025)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                    (2025)
+                  </span>
                 </li>
 
                 <h4 className="text-xl sm:text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
@@ -269,7 +287,9 @@ export default function Home() {
                   >
                     Anything from Anthropic's Transformer Circuits thread
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2020 - present)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                    (2020 - present)
+                  </span>
                 </li>
                 <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
@@ -280,7 +300,9 @@ export default function Home() {
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2024)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                    (2024)
+                  </span>
                 </li>
                 <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
@@ -291,7 +313,9 @@ export default function Home() {
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(2024)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                    (2024)
+                  </span>
                 </li>
                 <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
                   <Link
@@ -302,7 +326,9 @@ export default function Home() {
                   >
                     My favorite book
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">(1951)</span>
+                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                    (1951)
+                  </span>
                 </li>
               </ul>
             </div>
