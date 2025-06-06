@@ -9,10 +9,7 @@
   --background-rgb: 245, 240, 230;
 }
 
-/* Light mode background coverage */
-html {
-  background-color: #f5f0e6 !important;
-}
+/* Default background will be set by theme script */
 
 ::selection {
   background-color: #E8A598;
@@ -179,48 +176,20 @@ body {
 
 /* Ensure proper background coverage for light mode */
 html:not(.dark) {
-  background-color: #f5f0e6 !important;
-}
-
-body:not(.dark), 
-html:not(.dark) body {
-  background-color: #f5f0e6 !important;
-}
-
-/* Light mode root element background coverage */
-html:not(.dark)::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: #f5f0e6;
-  z-index: -1;
-  pointer-events: none;
+}
+
+html:not(.dark) body {
+  background-color: #f5f0e6;
 }
 
 /* Ensure proper background coverage for dark mode */
 html.dark {
-  background-color: #0a1a12 !important;
-}
-
-body.dark, 
-html.dark body {
-  background-color: #0a1a12 !important;
-}
-
-/* Dark mode root element background coverage */
-html.dark::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: #0a1a12;
-  z-index: -1;
-  pointer-events: none;
+}
+
+html.dark body {
+  background-color: #0a1a12;
 }
 
 /* Responsive LaTeX block equations */

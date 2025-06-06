@@ -18,9 +18,8 @@ export default function BlogClientWrapper({ children }: BlogClientWrapperProps) 
 
   return (
     <div
-      className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`}
+      className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black bg-[#f5f0e6]`}
       style={{
-        backgroundColor: darkMode ? "#0a1a12" : "#f5f0e6",
         position: "relative",
         zIndex: 1,
       }}

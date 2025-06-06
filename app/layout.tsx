@@ -57,6 +57,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const savedTheme = localStorage.getItem('darkMode');
+              const isDark = savedTheme === 'true';
+              
+              if (isDark) {
+                document.documentElement.classList.add('dark');
+                document.documentElement.style.backgroundColor = '#0a1a12';
+                document.body.style.backgroundColor = '#0a1a12';
+              } else {
+                document.documentElement.style.backgroundColor = '#f5f0e6';
+                document.body.style.backgroundColor = '#f5f0e6';
+              }
+            })();
+          `
+        }} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />

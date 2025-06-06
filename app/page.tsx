@@ -9,15 +9,13 @@ export default function Home() {
   const { darkMode, setDarkMode } = useCustomTheme();
   const pathname = usePathname();
 
-
   const sunAscii = "☼";
   const moonAscii = "☾";
 
   return (
     <div
-      className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black`}
+      className={`min-h-dvh selection:bg-coral selection:text-black dark:bg-[#0a1a12] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black bg-[#f5f0e6]`}
       style={{
-        backgroundColor: darkMode ? "#0a1a12" : "#f5f0e6",
         position: "relative",
         zIndex: 1,
       }}
@@ -31,17 +29,11 @@ export default function Home() {
         }}
       >
         <div className="flex items-center text-2xl font-medium">
-          <Link 
-            href="/" 
-            className={`${pathname === '/' ? '' : 'hover:underline'}`}
-          >
+          <Link href="/" className={`${pathname === "/" ? "" : "hover:underline"}`}>
             Rohan Kathuria
           </Link>
           <span className="mx-3">|</span>
-          <Link 
-            href="/blog" 
-            className={`${pathname.startsWith('/blog') ? '' : 'hover:underline'}`}
-          >
+          <Link href="/blog" className={`${pathname.startsWith("/blog") ? "" : "hover:underline"}`}>
             Blog
           </Link>
         </div>
@@ -68,9 +60,9 @@ export default function Home() {
           <section id="about" className="mb-16 pt-8 lg:mb-32 lg:pt-20">
             <div className="space-y-8 text-left">
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a student at
+                I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a freshman at
                 Northeastern University majoring in Computer Science with a concentration in Artificial Intelligence. I
-                like to train neural networks that understand other neural networks.
+                like to train neural networks that help us understand other neural networks!
               </p>
             </div>
           </section>
