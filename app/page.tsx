@@ -105,11 +105,6 @@ export default function Home() {
           <section id="about" className="mb-16 pt-8 lg:mb-32 lg:pt-20">
             <div className="space-y-8 text-left">
               <p className="text-xl sm:text-4xl leading-relaxed">
-                I read this quote that said <i>"we are the universe trying to understand itself." </i> I think the most
-                promising thing about being able to interpret artificial intelligence, is that we one day may gain a
-                deeper understanding of our own intelligence.
-              </p>
-              <p className="text-xl sm:text-4xl leading-relaxed">
                 I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a student at
                 Northeastern University majoring in Computer Science with a concentration in Artificial Intelligence. I
                 like to train neural networks that understand other neural networks.
