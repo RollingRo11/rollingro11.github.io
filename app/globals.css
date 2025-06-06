@@ -223,6 +223,36 @@ html.dark::before {
   pointer-events: none;
 }
 
+/* Responsive LaTeX block equations */
+@layer base {
+  /* Block math equations - enable horizontal scroll on mobile */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    padding: 0.5rem 0;
+  }
+  
+  /* Scale down equations on very small screens */
+  @media (max-width: 480px) {
+    .katex-display .katex {
+      font-size: 0.9em;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .katex-display .katex {
+      font-size: 0.8em;
+    }
+  }
+  
+  /* Ensure inline math doesn't break layout */
+  .katex {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
 
 
 
