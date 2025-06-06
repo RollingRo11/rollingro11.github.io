@@ -2,8 +2,7 @@ import type React from "react";
 import type { Metadata, Viewport } from "next";
 import { Crimson_Pro } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeMetaUpdater } from "@/components/theme-meta-updater";
+import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
 const crimsonPro = Crimson_Pro({ subsets: ["latin"] });
 
@@ -64,10 +63,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#f5f0e6" />
       </head>
       <body className={crimsonPro.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <ThemeMetaUpdater />
+        <CustomThemeProvider>
           {children}
-        </ThemeProvider>
+        </CustomThemeProvider>
       </body>
     </html>
   );

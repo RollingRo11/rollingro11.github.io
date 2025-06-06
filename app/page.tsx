@@ -2,64 +2,13 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useCustomTheme } from "@/components/custom-theme-provider";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, setDarkMode } = useCustomTheme();
+  const pathname = usePathname();
 
-  // Initial setup on mount
-  useEffect(() => {
-    // Force light mode colors on initial load
-    document.documentElement.classList.remove("dark");
-    document.body.style.backgroundColor = "#f5f0e6";
-    document.documentElement.style.backgroundColor = "#f5f0e6";
-
-    // Set theme color meta tag
-    let themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    if (!themeColorMeta) {
-      themeColorMeta = document.createElement("meta");
-      themeColorMeta.setAttribute("name", "theme-color");
-      document.head.appendChild(themeColorMeta);
-    }
-    themeColorMeta.setAttribute("content", "#f5f0e6");
-  }, []);
-
-  useEffect(() => {
-    // Force update theme color meta tag
-    let themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    if (!themeColorMeta) {
-      themeColorMeta = document.createElement("meta");
-      themeColorMeta.setAttribute("name", "theme-color");
-      document.head.appendChild(themeColorMeta);
-    }
-
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      document.body.style.backgroundColor = "#0a1a12";
-      document.documentElement.style.backgroundColor = "#0a1a12";
-      themeColorMeta.setAttribute("content", "#0a1a12");
-
-      // Also update status bar style for iOS
-      let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-      if (statusBarMeta) {
-        statusBarMeta.setAttribute("content", "black-translucent");
-      }
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.body.style.backgroundColor = "#f5f0e6";
-      document.documentElement.style.backgroundColor = "#f5f0e6";
-      themeColorMeta.setAttribute("content", "#f5f0e6");
-
-      // Also update status bar style for iOS
-      let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-      if (statusBarMeta) {
-        statusBarMeta.setAttribute("content", "default");
-      }
-    }
-
-    // Force a repaint
-    document.body.offsetHeight;
-  }, [darkMode]);
 
   const sunAscii = "☼";
   const moonAscii = "☾";
@@ -81,7 +30,21 @@ export default function Home() {
           paddingRight: "max(env(safe-area-inset-right), 2rem)",
         }}
       >
-        <div className="text-2xl font-medium">Rohan Kathuria</div>
+        <div className="flex items-center text-2xl font-medium">
+          <Link 
+            href="/" 
+            className={`${pathname === '/' ? '' : 'hover:underline'}`}
+          >
+            Rohan Kathuria
+          </Link>
+          <span className="mx-3">|</span>
+          <Link 
+            href="/blog" 
+            className={`${pathname.startsWith('/blog') ? '' : 'hover:underline'}`}
+          >
+            Blog
+          </Link>
+        </div>
         <button
           className="text-3xl bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
           onClick={() => setDarkMode((d) => !d)}
