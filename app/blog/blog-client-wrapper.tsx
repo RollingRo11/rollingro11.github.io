@@ -12,7 +12,6 @@ export default function BlogClientWrapper({ children }: BlogClientWrapperProps) 
   const { darkMode, setDarkMode } = useCustomTheme();
   const pathname = usePathname();
 
-
   const sunAscii = "☼";
   const moonAscii = "☾";
 
@@ -32,23 +31,17 @@ export default function BlogClientWrapper({ children }: BlogClientWrapperProps) 
           paddingRight: "max(env(safe-area-inset-right), 2rem)",
         }}
       >
-        <div className="flex items-center text-2xl font-medium">
-          <Link 
-            href="/" 
-            className={`${pathname === '/' ? '' : 'hover:underline'}`}
-          >
+        <div className="flex items-center text-lg font-medium">
+          <Link href="/" className={`${pathname === "/" ? "" : "hover:underline"}`}>
             Rohan Kathuria
           </Link>
           <span className="mx-3">|</span>
-          <Link 
-            href="/blog" 
-            className={`${pathname.startsWith('/blog') ? '' : 'hover:underline'}`}
-          >
+          <Link href="/blog" className={`${pathname.startsWith("/blog") ? "" : "hover:underline"}`}>
             Blog
           </Link>
         </div>
         <button
-          className="text-3xl bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
+          className="text-lg bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
           onClick={() => setDarkMode((d) => !d)}
           aria-label="Toggle dark mode"
           title="Toggle dark mode"
@@ -58,11 +51,11 @@ export default function BlogClientWrapper({ children }: BlogClientWrapperProps) 
       </div>
 
       <main
-        className="flex flex-col items-center p-8 lg:p-16"
+        className="flex flex-col items-center p-4 lg:p-8"
         style={{
-          paddingLeft: "max(env(safe-area-inset-left), 2rem)",
-          paddingRight: "max(env(safe-area-inset-right), 2rem)",
-          paddingBottom: "max(env(safe-area-inset-bottom), 2rem)",
+          paddingLeft: "max(env(safe-area-inset-left), 4rem)",
+          paddingRight: "max(env(safe-area-inset-right), 4rem)",
+          paddingBottom: "max(env(safe-area-inset-bottom), 4rem)",
         }}
       >
         {children}

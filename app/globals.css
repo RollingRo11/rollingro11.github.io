@@ -2,226 +2,304 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
-  --foreground-rgb: 8, 7, 8;
-  --background-rgb: 245, 240, 230;
+    --foreground-rgb: 8, 7, 8;
+    --background-rgb: 245, 240, 230;
 }
 
 /* Default background will be set by theme script */
 
 ::selection {
-  background-color: #E8A598;
-  color: white;
+    background-color: #e8a598;
+    color: white;
 }
 
 html {
-  /* Ensure html element fills viewport and handles safe areas */
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  margin: 0;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+    /* Ensure html element fills viewport and handles safe areas */
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    margin: 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
-  font-feature-settings: "ss01", "ss02", "ss03", "ss04", "liga", "kern";
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-size: 14px;
-  /* Ensure body fills viewport */
-  min-height: 100vh;
-  min-height: 100dvh;
-  margin: 0;
-  /* Hide scrollbar */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+    font-feature-settings: "ss01", "ss02", "ss03", "ss04", "liga", "kern";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 14px;
+    /* Ensure body fills viewport */
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
 /* Add underlines to all links by default */
 a {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 /* Hide scrollbar for webkit browsers */
 body::-webkit-scrollbar,
 html::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
-
-
-
 body {
-  font-family: inherit;
+    font-family: inherit;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 /* Override Tailwind font sizes for consistent typography */
 @layer base {
-  /* Mobile sizes - 20% smaller */
-  .text-sm { font-size: 9.6px; }
-  .text-base { font-size: 11.2px; }
-  .text-lg { font-size: 12.8px; }
-  .text-xl { font-size: 14.4px; }
-  .text-2xl { font-size: 17.6px; }
-  .text-3xl { font-size: 22.4px; }
-  .text-4xl { font-size: 25.6px; }
-  .text-5xl { font-size: 28.8px; }
-  .text-6xl { font-size: 33.6px; }
-  
-  /* Desktop sizes - original values at sm breakpoint and up */
-  @media (min-width: 640px) {
-    .text-sm { font-size: 12px; }
-    .text-base { font-size: 14px; }
-    .text-lg { font-size: 16px; }
-    .text-xl { font-size: 18px; }
-    .text-2xl { font-size: 22px; }
-    .text-3xl { font-size: 28px; }
-    .text-4xl { font-size: 32px; }
-    .text-5xl { font-size: 36px; }
-    .text-6xl { font-size: 42px; }
-  }
+    /* Mobile sizes - 15% smaller */
+    .text-sm {
+        font-size: 7px;
+    }
+    .text-base {
+        font-size: 8px;
+    }
+    .text-lg {
+        font-size: 9px;
+    }
+    .text-xl {
+        font-size: 10px;
+    }
+    .text-2xl {
+        font-size: 13px;
+    }
+    .text-3xl {
+        font-size: 14px;
+    }
+    .text-4xl {
+        font-size: 16px;
+    }
+    .text-5xl {
+        font-size: 18px;
+    }
+    .text-6xl {
+        font-size: 20px;
+    }
+
+    /* Desktop sizes - 15% smaller */
+    @media (min-width: 640px) {
+        .text-sm {
+            font-size: 9px;
+        }
+        .text-base {
+            font-size: 10px;
+        }
+        .text-lg {
+            font-size: 12px;
+        }
+        .text-xl {
+            font-size: 14px;
+        }
+        .text-2xl {
+            font-size: 17px;
+        }
+        .text-3xl {
+            font-size: 20px;
+        }
+        .text-4xl {
+            font-size: 24px;
+        }
+        .text-5xl {
+            font-size: 27px;
+        }
+        .text-6xl {
+            font-size: 31px;
+        }
+    }
+
+    /* Reduce paragraph spacing */
+    p {
+        margin-bottom: 0.1rem;
+    }
+
+    .space-y-8 > * + * {
+        margin-top: 0.25rem;
+    }
+
+    .space-y-6 > * + * {
+        margin-top: 0.2rem;
+    }
+
+    .space-y-4 > * + * {
+        margin-top: 0.15rem;
+    }
+
+    .space-y-3 > * + * {
+        margin-top: 0.1rem;
+    }
+
+    .space-y-2 > * + * {
+        margin-top: 0.075rem;
+    }
+
+    .space-y-1 > * + * {
+        margin-top: 0.05rem;
+    }
+
+    .space-y-0 > * + * {
+        margin-top: 0rem;
+    }
+
+    /* Additional spacing control */
+    ul {
+        margin-bottom: 0.1rem;
+    }
+
+    li {
+        margin-bottom: 0rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 0.1rem;
+    }
 }
 
 @layer base {
-  :root {
-    --background: 41 100% 90%;
-    --foreground: 0 0% 3%;
-    --card: 41 100% 90%;
-    --card-foreground: 0 0% 3%;
-    --popover: 41 100% 90%;
-    --popover-foreground: 0 0% 3%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-    --sidebar-background: 41 100% 90%;
-    --sidebar-foreground: 0 0% 3%;
-    --sidebar-primary: 0 0% 3%;
-    --sidebar-primary-foreground: 41 100% 90%;
-    --sidebar-accent: 116 14% 65%;
-    --sidebar-accent-foreground: 0 0% 3%;
-    --sidebar-border: 116 14% 55%;
-    --sidebar-ring: 116 14% 45%;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+    :root {
+        --background: 41 100% 90%;
+        --foreground: 0 0% 3%;
+        --card: 41 100% 90%;
+        --card-foreground: 0 0% 3%;
+        --popover: 41 100% 90%;
+        --popover-foreground: 0 0% 3%;
+        --primary: 0 0% 9%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 89.8%;
+        --input: 0 0% 89.8%;
+        --ring: 0 0% 3.9%;
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+        --radius: 0.5rem;
+        --sidebar-background: 41 100% 90%;
+        --sidebar-foreground: 0 0% 3%;
+        --sidebar-primary: 0 0% 3%;
+        --sidebar-primary-foreground: 41 100% 90%;
+        --sidebar-accent: 116 14% 65%;
+        --sidebar-accent-foreground: 0 0% 3%;
+        --sidebar-border: 116 14% 55%;
+        --sidebar-ring: 116 14% 45%;
+    }
+    .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 9%;
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 0 0% 83.1%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+        --sidebar-background: 240 5.9% 10%;
+        --sidebar-foreground: 240 4.8% 95.9%;
+        --sidebar-primary: 224.3 76.3% 48%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent-foreground: 240 4.8% 95.9%;
+        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+    }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
 }
 
 /* Ensure proper background coverage for light mode */
 html:not(.dark) {
-  background-color: #f5f0e6;
+    background-color: #f5f0e6;
 }
 
 html:not(.dark) body {
-  background-color: #f5f0e6;
+    background-color: #f5f0e6;
 }
 
 /* Ensure proper background coverage for dark mode */
 html.dark {
-  background-color: #0a1a12;
+    background-color: #0a1a12;
 }
 
 html.dark body {
-  background-color: #0a1a12;
+    background-color: #0a1a12;
 }
 
 /* Responsive LaTeX block equations */
 @layer base {
-  /* Block math equations - enable horizontal scroll on mobile */
-  .katex-display {
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-width: 100%;
-    padding: 0.5rem 0;
-  }
-  
-  /* Scale down equations on very small screens */
-  @media (max-width: 480px) {
-    .katex-display .katex {
-      font-size: 0.9em;
+    /* Block math equations - enable horizontal scroll on mobile */
+    .katex-display {
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-width: 100%;
+        padding: 0.5rem 0;
     }
-  }
-  
-  @media (max-width: 360px) {
-    .katex-display .katex {
-      font-size: 0.8em;
+
+    /* Scale down equations on very small screens */
+    @media (max-width: 480px) {
+        .katex-display .katex {
+            font-size: 0.48em;
+        }
     }
-  }
-  
-  /* Ensure inline math doesn't break layout */
-  .katex {
-    max-width: 100%;
-    overflow-x: auto;
-  }
+
+    @media (max-width: 360px) {
+        .katex-display .katex {
+            font-size: 0.42em;
+        }
+    }
+
+    /* Ensure inline math doesn't break layout */
+    .katex {
+        max-width: 100%;
+        overflow-x: auto;
+    }
 }
-
-
-
-

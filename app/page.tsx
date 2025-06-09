@@ -28,7 +28,7 @@ export default function Home() {
           paddingRight: "max(env(safe-area-inset-right), 2rem)",
         }}
       >
-        <div className="flex items-center text-2xl font-medium">
+        <div className="flex items-center text-lg font-medium">
           <Link href="/" className={`${pathname === "/" ? "" : "hover:underline"}`}>
             Rohan Kathuria
           </Link>
@@ -38,7 +38,7 @@ export default function Home() {
           </Link>
         </div>
         <button
-          className="text-3xl bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
+          className="text-lg bg-transparent border-none cursor-pointer focus:outline-none font-mono whitespace-pre text-left p-2"
           onClick={() => setDarkMode((d) => !d)}
           aria-label="Toggle dark mode"
           title="Toggle dark mode"
@@ -48,36 +48,36 @@ export default function Home() {
       </div>
       {/* Main content - completely centered */}
       <main
-        className="flex flex-col items-center p-8 lg:p-16"
+        className="flex flex-col items-center p-4 lg:p-8"
         style={{
-          paddingLeft: "max(env(safe-area-inset-left), 2rem)",
-          paddingRight: "max(env(safe-area-inset-right), 2rem)",
-          paddingBottom: "max(env(safe-area-inset-bottom), 2rem)",
+          paddingLeft: "max(env(safe-area-inset-left), 4rem)",
+          paddingRight: "max(env(safe-area-inset-right), 4rem)",
+          paddingBottom: "max(env(safe-area-inset-bottom), 4rem)",
         }}
       >
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-2xl">
           {/* About section */}
-          <section id="about" className="mb-16 pt-8 lg:mb-32 lg:pt-20">
-            <div className="space-y-8 text-left">
-              <p className="text-xl sm:text-4xl leading-relaxed">
-                I'm <span className="bg-[#E8A598] dark:bg-[#b6e2d3] text-black px-1">Rohan</span>. I'm a freshman at
-                Northeastern University majoring in Computer Science with a concentration in Artificial Intelligence. I
-                like to train neural networks that help us understand other neural networks!
+          <section id="about" className="mb-4 pt-4 lg:mb-8 lg:pt-6">
+            <div className="space-y-1 text-left">
+              <p className="text-base sm:text-2xl leading-relaxed">
+                I'm Rohan. I'm a freshman at Northeastern University majoring in Computer Science with a concentration
+                in Artificial Intelligence. I like to train neural networks that help us understand other neural
+                networks!
               </p>
             </div>
           </section>
 
           {/* Research section */}
-          <section id="research" className="mb-32">
-            <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Research</h2>
-            <div className="space-y-8 text-left">
+          <section id="research" className="mb-8">
+            <h2 className="text-lg sm:text-3xl font-bold mb-2 text-left">Research</h2>
+            <div className="space-y-2 text-left">
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Paper Implementations</h3>
-                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
-                  Currently implementing a multitude of popular machine learning papers:
+                <h3 className="text-base sm:text-xl font-semibold mb-1">Paper Implementations</h3>
+                <p className="mb-1 text-sm sm:text-lg leading-tight">
+                  My implementations of some popular machine learning papers:
                 </p>
-                <ul className="list-disc pl-8 space-y-2">
-                  <li className="text-base sm:text-xl leading-relaxed">
+                <ul className="list-disc pl-6 space-y-0">
+                  <li className="text-sm sm:text-lg leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/NP-Language-Model"
                       className="text-black dark:text-white hover:underline"
@@ -87,7 +87,7 @@ export default function Home() {
                       A Neural Probabalistic Language Model (Bengio et al.)
                     </Link>
                   </li>
-                  <li className="text-base sm:text-xl leading-relaxed">
+                  <li className="text-sm sm:text-lg leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/dropout"
                       className="text-black dark:text-white hover:underline"
@@ -97,7 +97,7 @@ export default function Home() {
                       Dropout (Srivastava et al.)
                     </Link>
                   </li>
-                  <li className="text-base sm:text-xl leading-relaxed">
+                  <li className="text-sm sm:text-lg leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/alexnet"
                       className="text-black dark:text-white hover:underline"
@@ -107,7 +107,7 @@ export default function Home() {
                       Alexnet: ImageNet Classification with Deep Convolutional Networks (Krizhevsky et al.)
                     </Link>
                   </li>
-                  <li className="text-base sm:text-xl leading-relaxed">
+                  <li className="text-sm sm:text-lg leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/ADAM"
                       className="text-black dark:text-white hover:underline"
@@ -117,7 +117,7 @@ export default function Home() {
                       ADAM: A Method for Stochastic Optimization (P. Kingma & Ba)
                     </Link>
                   </li>
-                  <li className="text-base sm:text-xl leading-relaxed">
+                  <li className="text-sm sm:text-lg leading-relaxed">
                     <Link
                       href="https://github.com/RollingRo11/attention-is-all-you-need"
                       className="text-black dark:text-white hover:underline"
@@ -131,8 +131,8 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Mechanistic Interpretability @ NEURAI Lab</h3>
-                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
+                <h3 className="text-base sm:text-xl font-semibold mb-1">Mechanistic Interpretability @ NEURAI Lab</h3>
+                <p className="mb-1 text-sm sm:text-lg leading-tight">
                   Currently working with Artificial Intelligence Professor{" "}
                   <Link
                     href="https://www.researchgate.net/profile/Nadim-Saad"
@@ -151,15 +151,16 @@ export default function Home() {
                   >
                     NEURAI Lab
                   </Link>{" "}
-                  to train interpretability techniques to explain the internal mechanics of neural networks.
+                  to train crosscoders and cross-layer transcoders to unveil cross-layer superposition in Large Language
+                  Models.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">
+                <h3 className="text-base sm:text-xl font-semibold mb-1">
                   Combinatorics Research @ Khoury College of Computer Sciences
                 </h3>
-                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
+                <p className="mb-1 text-sm sm:text-lg leading-tight">
                   Currently working with Mathematics Professor{" "}
                   <Link
                     href="https://scholar.google.com/citations?user=CyxXUkgAAAAJ&hl=en"
@@ -176,17 +177,17 @@ export default function Home() {
           </section>
 
           {/* Experience section */}
-          <section id="experience" className="mb-32">
-            <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Experience</h2>
-            <div className="space-y-8 text-left">
+          <section id="experience" className="mb-8">
+            <h2 className="text-lg sm:text-3xl font-bold mb-2 text-left">Experience</h2>
+            <div className="space-y-2 text-left">
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">
+                <h3 className="text-base sm:text-xl font-semibold mb-1">
                   Northeastern University Artificial Intelligence Clinic
                 </h3>
-                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">
+                <p className="text-black dark:text-white mb-0 text-sm sm:text-base">
                   Founder + AI Consultant • Nov 2024 - Present
                 </p>
-                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
+                <p className="mb-1 text-sm sm:text-lg leading-tight">
                   I worked with Northeastern University Oakland staff to launch a program for small businesses in the
                   Oakland area to come to Northeastern's Oakland Campus, get paired 1-1 with students, and learn to use
                   AI tools in everyday activities.
@@ -194,11 +195,11 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-3xl font-semibold mb-4">Northeastern University Oakland Makerspace</h3>
-                <p className="text-black dark:text-white mb-4 text-base sm:text-xl">
+                <h3 className="text-base sm:text-xl font-semibold mb-1">Northeastern University Oakland Makerspace</h3>
+                <p className="text-black dark:text-white mb-0 text-sm sm:text-base">
                   Shop Assistant • Oct 2024 - Apr 2025
                 </p>
-                <p className="mb-4 text-lg sm:text-2xl leading-relaxed">
+                <p className="mb-1 text-sm sm:text-lg leading-tight">
                   I spent a majority of my time training students to use 3d printers, laser cutters, and soldering
                   irons. I also 3d printed tools and shelves for the makerspace, and helped organize events for makers
                   around the campus to come innovate, socialize, and build.
@@ -208,12 +209,12 @@ export default function Home() {
           </section>
 
           {/* Reading section */}
-          <section id="reading" className="mb-32">
-            <h2 className="text-3xl sm:text-5xl font-bold mb-8 text-left">Reading</h2>
-            <div className="space-y-6 text-left">
-              <ul className="space-y-2">
-                <h4 className="text-xl sm:text-3xl font-semibold mb-3">Recent News</h4>
-                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
+          <section id="reading" className="mb-8">
+            <h2 className="text-lg sm:text-3xl font-bold mb-2 text-left">Reading</h2>
+            <div className="space-y-0 text-left">
+              <ul className="space-y-0">
+                <h4 className="text-base sm:text-xl font-semibold mb-1">Recent News</h4>
+                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
                     className="text-black dark:text-white hover:underline block sm:inline"
@@ -222,13 +223,13 @@ export default function Home() {
                   >
                     This article published in Northeastern's global news about the AI Clinic
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
                     (2025)
                   </span>
                 </li>
 
-                <h4 className="text-xl sm:text-3xl font-semibold mb-3 mt-6">Rohan Recommends</h4>
-                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
+                <h4 className="text-base sm:text-xl font-semibold mb-1 mt-2">Rohan Recommends</h4>
+                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://transformer-circuits.pub/"
                     className="text-black dark:text-white hover:underline block sm:inline"
@@ -237,11 +238,11 @@ export default function Home() {
                   >
                     Anything from Anthropic's Transformer Circuits thread
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
                     (2020 - present)
                   </span>
                 </li>
-                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://www.darioamodei.com/essay/machines-of-loving-grace"
                     className="text-black dark:text-white hover:underline block sm:inline"
@@ -250,11 +251,11 @@ export default function Home() {
                   >
                     Dario Amodei's "Machines of Loving Grace"
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
                     (2024)
                   </span>
                 </li>
-                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://felleisen.org/matthias/Thoughts/py.html"
                     className="text-black dark:text-white hover:underline block sm:inline"
@@ -263,11 +264,11 @@ export default function Home() {
                   >
                     Matthias Felleisen's "Python!"
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
                     (2024)
                   </span>
                 </li>
-                <li className="block sm:flex sm:items-center text-base sm:text-lg leading-snug">
+                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://en.wikipedia.org/wiki/Foundation_(Asimov_novel)"
                     className="text-black dark:text-white hover:underline block sm:inline"
@@ -276,7 +277,7 @@ export default function Home() {
                   >
                     My favorite book
                   </Link>
-                  <span className="block sm:ml-auto text-base sm:text-xl text-black dark:text-white mt-1 sm:mt-0">
+                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
                     (1951)
                   </span>
                 </li>
@@ -285,10 +286,10 @@ export default function Home() {
           </section>
 
           {/* Footer */}
-          <footer className="border-t border-black dark:border-white pt-8 text-base sm:text-xl text-black text-center">
-            <p className="mb-4 text-lg sm:text-2xl text-black dark:text-white">Feel free to reach out!</p>
+          <footer className="border-t border-black dark:border-white pt-8 text-xs sm:text-xs text-black text-center">
+            <p className="mb-1 text-base sm:text-xl text-black dark:text-white">Feel free to reach out!</p>
             <div className="space-y-2">
-              <p className="text-base sm:text-xl">
+              <p className="text-sm sm:text-base">
                 <Link href="mailto:rohan.kathuria@live.com" className="text-black dark:text-white hover:underline">
                   rohan.kathuria@live.com
                 </Link>{" "}
