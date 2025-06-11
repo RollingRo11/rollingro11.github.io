@@ -114,4 +114,16 @@ body {
     body {
         @apply bg-background text-foreground;
     }
+    mark,
+    .prose mark {
+        background-color: #e8a598 !important;
+        color: #000 !important;
+        padding: 0.1em 0.2em;
+        border-radius: 0.2em;
+    }
+    .dark mark,
+    .dark .prose mark {
+        background-color: #b6e2d3 !important;
+        color: #000 !important;
+    }
 }
