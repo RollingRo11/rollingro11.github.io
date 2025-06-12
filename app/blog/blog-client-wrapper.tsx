@@ -24,11 +24,11 @@ export default function BlogClientWrapper({ children }: BlogClientWrapperProps) 
       }}
     >
       <div
-        className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16"
+        className="flex items-center justify-between mt-4 mb-3 px-4 lg:mb-8 lg:px-16"
         style={{
           paddingTop: "env(safe-area-inset-top)",
-          paddingLeft: "max(env(safe-area-inset-left), 2rem)",
-          paddingRight: "max(env(safe-area-inset-right), 2rem)",
+          paddingLeft: "max(env(safe-area-inset-left), 1rem)",
+          paddingRight: "max(env(safe-area-inset-right), 1rem)",
         }}
       >
         <div className="flex items-center text-lg font-medium">
@@ -51,11 +51,11 @@ export default function BlogClientWrapper({ children }: BlogClientWrapperProps) 
       </div>
 
       <main
-        className="flex flex-col items-center p-4 lg:p-8"
+        className="flex flex-col items-center px-4 pb-4 lg:p-8"
         style={{
-          paddingLeft: "max(env(safe-area-inset-left), 4rem)",
-          paddingRight: "max(env(safe-area-inset-right), 4rem)",
-          paddingBottom: "max(env(safe-area-inset-bottom), 4rem)",
+          paddingLeft: "max(env(safe-area-inset-left), 1rem)",
+          paddingRight: "max(env(safe-area-inset-right), 1rem)",
+          paddingBottom: "max(env(safe-area-inset-bottom), 1rem)",
         }}
       >
         {children}

@@ -18,8 +18,8 @@ export default function BlogIndex() {
 
   return (
     <BlogClientWrapper>
-      <div className="w-full max-w-2xl px-8 lg:px-12">
-        <section className="mb-8 pt-4 lg:mb-16 lg:pt-6">
+      <div className="w-full max-w-2xl px-2 sm:px-0">
+        <section className="mb-8 pt-2 lg:mb-16 lg:pt-6">
           <h1 className="text-lg sm:text-3xl font-bold mb-8 text-left">Blog Posts</h1>
           {posts.length === 0 ? (
             <p className="text-base sm:text-2xl leading-relaxed">...</p>

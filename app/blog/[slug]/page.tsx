@@ -41,8 +41,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <BlogClientWrapper>
-      <div className="w-full max-w-2xl px-8 lg:px-12">
-        <article className="mb-8 pt-4 lg:mb-16 lg:pt-6">
+      <div className="w-full max-w-2xl px-2 sm:px-0">
+        <article className="mb-8 pt-2 lg:mb-16 lg:pt-6">
           <header className="mb-2">
             <Link
               href="/blog"

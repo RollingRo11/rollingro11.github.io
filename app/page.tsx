@@ -21,11 +21,11 @@ export default function Home() {
       }}
     >
       <div
-        className="flex items-center justify-between mt-8 mb-4 px-8 lg:mb-8 lg:px-16"
+        className="flex items-center justify-between mt-4 mb-3 px-4 lg:mb-8 lg:px-16"
         style={{
           paddingTop: "env(safe-area-inset-top)",
-          paddingLeft: "max(env(safe-area-inset-left), 2rem)",
-          paddingRight: "max(env(safe-area-inset-right), 2rem)",
+          paddingLeft: "max(env(safe-area-inset-left), 1rem)",
+          paddingRight: "max(env(safe-area-inset-right), 1rem)",
         }}
       >
         <div className="flex items-center text-lg font-medium">
@@ -48,16 +48,16 @@ export default function Home() {
       </div>
       {/* Main content - completely centered */}
       <main
-        className="flex flex-col items-center p-4 lg:p-8"
+        className="flex flex-col items-center px-4 pb-4 lg:p-8"
         style={{
-          paddingLeft: "max(env(safe-area-inset-left), 4rem)",
-          paddingRight: "max(env(safe-area-inset-right), 4rem)",
-          paddingBottom: "max(env(safe-area-inset-bottom), 4rem)",
+          paddingLeft: "max(env(safe-area-inset-left), 1rem)",
+          paddingRight: "max(env(safe-area-inset-right), 1rem)",
+          paddingBottom: "max(env(safe-area-inset-bottom), 1rem)",
         }}
       >
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-2xl px-2 sm:px-0">
           {/* About section */}
-          <section id="about" className="mb-4 pt-4 lg:mb-8 lg:pt-6">
+          <section id="about" className="mb-4 pt-2 lg:mb-8 lg:pt-6">
             <div className="space-y-1 text-left">
               <p className="text-base sm:text-2xl leading-relaxed">
                 I'm Rohan. I'm a freshman at Northeastern University majoring in Computer Science with a concentration
@@ -151,8 +151,7 @@ export default function Home() {
                   >
                     NEURAI Lab
                   </Link>{" "}
-                  to train crosscoders and cross-layer transcoders to unveil cross-layer superposition in Large Language
-                  Models.
+                  to develop automatic systems for labeling attributions explored by cross-layer transcoders.
                 </p>
               </div>
 
@@ -231,28 +230,15 @@ export default function Home() {
                 <h4 className="text-base sm:text-xl font-semibold mb-1 mt-2">Rohan Recommends</h4>
                 <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
-                    href="https://transformer-circuits.pub/"
+                    href="https://www.darioamodei.com/post/the-urgency-of-interpretability#top"
                     className="text-black dark:text-white hover:underline block sm:inline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Anything from Anthropic's Transformer Circuits thread
+                    Dario Amodei's "The Urgency of Interpretability"
                   </Link>
                   <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
-                    (2020 - present)
-                  </span>
-                </li>
-                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
-                  <Link
-                    href="https://www.darioamodei.com/essay/machines-of-loving-grace"
-                    className="text-black dark:text-white hover:underline block sm:inline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Dario Amodei's "Machines of Loving Grace"
-                  </Link>
-                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
-                    (2024)
+                    (2025)
                   </span>
                 </li>
                 <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
@@ -275,10 +261,23 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    My favorite book
+                    Isaac Asimov's "Foundation"
                   </Link>
                   <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
                     (1951)
+                  </span>
+                </li>
+                <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
+                  <Link
+                    href="https://en.wikipedia.org/wiki/Brave_New_World"
+                    className="text-black dark:text-white hover:underline block sm:inline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Aldous Huxley's "Brave New World"
+                  </Link>
+                  <span className="block sm:ml-auto text-sm sm:text-lg text-black dark:text-white mt-1 sm:mt-0">
+                    (1932)
                   </span>
                 </li>
               </ul>
