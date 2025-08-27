@@ -21,7 +21,7 @@ export default function Home() {
       }}
     >
       <div
-        className="flex items-center justify-between mt-4 mb-3 px-4 lg:mb-8 lg:px-16"
+        className="flex items-center justify-between mt-2 mb-2 px-4 lg:mb-4 lg:px-16"
         style={{
           paddingTop: "env(safe-area-inset-top)",
           paddingLeft: "max(env(safe-area-inset-left), 1rem)",
@@ -48,7 +48,7 @@ export default function Home() {
       </div>
       {/* Main content - completely centered */}
       <main
-        className="flex flex-col items-center px-4 pb-4 lg:p-8"
+        className="flex flex-col items-center px-4 pb-4 lg:px-8 lg:pb-6"
         style={{
           paddingLeft: "max(env(safe-area-inset-left), 1rem)",
           paddingRight: "max(env(safe-area-inset-right), 1rem)",
@@ -57,7 +57,7 @@ export default function Home() {
       >
         <div className="w-full max-w-2xl px-2 sm:px-0">
           {/* About section */}
-          <section id="about" className="mb-4 pt-2 lg:mb-8 lg:pt-6">
+          <section id="about" className="mb-3 pt-1 lg:mb-5 lg:pt-3">
             <div className="space-y-1 text-left">
               <p className="text-base sm:text-2xl leading-relaxed">
                 I'm Rohan. I'm a freshman at Northeastern University majoring in Computer Science with a concentration
@@ -68,11 +68,11 @@ export default function Home() {
           </section>
 
           {/* Research section */}
-          <section id="research" className="mb-8">
-            <h2 className="text-lg sm:text-3xl font-bold mb-2 text-left">Research</h2>
-            <div className="space-y-2 text-left">
+          <section id="research" className="mb-5">
+            <h2 className="text-lg sm:text-3xl font-bold mb-1 text-left">Research</h2>
+            <div className="space-y-1 text-left">
               <div>
-                <h3 className="text-base sm:text-xl font-semibold mb-1">Paper Implementations</h3>
+                <h3 className="text-base sm:text-xl font-semibold mb-0.5">Paper Implementations</h3>
                 <p className="mb-1 text-sm sm:text-lg leading-tight">
                   My implementations of some popular machine learning papers:
                 </p>
@@ -131,7 +131,7 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-base sm:text-xl font-semibold mb-1">Mechanistic Interpretability @ NEURAI Lab</h3>
+                <h3 className="text-base sm:text-xl font-semibold mb-0.5">Mechanistic Interpretability @ NEURAI Lab</h3>
                 <p className="mb-1 text-sm sm:text-lg leading-tight">
                   Currently working with Artificial Intelligence Professor{" "}
                   <Link
@@ -156,7 +156,7 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-base sm:text-xl font-semibold mb-1">
+                <h3 className="text-base sm:text-xl font-semibold mb-0.5">
                   Combinatorics Research @ Khoury College of Computer Sciences
                 </h3>
                 <p className="mb-1 text-sm sm:text-lg leading-tight">
@@ -176,11 +176,11 @@ export default function Home() {
           </section>
 
           {/* Experience section */}
-          <section id="experience" className="mb-8">
-            <h2 className="text-lg sm:text-3xl font-bold mb-2 text-left">Experience</h2>
-            <div className="space-y-2 text-left">
+          <section id="experience" className="mb-5">
+            <h2 className="text-lg sm:text-3xl font-bold mb-1 text-left">Experience</h2>
+            <div className="space-y-1 text-left">
               <div>
-                <h3 className="text-base sm:text-xl font-semibold mb-1">
+                <h3 className="text-base sm:text-xl font-semibold mb-0.5">
                   Northeastern University Artificial Intelligence Clinic
                 </h3>
                 <p className="text-black dark:text-white mb-0 text-sm sm:text-base">
@@ -194,7 +194,7 @@ export default function Home() {
               </div>
 
               <div>
-                <h3 className="text-base sm:text-xl font-semibold mb-1">Northeastern University Oakland Makerspace</h3>
+                <h3 className="text-base sm:text-xl font-semibold mb-0.5">Northeastern University Oakland Makerspace</h3>
                 <p className="text-black dark:text-white mb-0 text-sm sm:text-base">
                   Shop Assistant • Oct 2024 - Apr 2025
                 </p>
@@ -208,11 +208,11 @@ export default function Home() {
           </section>
 
           {/* Reading section */}
-          <section id="reading" className="mb-8">
-            <h2 className="text-lg sm:text-3xl font-bold mb-2 text-left">Reading</h2>
+          <section id="reading" className="mb-5">
+            <h2 className="text-lg sm:text-3xl font-bold mb-1 text-left">Reading</h2>
             <div className="space-y-0 text-left">
               <ul className="space-y-0">
-                <h4 className="text-base sm:text-xl font-semibold mb-1">Recent News</h4>
+                <h4 className="text-base sm:text-xl font-semibold mb-0.5">Recent News</h4>
                 <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
@@ -227,7 +227,7 @@ export default function Home() {
                   </span>
                 </li>
 
-                <h4 className="text-base sm:text-xl font-semibold mb-1 mt-2">Rohan Recommends</h4>
+                <h4 className="text-base sm:text-xl font-semibold mb-0.5 mt-1">Rohan Recommends</h4>
                 <li className="block sm:flex sm:items-center text-sm sm:text-lg leading-snug">
                   <Link
                     href="https://www.darioamodei.com/post/the-urgency-of-interpretability#top"
@@ -285,9 +285,9 @@ export default function Home() {
           </section>
 
           {/* Footer */}
-          <footer className="border-t border-black dark:border-white pt-8 text-xs sm:text-xs text-black text-center">
+          <footer className="border-t border-black dark:border-white pt-5 text-xs sm:text-xs text-black text-center">
             <p className="mb-1 text-base sm:text-xl text-black dark:text-white">Feel free to reach out!</p>
-            <div className="space-y-2">
+            <div className="space-y-1">
               <p className="text-sm sm:text-base">
                 <Link href="mailto:rohan.kathuria@live.com" className="text-black dark:text-white hover:underline">
                   rohan.kathuria@live.com
