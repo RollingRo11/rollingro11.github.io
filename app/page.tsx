@@ -10,7 +10,7 @@ export default function Home() {
   const moonAscii = "☾";
 
   return (
-    <div className="min-h-dvh selection:bg-gray-300 selection:text-black dark:bg-[#222129] dark:text-white dark:selection:bg-[#b6e2d3] dark:selection:text-black bg-white text-black">
+    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
       {/* Header with name and theme toggle */}
       <div className="max-w-3xl mx-auto px-24 py-16 flex justify-between items-center">
         <h1 className="text-3xl font-normal">Rohan Kathuria</h1>
