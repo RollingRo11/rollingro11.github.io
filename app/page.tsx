@@ -41,14 +41,6 @@ export default function Home() {
           >
             LinkedIn
           </Link>
-          <Link
-            href="https://rkathuria.bearblog.dev/"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Blog
-          </Link>
           <button
             className="text-2xl bg-transparent border-none cursor-pointer focus:outline-none font-mono hidden sm:block"
             onClick={() => setDarkMode((d) => !d)}
