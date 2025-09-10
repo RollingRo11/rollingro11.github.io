@@ -69,7 +69,7 @@ export default function Home() {
             intelligence. I like developing systems to understand neural networks.
           </p>
           <p className="text-lg sm:text-xl leading-relaxed">
-            I am currently a Student Researcher under principal investigator{" "}
+            I am currently a Student Researcher at Northeastern's Research in AI lab under principal investigator{" "}
             <Link
               href="https://www.researchgate.net/profile/Nadim-Saad"
               className="text-blue-600 dark:text-[#85BAA1] hover:underline"
@@ -78,8 +78,7 @@ export default function Home() {
             >
               Nadim Saad
             </Link>{" "}
-            of Northeastern's Research in AI lab working under principal on understanding how models develop their
-            responses.
+            to understand how models develop their responses.
           </p>
         </section>
         {/* Research section */}
@@ -100,6 +99,21 @@ export default function Home() {
         <section className="mb-8 lg:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold mb-4">Projects</h2>
           <div className="space-y-4">
+            <div>
+              <Link
+                href="https://github.com/RollingRo11/crosslayer-features"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Crosslayer-Features development repo
+              </Link>
+              <p className="text-lg sm:text-xl leading-relaxed">
+                Dev repository for ongoing interpretability research. It has crosscoder code + visualization code that I
+                use to examine model internals!
+              </p>
+            </div>
+
             <div>
               <Link
                 href="https://github.com/RollingRo11/attention-is-all-you-need"
