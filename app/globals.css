@@ -14,7 +14,6 @@
     color: white;
 }
 
-/* Force desktop layout on all devices */
 html {
     /* Ensure html element fills viewport and handles safe areas */
     min-height: 100vh;
@@ -23,9 +22,6 @@ html {
     margin: 0;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
-    /* Force desktop layout */
-    min-width: 1200px;
-    overflow-x: auto;
 }
 
 body {
@@ -42,9 +38,6 @@ body {
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
-    /* Force desktop layout */
-    min-width: 1200px;
-    overflow-x: auto;
 }
 
 /* Add underlines to all links by default */
@@ -250,16 +243,8 @@ html.dark body {
     background-color: #222129;
 }
 
-/* Force desktop appearance on mobile */
+/* Responsive LaTeX block equations */
 @layer base {
-    /* Disable responsive behavior completely */
-    * {
-        -webkit-text-size-adjust: none;
-        -moz-text-size-adjust: none;
-        -ms-text-size-adjust: none;
-        text-size-adjust: none;
-    }
-
     /* Block math equations - enable horizontal scroll on mobile */
     .katex-display {
         overflow-x: auto;
