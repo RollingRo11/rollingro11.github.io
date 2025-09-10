@@ -50,39 +50,39 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#f5f0e6",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
             (function() {
               const savedTheme = localStorage.getItem('darkMode');
-              const isDark = savedTheme === 'true';
-              
+              const isDark = savedTheme !== null ? savedTheme === 'true' : true;
+
               if (isDark) {
                 document.documentElement.classList.add('dark');
-                document.documentElement.style.backgroundColor = '#0a1a12';
-                document.body.style.backgroundColor = '#0a1a12';
+                document.documentElement.style.backgroundColor = '#222129';
+                document.body.style.backgroundColor = '#222129';
               } else {
-                document.documentElement.style.backgroundColor = '#f5f0e6';
-                document.body.style.backgroundColor = '#f5f0e6';
+                document.documentElement.style.backgroundColor = '#ffffff';
+                document.body.style.backgroundColor = '#ffffff';
               }
             })();
-          `
-        }} />
+          `,
+          }}
+        />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="theme-color" content="#f5f0e6" />
+        <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={crimsonPro.className}>
-        <CustomThemeProvider>
-          {children}
-        </CustomThemeProvider>
+        <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>
   );

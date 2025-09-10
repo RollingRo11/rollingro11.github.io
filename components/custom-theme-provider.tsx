@@ -14,17 +14,17 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('darkMode');
-    const isDark = savedTheme === 'true';
+    const savedTheme = localStorage.getItem("darkMode");
+    const isDark = savedTheme !== null ? savedTheme === "true" : true;
     setDarkMode(isDark);
     setMounted(true);
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
-    
-    localStorage.setItem('darkMode', darkMode.toString());
-    
+
+    localStorage.setItem("darkMode", darkMode.toString());
+
     let themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (!themeColorMeta) {
       themeColorMeta = document.createElement("meta");
@@ -34,9 +34,9 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
 
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      document.body.style.backgroundColor = "#0a1a12";
-      document.documentElement.style.backgroundColor = "#0a1a12";
-      themeColorMeta.setAttribute("content", "#0a1a12");
+      document.body.style.backgroundColor = "#222129";
+      document.documentElement.style.backgroundColor = "#222129";
+      themeColorMeta.setAttribute("content", "#222129");
 
       let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
       if (statusBarMeta) {
@@ -44,9 +44,9 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
       }
     } else {
       document.documentElement.classList.remove("dark");
-      document.body.style.backgroundColor = "#f5f0e6";
-      document.documentElement.style.backgroundColor = "#f5f0e6";
-      themeColorMeta.setAttribute("content", "#f5f0e6");
+      document.body.style.backgroundColor = "#ffffff";
+      document.documentElement.style.backgroundColor = "#ffffff";
+      themeColorMeta.setAttribute("content", "#ffffff");
 
       let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
       if (statusBarMeta) {
@@ -57,17 +57,13 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
     document.body.offsetHeight;
   }, [darkMode, mounted]);
 
-  return (
-    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ darkMode, setDarkMode }}>{children}</ThemeContext.Provider>;
 }
 
 export function useCustomTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useCustomTheme must be used within a CustomThemeProvider');
+    throw new Error("useCustomTheme must be used within a CustomThemeProvider");
   }
   return context;
 }
