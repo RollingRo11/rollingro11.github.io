@@ -14,6 +14,7 @@
     color: white;
 }
 
+/* Force desktop layout on all devices */
 html {
     /* Ensure html element fills viewport and handles safe areas */
     min-height: 100vh;
@@ -22,6 +23,9 @@ html {
     margin: 0;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
+    /* Force desktop layout */
+    min-width: 1200px;
+    overflow-x: auto;
 }
 
 body {
@@ -38,6 +42,9 @@ body {
     /* Hide scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
+    /* Force desktop layout */
+    min-width: 1200px;
+    overflow-x: auto;
 }
 
 /* Add underlines to all links by default */
@@ -63,64 +70,33 @@ body {
 
 /* Override Tailwind font sizes for consistent typography */
 @layer base {
-    /* Mobile sizes - 15% smaller */
+    /* Use desktop sizes for all screen sizes */
     .text-sm {
-        font-size: 7px;
-    }
-    .text-base {
-        font-size: 8px;
-    }
-    .text-lg {
         font-size: 9px;
     }
-    .text-xl {
+    .text-base {
         font-size: 10px;
     }
-    .text-2xl {
-        font-size: 13px;
+    .text-lg {
+        font-size: 12px;
     }
-    .text-3xl {
+    .text-xl {
         font-size: 14px;
     }
-    .text-4xl {
-        font-size: 16px;
+    .text-2xl {
+        font-size: 17px;
     }
-    .text-5xl {
-        font-size: 18px;
-    }
-    .text-6xl {
+    .text-3xl {
         font-size: 20px;
     }
-
-    /* Desktop sizes - 15% smaller */
-    @media (min-width: 640px) {
-        .text-sm {
-            font-size: 9px;
-        }
-        .text-base {
-            font-size: 10px;
-        }
-        .text-lg {
-            font-size: 12px;
-        }
-        .text-xl {
-            font-size: 14px;
-        }
-        .text-2xl {
-            font-size: 17px;
-        }
-        .text-3xl {
-            font-size: 20px;
-        }
-        .text-4xl {
-            font-size: 24px;
-        }
-        .text-5xl {
-            font-size: 27px;
-        }
-        .text-6xl {
-            font-size: 31px;
-        }
+    .text-4xl {
+        font-size: 24px;
+    }
+    .text-5xl {
+        font-size: 27px;
+    }
+    .text-6xl {
+        font-size: 31px;
     }
 
     /* Reduce paragraph spacing */
@@ -274,27 +250,22 @@ html.dark body {
     background-color: #222129;
 }
 
-/* Responsive LaTeX block equations */
+/* Force desktop appearance on mobile */
 @layer base {
+    /* Disable responsive behavior completely */
+    * {
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        text-size-adjust: none;
+    }
+
     /* Block math equations - enable horizontal scroll on mobile */
     .katex-display {
         overflow-x: auto;
         overflow-y: hidden;
         max-width: 100%;
         padding: 0.5rem 0;
-    }
-
-    /* Scale down equations on very small screens */
-    @media (max-width: 480px) {
-        .katex-display .katex {
-            font-size: 0.48em;
-        }
-    }
-
-    @media (max-width: 360px) {
-        .katex-display .katex {
-            font-size: 0.42em;
-        }
     }
 
     /* Ensure inline math doesn't break layout */
