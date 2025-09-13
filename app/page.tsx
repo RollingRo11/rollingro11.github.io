@@ -70,7 +70,7 @@ export default function Home() {
             >
               Nadim Saad
             </Link>{" "}
-            to understand how models develop their responses.
+            deciphering how models develop their responses.
           </p>
         </section>
         {/* Research section */}
@@ -81,7 +81,7 @@ export default function Home() {
               <h3 className="text-lg sm:text-xl font-semibold mb-1">Mechanistic Interpretability @ NEURAI Lab</h3>
               <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-2">In Progress</p>
               <p className="text-lg sm:text-xl leading-relaxed">
-                Training sparse crosscoders on Pythia, Gemma, and other open-source models to uncover how models might
+                Training sparse crosscoders on Pythia, Gemma, and other small open-source models to uncover how LLMs
                 form their thoughts across layers.
               </p>
             </div>
