@@ -98,7 +98,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Crosslayer-Features development repo
+                Crosslayer Features development repo
               </Link>
               <p className="text-lg sm:text-xl leading-relaxed">
                 Dev repository for ongoing interpretability research. It has crosscoder code + visualization code that I
@@ -144,6 +144,39 @@ export default function Home() {
               <div>
                 <div className="text-lg sm:text-xl font-medium">
                   <Link
+                    href="https://www.ktpneu.org/"
+                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Kappa Theta Pi
+                  </Link>{" "}
+                  @ Northeastern - Gamma Class
+                </div>
+              </div>
+            </li>
+            <li className="flex">
+              <span className="mr-2 mt-1">•</span>
+              <div>
+                <div className="text-lg sm:text-xl font-medium">
+                  <Link
+                    href="https://www.rev.school/"
+                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    REV
+                  </Link>{" "}
+                  Cohort 4
+                </div>
+              </div>
+            </li>
+
+            <li className="flex">
+              <span className="mr-2 mt-1">•</span>
+              <div>
+                <div className="text-lg sm:text-xl font-medium">
+                  <Link
                     href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
                     className="text-blue-600 dark:text-[#85BAA1] hover:underline"
                     target="_blank"
@@ -157,7 +190,6 @@ export default function Home() {
                 </div>
               </div>
             </li>
-
             <li className="flex">
               <span className="mr-2 mt-1">•</span>
               <div>
