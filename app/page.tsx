@@ -58,7 +58,7 @@ export default function Home() {
         <section className="mb-8 lg:mb-10 space-y-4">
           <p className="text-lg sm:text-xl leading-relaxed">
             I'm a 2nd year at Northeastern University majoring in Computer Science with a concentration in Artificial
-            intelligence. I like developing systems to understand neural networks.
+            intelligence. I like developing and engineering research systems to help us understand neural networks!
           </p>
           <p className="text-lg sm:text-xl leading-relaxed">
             I am currently a Student Researcher at Northeastern's Research in AI lab under principal investigator{" "}
@@ -81,8 +81,8 @@ export default function Home() {
               <h3 className="text-lg sm:text-xl font-semibold mb-1">Mechanistic Interpretability @ NEURAI Lab</h3>
               <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-2">In Progress</p>
               <p className="text-lg sm:text-xl leading-relaxed">
-                Training sparse crosscoders on Pythia, Gemma, and other small open-source models to uncover how LLMs
-                form their thoughts across layers.
+                Training sparse acausal crosscoders, linear probes, and using SAEs on Gemma/GPT2 to examine how models
+                develop their responses across layers.
               </p>
             </div>
           </div>
