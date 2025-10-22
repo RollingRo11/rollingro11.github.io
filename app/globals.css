@@ -44,6 +44,50 @@ body {
 /* Add underlines to all links by default */
 a {
     text-decoration: underline;
+    position: relative;
+    display: inline-block;
+    padding: 0.1em 0.2em;
+    isolation: isolate;
+}
+
+/* All four corner brackets using background gradients */
+a:hover::before {
+    content: '';
+    position: absolute;
+    inset: -0.2em;
+    background:
+        linear-gradient(to right, currentColor 0.5em, transparent 0.5em) top left,
+        linear-gradient(to bottom, currentColor 0.5em, transparent 0.5em) top left,
+        linear-gradient(to left, currentColor 0.5em, transparent 0.5em) top right,
+        linear-gradient(to bottom, currentColor 0.5em, transparent 0.5em) top right,
+        linear-gradient(to right, currentColor 0.5em, transparent 0.5em) bottom left,
+        linear-gradient(to top, currentColor 0.5em, transparent 0.5em) bottom left,
+        linear-gradient(to left, currentColor 0.5em, transparent 0.5em) bottom right,
+        linear-gradient(to top, currentColor 0.5em, transparent 0.5em) bottom right;
+    background-size: 0.5em 2px, 2px 0.5em, 0.5em 2px, 2px 0.5em, 0.5em 2px, 2px 0.5em, 0.5em 2px, 2px 0.5em;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Animated highlight layer that blinks */
+a:hover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(100, 100, 100, 0.15);
+    animation: blink 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.dark a:hover::after {
+    background-color: rgba(133, 186, 161, 0.3);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
 /* Hide scrollbar for webkit browsers */
