@@ -10,143 +10,154 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        'sm': '0.6125rem',   // ~9.8px at 16px root
+        'base': '0.7rem',    // ~11.2px
+        'lg': '0.7875rem',   // ~12.6px
+        'xl': '0.875rem',    // 14px (your target)
+        '2xl': '1.05rem',    // ~16.8px
+        '3xl': '1.3125rem',  // 21px
+        '4xl': '1.575rem',   // ~25.2px
+        '5xl': '2.1rem',     // ~33.6px
+        '6xl': '2.625rem',   // 42px
+      },
       typography: {
         xs: {
           css: {
-            fontSize: "10px",
+            fontSize: "8px",
             h1: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
             h2: {
-              fontSize: "17px",
+              fontSize: "13px",
             },
             h3: {
-              fontSize: "14px",
+              fontSize: "11px",
             },
             h4: {
-              fontSize: "12px",
+              fontSize: "10px",
             },
             h5: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             h6: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             p: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             li: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             blockquote: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             code: {
-              fontSize: "9px",
+              fontSize: "7px",
             },
           },
         },
         DEFAULT: {
           css: {
-            fontSize: "12px",
+            fontSize: "10px",
             h1: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
             h2: {
-              fontSize: "17px",
+              fontSize: "13px",
             },
             h3: {
-              fontSize: "14px",
+              fontSize: "11px",
             },
             h4: {
-              fontSize: "12px",
+              fontSize: "10px",
             },
             h5: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             h6: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
             p: {
-              fontSize: "12px",
+              fontSize: "10px",
             },
             li: {
-              fontSize: "12px",
+              fontSize: "10px",
             },
             blockquote: {
-              fontSize: "12px",
+              fontSize: "10px",
             },
             code: {
-              fontSize: "10px",
+              fontSize: "8px",
             },
           },
         },
         sm: {
           css: {
-            fontSize: "14px",
+            fontSize: "11px",
             h1: {
-              fontSize: "24px",
+              fontSize: "19px",
             },
             h2: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
             h3: {
-              fontSize: "17px",
+              fontSize: "13px",
             },
             h4: {
-              fontSize: "14px",
+              fontSize: "11px",
             },
             p: {
-              fontSize: "14px",
+              fontSize: "11px",
             },
             li: {
-              fontSize: "14px",
+              fontSize: "11px",
             },
           },
         },
         lg: {
           css: {
-            fontSize: "17px",
+            fontSize: "13px",
             h1: {
-              fontSize: "27px",
+              fontSize: "22px",
             },
             h2: {
-              fontSize: "24px",
+              fontSize: "19px",
             },
             h3: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
             h4: {
-              fontSize: "17px",
+              fontSize: "13px",
             },
             p: {
-              fontSize: "17px",
+              fontSize: "13px",
             },
             li: {
-              fontSize: "17px",
+              fontSize: "13px",
             },
           },
         },
         xl: {
           css: {
-            fontSize: "20px",
+            fontSize: "16px",
             h1: {
-              fontSize: "31px",
+              fontSize: "26px",
             },
             h2: {
-              fontSize: "27px",
+              fontSize: "22px",
             },
             h3: {
-              fontSize: "24px",
+              fontSize: "19px",
             },
             h4: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
             p: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
             li: {
-              fontSize: "20px",
+              fontSize: "16px",
             },
           },
         },

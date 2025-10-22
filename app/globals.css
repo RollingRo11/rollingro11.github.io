@@ -4,7 +4,7 @@
 
 :root {
     --foreground-rgb: 8, 7, 8;
-    --background-rgb: 255, 255, 255;
+    --background-rgb: 238, 238, 238;
 }
 
 /* Default background will be set by theme script */
@@ -30,7 +30,8 @@ body {
     font-feature-settings: "ss01", "ss02", "ss03", "ss04", "liga", "kern";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-size: 14px;
+    font-size: 9px;
+    font-weight: 400;
     /* Ensure body fills viewport */
     min-height: 100vh;
     min-height: 100dvh;
@@ -65,31 +66,45 @@ body {
 @layer base {
     /* Use desktop sizes for all screen sizes */
     .text-sm {
-        font-size: 9px;
+        font-size: 7px;
     }
     .text-base {
-        font-size: 10px;
+        font-size: 8px;
     }
     .text-lg {
-        font-size: 12px;
+        font-size: 6px;
     }
     .text-xl {
-        font-size: 14px;
+        font-size: 7px;
     }
     .text-2xl {
-        font-size: 17px;
+        font-size: 8px;
     }
     .text-3xl {
-        font-size: 20px;
+        font-size: 9px;
     }
     .text-4xl {
-        font-size: 24px;
+        font-size: 16px;
     }
     .text-5xl {
-        font-size: 27px;
+        font-size: 19px;
     }
     .text-6xl {
-        font-size: 31px;
+        font-size: 22px;
+    }
+
+    /* Make font weights lighter */
+    .font-bold {
+        font-weight: 500;
+    }
+    .font-semibold {
+        font-weight: 450;
+    }
+    .font-medium {
+        font-weight: 400;
+    }
+    .font-normal {
+        font-weight: 400;
     }
 
     /* Reduce paragraph spacing */
@@ -227,14 +242,18 @@ body {
 
 /* Ensure proper background coverage for light mode */
 html:not(.dark) {
-    background-color: white;
+    background-color: rgb(238, 238, 238);
 }
 
 html:not(.dark) body {
-    background-color: white;
+    background-color: rgb(238, 238, 238);
 }
 
 /* Ensure proper background coverage for dark mode */
+html {
+    background-color: rgb(238, 238, 238);
+}
+
 html.dark {
     background-color: #222129;
 }

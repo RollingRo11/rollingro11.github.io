@@ -6,17 +6,17 @@ import { useCustomTheme } from "@/components/custom-theme-provider";
 export default function Home() {
   const { darkMode, setDarkMode } = useCustomTheme();
 
-  const sunAscii = "☼";
-  const moonAscii = "☾";
+  const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
+  const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
 
   return (
-    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
+    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-[rgb(238,238,238)] text-black">
       {/* Header with name and theme toggle */}
       <div className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4">
         <div className="flex items-center gap-4 text-center sm:text-left">
           <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
           <button
-            className="text-2xl bg-transparent border-none cursor-pointer focus:outline-none font-mono sm:hidden"
+            className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
             onClick={() => setDarkMode((d) => !d)}
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
@@ -42,7 +42,7 @@ export default function Home() {
             LinkedIn
           </Link>
           <button
-            className="text-2xl bg-transparent border-none cursor-pointer focus:outline-none font-mono hidden sm:block"
+            className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
             onClick={() => setDarkMode((d) => !d)}
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
@@ -216,7 +216,7 @@ export default function Home() {
               href="mailto:kathuria.r@northeastern.edu"
               className="text-blue-600 dark:text-[#85BAA1] hover:underline"
             >
-              kathuria.r@northeastern.edu
+              rohan.kathuria@live.com
             </Link>
           </p>
         </section>

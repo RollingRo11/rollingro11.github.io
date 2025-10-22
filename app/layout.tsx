@@ -1,10 +1,14 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
-import { Crimson_Pro } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
-const crimsonPro = Crimson_Pro({ subsets: ["latin"] });
+const departureMono = localFont({
+  src: "./fonts/DepartureMono-Regular.woff2",
+  variable: "--font-departure-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rkathuria.com"),
@@ -50,7 +54,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#ffffff",
+  themeColor: "#eeeeee",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -69,8 +73,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 document.documentElement.style.backgroundColor = '#222129';
                 document.body.style.backgroundColor = '#222129';
               } else {
-                document.documentElement.style.backgroundColor = '#ffffff';
-                document.body.style.backgroundColor = '#ffffff';
+                document.documentElement.style.backgroundColor = 'rgb(238, 238, 238)';
+                document.body.style.backgroundColor = 'rgb(238, 238, 238)';
               }
             })();
           `,
@@ -79,9 +83,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#eeeeee" />
       </head>
-      <body className={crimsonPro.className}>
+      <body className={departureMono.className}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>

@@ -44,9 +44,9 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
       }
     } else {
       document.documentElement.classList.remove("dark");
-      document.body.style.backgroundColor = "#ffffff";
-      document.documentElement.style.backgroundColor = "#ffffff";
-      themeColorMeta.setAttribute("content", "#ffffff");
+      document.body.style.backgroundColor = "rgb(238, 238, 238)";
+      document.documentElement.style.backgroundColor = "rgb(238, 238, 238)";
+      themeColorMeta.setAttribute("content", "#eeeeee");
 
       let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
       if (statusBarMeta) {
