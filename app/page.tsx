@@ -14,7 +14,7 @@ export default function Home() {
       {/* Header with name and theme toggle */}
       <div className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4">
         <div className="flex items-center gap-4 text-center sm:text-left">
-          <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
+          <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
             onClick={() => setDarkMode((d) => !d)}
@@ -57,11 +57,12 @@ export default function Home() {
         {/* Intro paragraphs */}
         <section className="mb-8 lg:mb-10 space-y-4">
           <p className="text-lg sm:text-xl leading-relaxed">
-            I'm a 2nd year at Northeastern University majoring in Computer Science with a concentration in Artificial
-            intelligence. I like developing and engineering research systems to help us understand neural networks!
+            I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with a
+            concentration in Artificial intelligence. I like developing and engineering research systems to help us
+            understand neural networks!
           </p>
           <p className="text-lg sm:text-xl leading-relaxed">
-            I am currently a Student Researcher at Northeastern's Research in AI lab under principal investigator{" "}
+            I am currently a Student Researcher at Northeastern's Research in AI lab under Principal Investigator{" "}
             <Link
               href="https://www.researchgate.net/profile/Nadim-Saad"
               className="text-blue-600 dark:text-[#85BAA1] hover:underline"
@@ -70,7 +71,7 @@ export default function Home() {
             >
               Nadim Saad
             </Link>{" "}
-            deciphering how models develop their responses.
+            focusing on Mechanistic Interpretability.
           </p>
         </section>
         {/* Research section */}
