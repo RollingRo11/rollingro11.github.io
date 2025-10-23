@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCustomTheme } from "@/components/custom-theme-provider";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const { darkMode, setDarkMode } = useCustomTheme();
@@ -9,12 +10,64 @@ export default function Home() {
   const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
   const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
 
+  // Character variations for animation (Greek letters only)
+  const characterVariations: { [key: string]: string[] } = {
+    o: ["o", "ο", "θ"],
+    a: ["a", "α", "λ"],
+    h: ["h", "η", "μ"],
+    u: ["u", "υ", "μ"],
+    n: ["n", "η"],
+    i: ["i", "ι", "ϊ"],
+  };
+
+  const [nameVariation, setNameVariation] = useState("Rohan Kathuria");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const name = "Rohan Kathuria";
+      let newName = "";
+
+      // Only change 30% of the time for more randomness
+      if (Math.random() > 0.3) {
+        setNameVariation(name);
+        return;
+      }
+
+      // Find all positions with characters that can be varied
+      const variablePositions: number[] = [];
+      for (let i = 0; i < name.length; i++) {
+        if (characterVariations[name[i].toLowerCase()]) {
+          variablePositions.push(i);
+        }
+      }
+
+      // Pick one random position to change
+      const positionToChange = variablePositions[Math.floor(Math.random() * variablePositions.length)];
+
+      for (let i = 0; i < name.length; i++) {
+        const char = name[i].toLowerCase();
+        if (i === positionToChange && characterVariations[char]) {
+          const variations = characterVariations[char];
+          const randomVariation = variations[Math.floor(Math.random() * variations.length)];
+          // Preserve original case
+          newName += name[i] === name[i].toUpperCase() ? randomVariation.toUpperCase() : randomVariation;
+        } else {
+          newName += name[i];
+        }
+      }
+
+      setNameVariation(newName);
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-[rgb(238,238,238)] text-black">
       {/* Header with name and theme toggle */}
       <div className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4" style={{ fontFamily: 'var(--font-crimson-pro)' }}>
         <div className="flex items-center gap-4 text-center sm:text-left">
-          <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
+          <h1 className="text-4xl sm:text-5xl font-normal">{nameVariation}</h1>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
             style={{ fontFamily: 'var(--font-departure-mono)' }}
@@ -41,6 +94,14 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             LinkedIn
+          </Link>
+          <Link
+            href="https://rkathuria.bearblog.dev/"
+            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Blog
           </Link>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
