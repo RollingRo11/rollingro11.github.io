@@ -4,9 +4,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
-const departureMono = localFont({
-  src: "./fonts/DepartureMono-Regular.woff2",
-  variable: "--font-departure-mono",
+const paperMono = localFont({
+  src: "./fonts/PaperMono-Regular.woff2",
+  variable: "--font-paper-mono",
   display: "swap",
 });
 
@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#eeeeee" />
       </head>
-      <body className={departureMono.className}>
+      <body className={paperMono.className}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>
