@@ -1,12 +1,25 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
 const paperMono = localFont({
   src: "./fonts/PaperMono-Regular.woff2",
   variable: "--font-paper-mono",
+  display: "swap",
+});
+
+const departureMono = localFont({
+  src: "./fonts/DepartureMono-Regular.woff2",
+  variable: "--font-departure-mono",
+  display: "swap",
+});
+
+const crimsonPro = Crimson_Pro({
+  subsets: ["latin"],
+  variable: "--font-crimson-pro",
   display: "swap",
 });
 
@@ -85,7 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#eeeeee" />
       </head>
-      <body className={paperMono.className}>
+      <body className={`${paperMono.className} ${departureMono.variable} ${crimsonPro.variable}`}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>
