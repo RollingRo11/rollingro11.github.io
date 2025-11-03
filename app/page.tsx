@@ -12,12 +12,15 @@ export default function Home() {
   return (
     <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-[rgb(238,238,238)] text-black">
       {/* Header with name and theme toggle */}
-      <div className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4" style={{ fontFamily: 'var(--font-crimson-pro)' }}>
+      <div
+        className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4"
+        style={{ fontFamily: "var(--font-crimson-pro)" }}
+      >
         <div className="flex items-center gap-4 text-center sm:text-left">
           <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
-            style={{ fontFamily: 'var(--font-departure-mono)' }}
+            style={{ fontFamily: "var(--font-departure-mono)" }}
             onClick={() => setDarkMode((d) => !d)}
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
@@ -52,7 +55,7 @@ export default function Home() {
           </Link>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
-            style={{ fontFamily: 'var(--font-departure-mono)' }}
+            style={{ fontFamily: "var(--font-departure-mono)" }}
             onClick={() => setDarkMode((d) => !d)}
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
@@ -112,8 +115,8 @@ export default function Home() {
                 Crosslayer Features development repo
               </Link>
               <p className="text-lg sm:text-xl leading-relaxed">
-                Dev repository for ongoing interpretability research. It has crosscoder code + visualization code that I
-                use to examine model internals!
+                Dev repository for ongoing interpretability research. It has crosscoder code + visualization code used
+                to examine model internals.
               </p>
             </div>
 
@@ -133,16 +136,14 @@ export default function Home() {
 
             <div>
               <Link
-                href="https://github.com/RollingRo11/NP-Language-Model"
+                href="https://github.com/RollingRo11/llama2"
                 className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Neural Probabilistic Language Model
+                Llama 2
               </Link>
-              <p className="text-lg sm:text-xl leading-relaxed">
-                Implementation of Bengio et al.'s foundational neural language model.
-              </p>
+              <p className="text-lg sm:text-xl leading-relaxed">Implementation of Meta's Llama 2 model from scratch.</p>
             </div>
           </div>
         </section>
