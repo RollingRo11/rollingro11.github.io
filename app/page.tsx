@@ -175,7 +175,7 @@ export default function Home() {
                       >
                         crosscoders
                       </Link>{" "}
-                      at all layers of language models.
+                      at all layers of a language model.
                     </p>
                   ),
                 },
