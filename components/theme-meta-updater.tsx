@@ -7,8 +7,18 @@ export function ThemeMetaUpdater() {
     // Watch for manual class changes on documentElement
     const observer = new MutationObserver(() => {
       const isDark = document.documentElement.classList.contains('dark');
-      const color = isDark ? '#0a1a12' : '#f5f0e6';
-      
+
+      let color: string;
+      let statusBarStyle: string;
+
+      if (isDark) {
+        color = '#0a1a12';
+        statusBarStyle = 'black-translucent';
+      } else {
+        color = '#f5f0e6';
+        statusBarStyle = 'default';
+      }
+
       // Update theme-color meta tag
       let themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
@@ -18,7 +28,7 @@ export function ThemeMetaUpdater() {
       // Update status bar style for iOS
       let statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
       if (statusBarMeta) {
-        statusBarMeta.setAttribute('content', isDark ? 'black-translucent' : 'default');
+        statusBarMeta.setAttribute('content', statusBarStyle);
       }
     });
 

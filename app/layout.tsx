@@ -5,9 +5,9 @@ import { Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
-const paperMono = localFont({
-  src: "./fonts/PaperMono-Regular.woff2",
-  variable: "--font-paper-mono",
+const codeNewRoman = localFont({
+  src: "./fonts/cnr.otf",
+  variable: "--font-code-new-roman",
   display: "swap",
 });
 
@@ -78,10 +78,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: `
             (function() {
-              const savedTheme = localStorage.getItem('darkMode');
-              const isDark = savedTheme !== null ? savedTheme === 'true' : true;
+              const savedColorMode = localStorage.getItem('colorMode');
+              // Migrate old darkMode setting if it exists
+              let colorMode = savedColorMode;
+              if (!colorMode) {
+                const oldDarkMode = localStorage.getItem('darkMode');
+                colorMode = oldDarkMode !== null ? (oldDarkMode === 'true' ? 'dark' : 'light') : 'dark';
+              }
 
-              if (isDark) {
+              if (colorMode === 'dark') {
                 document.documentElement.classList.add('dark');
                 document.documentElement.style.backgroundColor = '#222129';
                 document.body.style.backgroundColor = '#222129';
@@ -98,7 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#eeeeee" />
       </head>
-      <body className={`${paperMono.className} ${departureMono.variable} ${crimsonPro.variable}`}>
+      <body className={`${codeNewRoman.className} ${departureMono.variable} ${crimsonPro.variable}`}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>

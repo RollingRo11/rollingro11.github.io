@@ -2,28 +2,42 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
+export type ColorMode = "light" | "dark";
+
 interface ThemeContextType {
-  darkMode: boolean;
-  setDarkMode: (dark: boolean) => void;
+  colorMode: ColorMode;
+  setColorMode: (mode: ColorMode) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function CustomThemeProvider({ children }: { children: React.ReactNode }) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [colorMode, setColorMode] = useState<ColorMode>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("darkMode");
-    const isDark = savedTheme !== null ? savedTheme === "true" : true;
-    setDarkMode(isDark);
+    const savedTheme = localStorage.getItem("colorMode");
+    // Migrate old darkMode setting if it exists
+    if (!savedTheme) {
+      const oldDarkMode = localStorage.getItem("darkMode");
+      if (oldDarkMode !== null) {
+        const mode = oldDarkMode === "true" ? "dark" : "light";
+        setColorMode(mode);
+        localStorage.setItem("colorMode", mode);
+        localStorage.removeItem("darkMode");
+      } else {
+        setColorMode("dark");
+      }
+    } else {
+      setColorMode(savedTheme as ColorMode);
+    }
     setMounted(true);
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
 
-    localStorage.setItem("darkMode", darkMode.toString());
+    localStorage.setItem("colorMode", colorMode);
 
     let themeColorMeta = document.querySelector('meta[name="theme-color"]');
     if (!themeColorMeta) {
@@ -32,8 +46,13 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
       document.head.appendChild(themeColorMeta);
     }
 
-    if (darkMode) {
+    // Remove all mode classes first
+    document.documentElement.classList.remove("dark");
+
+    if (colorMode === "dark") {
       document.documentElement.classList.add("dark");
+      document.body.style.background = "";
+      document.documentElement.style.background = "";
       document.body.style.backgroundColor = "#222129";
       document.documentElement.style.backgroundColor = "#222129";
       themeColorMeta.setAttribute("content", "#222129");
@@ -43,7 +62,9 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
         statusBarMeta.setAttribute("content", "black-translucent");
       }
     } else {
-      document.documentElement.classList.remove("dark");
+      // light mode
+      document.body.style.background = "";
+      document.documentElement.style.background = "";
       document.body.style.backgroundColor = "rgb(238, 238, 238)";
       document.documentElement.style.backgroundColor = "rgb(238, 238, 238)";
       themeColorMeta.setAttribute("content", "#eeeeee");
@@ -55,9 +76,9 @@ export function CustomThemeProvider({ children }: { children: React.ReactNode })
     }
 
     document.body.offsetHeight;
-  }, [darkMode, mounted]);
+  }, [colorMode, mounted]);
 
-  return <ThemeContext.Provider value={{ darkMode, setDarkMode }}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ colorMode, setColorMode }}>{children}</ThemeContext.Provider>;
 }
 
 export function useCustomTheme() {

@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useCustomTheme } from "@/components/custom-theme-provider";
+import { useCustomTheme, ColorMode } from "@/components/custom-theme-provider";
 
 export default function Home() {
-  const { darkMode, setDarkMode } = useCustomTheme();
+  const { colorMode, setColorMode } = useCustomTheme();
 
   const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
-  const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode);
+  const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
+
+  const toggleColorMode = () => {
+    setColorMode(colorMode === "light" ? "dark" : "light");
+  };
 
   return (
     <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-[rgb(238,238,238)] text-black">
@@ -21,11 +25,11 @@ export default function Home() {
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
             style={{ fontFamily: "var(--font-departure-mono)" }}
-            onClick={() => setDarkMode((d) => !d)}
-            aria-label="Toggle dark mode"
-            title="Toggle dark mode"
+            onClick={toggleColorMode}
+            aria-label="Toggle color mode"
+            title="Toggle color mode"
           >
-            {darkMode ? sunAscii : moonAscii}
+            {colorMode === "light" ? moonAscii : sunAscii}
           </button>
         </div>
         <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl flex-wrap justify-center sm:justify-end">
@@ -45,22 +49,14 @@ export default function Home() {
           >
             LinkedIn
           </Link>
-          <Link
-            href="https://rkathuria.bearblog.dev/"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Blog
-          </Link>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
             style={{ fontFamily: "var(--font-departure-mono)" }}
-            onClick={() => setDarkMode((d) => !d)}
-            aria-label="Toggle dark mode"
-            title="Toggle dark mode"
+            onClick={toggleColorMode}
+            aria-label="Toggle color mode"
+            title="Toggle color mode"
           >
-            {darkMode ? sunAscii : moonAscii}
+            {colorMode === "light" ? moonAscii : sunAscii}
           </button>
         </div>
       </div>
@@ -71,39 +67,33 @@ export default function Home() {
         <section className="mb-8 lg:mb-10 space-y-4">
           <p className="text-lg sm:text-xl leading-relaxed">
             I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with a
-            concentration in Artificial intelligence. I like developing and engineering research systems to help us
-            understand neural networks!
-          </p>
-          <p className="text-lg sm:text-xl leading-relaxed">
-            I am currently a Student Researcher at Northeastern's Research in AI lab under Principal Investigator{" "}
-            <Link
-              href="https://www.researchgate.net/profile/Nadim-Saad"
-              className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Nadim Saad
+            concentration in Artificial intelligence. I'm currently working on{" "}
+            <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
+              mechanistic interpretability
             </Link>{" "}
-            focusing on Mechanistic Interpretability.
+            research in the hopes that we can someday understand the superintelligence might one day create.
           </p>
         </section>
         {/* Research section */}
         <section className="mb-8 lg:mb-10">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4">Research</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+            Research
+          </h2>
           <div className="space-y-5">
             <div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-1">Mechanistic Interpretability @ NEURAI Lab</h3>
+              <h3 className="text-lg sm:text-xl font-normal mb-1">Mechanistic Interpretability @ the NEURAI Lab</h3>
               <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-2">In Progress</p>
               <p className="text-lg sm:text-xl leading-relaxed">
-                Training sparse acausal crosscoders, linear probes, and using SAEs on Gemma/GPT2 to examine how models
-                develop their responses across layers.
+                Building tools and performing research to understand how models develop their thoughts over time.
               </p>
             </div>
           </div>
         </section>
         {/* Projects section */}
         <section className="mb-8 lg:mb-10">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4">Projects</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+            Projects
+          </h2>
           <div className="space-y-4">
             <div>
               <Link
@@ -112,28 +102,21 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Crosslayer Features development repo
+                Sparse Crosscoders
               </Link>
               <p className="text-lg sm:text-xl leading-relaxed">
-                Dev repository for ongoing interpretability research. It has crosscoder code + visualization code used
-                to examine model internals.
+                Development repository used to train acausal{" "}
+                <Link
+                  href="https://transformer-circuits.pub/2024/crosscoders/index.html"
+                  className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  crosscoders
+                </Link>{" "}
+                at all layers of language models.
               </p>
             </div>
-
-            <div>
-              <Link
-                href="https://github.com/RollingRo11/attention-is-all-you-need"
-                className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Attention Is All You Need Implementation
-              </Link>
-              <p className="text-lg sm:text-xl leading-relaxed">
-                My implementation of the transformer architecture from the seminal paper by Vaswani et al.
-              </p>
-            </div>
-
             <div>
               <Link
                 href="https://github.com/RollingRo11/llama2"
@@ -143,13 +126,56 @@ export default function Home() {
               >
                 Llama 2
               </Link>
-              <p className="text-lg sm:text-xl leading-relaxed">Implementation of Meta's Llama 2 model from scratch.</p>
+              <p className="text-lg sm:text-xl leading-relaxed">Meta's Llama2 model from scratch.</p>
+            </div>
+
+            <div>
+              <Link
+                href="https://github.com/RollingRo11/attention-is-all-you-need"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Attention Is All You Need
+              </Link>
+              <p className="text-lg sm:text-xl leading-relaxed">
+                Simple implementation of the transformer architecture.
+              </p>
             </div>
           </div>
         </section>
         {/* Other section */}
         <section className="mb-8 lg:mb-10">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4">Other things</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+            Other things
+          </h2>
+          <ul className="space-y-1 mb-4">
+            <li className="flex">
+              <span className="mr-2 mt-1">•</span>
+              <div>
+                <div className="text-lg sm:text-xl font-medium">
+                  <Link href="/design" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
+                    Design Portfolio!
+                  </Link>
+                </div>
+              </div>
+            </li>
+            <li className="flex">
+              <span className="mr-2 mt-1">•</span>
+              <div>
+                <div className="text-lg sm:text-xl font-medium">
+                  <Link
+                    href="https://rkathuria.bearblog.dev/"
+                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Blog!
+                  </Link>
+                </div>
+              </div>
+            </li>
+          </ul>
           <ul className="space-y-1">
             <li className="flex">
               <span className="mr-2 mt-1">•</span>
@@ -197,7 +223,7 @@ export default function Home() {
                     Northeastern University Artificial Intelligence Clinic
                   </Link>
                   <div className="text-lg sm:text-xl leading-relaxed">
-                    Founded a program pairing students with small businesses to learn to use AI tools
+                    Founded a program that teaches small busineses how to use AI tools.
                   </div>
                 </div>
               </div>
@@ -221,7 +247,9 @@ export default function Home() {
         </section>
         {/* Contact section */}
         <section>
-          <h2 className="text-xl sm:text-2xl font-bold mb-4">Contact</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+            Contact
+          </h2>
           <p className="text-lg sm:text-xl">
             You can contact me at{" "}
             <Link
@@ -230,6 +258,7 @@ export default function Home() {
             >
               rohan.kathuria@live.com
             </Link>
+            {"."}
           </p>
         </section>
       </main>
