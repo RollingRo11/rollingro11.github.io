@@ -1,10 +1,30 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useRef, useCallback } from "react";
 import { useCustomTheme, ColorMode } from "@/components/custom-theme-provider";
 
 export default function Home() {
   const { colorMode, setColorMode } = useCustomTheme();
+  const [hoveredLine, setHoveredLine] = useState<number | null>(null);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleLineEnter = useCallback((lineNum: number) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    setTransitionEnabled(false);
+    setHoveredLine(lineNum);
+  }, []);
+
+  const handleLineLeave = useCallback(() => {
+    leaveTimeoutRef.current = setTimeout(() => {
+      setTransitionEnabled(true);
+      setHoveredLine(null);
+    }, 500);
+  }, []);
 
   const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
   const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
@@ -61,206 +81,179 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Main content with line numbers */}
       <main className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 pb-12 sm:pb-16 lg:pb-20">
-        {/* Intro paragraphs */}
-        <section className="mb-8 lg:mb-10 space-y-4">
-          <p className="text-lg sm:text-xl leading-relaxed">
-            I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with a
-            concentration in Artificial intelligence. I'm currently working on{" "}
-            <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
-              mechanistic interpretability
-            </Link>{" "}
-            research in the hopes that we can someday understand the superintelligence might one day create.
-          </p>
-        </section>
-        {/* Research section */}
-        <section className="mb-8 lg:mb-10">
-          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-            Research
-          </h2>
-          <div className="space-y-5">
-            <div>
-              <h3 className="text-lg sm:text-xl font-normal mb-1">Mechanistic Interpretability @ the NEURAI Lab</h3>
-              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-2">In Progress</p>
-              <p className="text-lg sm:text-xl leading-relaxed">
-                Building tools and performing research to understand how models develop their thoughts over time.
-              </p>
-            </div>
-          </div>
-        </section>
-        {/* Projects section */}
-        <section className="mb-8 lg:mb-10">
-          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-            Projects
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <Link
-                href="https://github.com/RollingRo11/crosslayer-features"
-                className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Sparse Crosscoders
-              </Link>
-              <p className="text-lg sm:text-xl leading-relaxed">
-                Development repository used to train acausal{" "}
-                <Link
-                  href="https://transformer-circuits.pub/2024/crosscoders/index.html"
-                  className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  crosscoders
-                </Link>{" "}
-                at all layers of language models.
-              </p>
-            </div>
-            <div>
-              <Link
-                href="https://github.com/RollingRo11/llama2"
-                className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Llama 2
-              </Link>
-              <p className="text-lg sm:text-xl leading-relaxed">Meta's Llama2 model from scratch.</p>
-            </div>
+        <div className="relative">
+          {/* Continuous vertical line */}
+          <div className="absolute left-8 sm:left-10 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700" />
 
-            <div>
-              <Link
-                href="https://github.com/RollingRo11/attention-is-all-you-need"
-                className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Attention Is All You Need
-              </Link>
-              <p className="text-lg sm:text-xl leading-relaxed">
-                Simple implementation of the transformer architecture.
-              </p>
-            </div>
-          </div>
-        </section>
-        {/* Other section */}
-        <section className="mb-8 lg:mb-10">
-          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-            Other things
-          </h2>
-          <ul className="space-y-1 mb-4">
-            <li className="flex">
-              <span className="mr-2 mt-1">•</span>
-              <div>
-                <div className="text-lg sm:text-xl font-medium">
-                  <Link href="/design" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
-                    Design Portfolio!
+          <div className="space-y-1">
+            {(() => {
+              const lines: Array<{ type: "content"; content: React.ReactNode; center?: boolean } | { type: "spacer"; height: string }> = [
+                // Intro
+                { type: "content", content: (
+                  <p className="text-lg sm:text-xl leading-relaxed">
+                    I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with a
+                    concentration in Artificial intelligence. I'm currently working on{" "}
+                    <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
+                      mechanistic interpretability
+                    </Link>{" "}
+                    research in the hopes that we can someday understand the superintelligence might one day create.
+                  </p>
+                )},
+                { type: "spacer", height: "h-4" },
+                // Research
+                { type: "content", center: true, content: (
+                  <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+                    Research
+                  </h2>
+                )},
+                { type: "content", center: true, content: <h3 className="text-lg sm:text-xl font-normal">Mechanistic Interpretability @ the NEURAI Lab</h3> },
+                { type: "content", center: true, content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">In Progress</p> },
+                { type: "content", content: (
+                  <p className="text-lg sm:text-xl leading-relaxed">
+                    Building tools and performing research to understand how models develop their thoughts over time.
+                  </p>
+                )},
+                { type: "spacer", height: "h-4" },
+                // Projects
+                { type: "content", center: true, content: (
+                  <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+                    Projects
+                  </h2>
+                )},
+                { type: "content", center: true, content: (
+                  <Link href="https://github.com/RollingRo11/crosslayer-features" className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block" target="_blank" rel="noopener noreferrer">
+                    Sparse Crosscoders
                   </Link>
-                </div>
-              </div>
-            </li>
-            <li className="flex">
-              <span className="mr-2 mt-1">•</span>
-              <div>
-                <div className="text-lg sm:text-xl font-medium">
-                  <Link
-                    href="https://rkathuria.bearblog.dev/"
-                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Blog!
+                )},
+                { type: "content", content: (
+                  <p className="text-lg sm:text-xl leading-relaxed">
+                    Development repository used to train acausal{" "}
+                    <Link href="https://transformer-circuits.pub/2024/crosscoders/index.html" className="text-blue-600 dark:text-[#85BAA1] hover:underline" target="_blank" rel="noopener noreferrer">
+                      crosscoders
+                    </Link>{" "}
+                    at all layers of language models.
+                  </p>
+                )},
+                { type: "content", center: true, content: (
+                  <Link href="https://github.com/RollingRo11/llama2" className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block" target="_blank" rel="noopener noreferrer">
+                    Llama 2
                   </Link>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <ul className="space-y-1">
-            <li className="flex">
-              <span className="mr-2 mt-1">•</span>
-              <div>
-                <div className="text-lg sm:text-xl font-medium">
-                  <Link
-                    href="https://www.ktpneu.org/"
-                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Kappa Theta Pi
-                  </Link>{" "}
-                  @ Northeastern - Gamma Class
-                </div>
-              </div>
-            </li>
-            <li className="flex">
-              <span className="mr-2 mt-1">•</span>
-              <div>
-                <div className="text-lg sm:text-xl font-medium">
-                  <Link
-                    href="https://www.rev.school/"
-                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    REV
-                  </Link>{" "}
-                  Cohort 4
-                </div>
-              </div>
-            </li>
-
-            <li className="flex">
-              <span className="mr-2 mt-1">•</span>
-              <div>
-                <div className="text-lg sm:text-xl font-medium">
-                  <Link
-                    href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
-                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Northeastern University Artificial Intelligence Clinic
+                )},
+                { type: "content", center: true, content: <p className="text-lg sm:text-xl leading-relaxed">Meta's Llama2 model from scratch.</p> },
+                { type: "content", center: true, content: (
+                  <Link href="https://github.com/RollingRo11/attention-is-all-you-need" className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block" target="_blank" rel="noopener noreferrer">
+                    Attention Is All You Need
                   </Link>
-                  <div className="text-lg sm:text-xl leading-relaxed">
-                    Founded a program that teaches small busineses how to use AI tools.
+                )},
+                { type: "content", center: true, content: <p className="text-lg sm:text-xl leading-relaxed">Simple implementation of the transformer architecture.</p> },
+                { type: "spacer", height: "h-4" },
+                // Other things
+                { type: "content", center: true, content: (
+                  <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+                    Other things
+                  </h2>
+                )},
+                { type: "content", center: true, content: (
+                  <div className="text-lg sm:text-xl font-medium">
+                    • <Link href="/design" className="text-blue-600 dark:text-[#85BAA1] hover:underline">Design Portfolio!</Link>
                   </div>
-                </div>
-              </div>
-            </li>
-            <li className="flex">
-              <span className="mr-2 mt-1">•</span>
-              <div>
-                <div className="text-lg sm:text-xl font-medium">
-                  <Link
-                    href="https://makerspaces.northeastern.edu/spaces/oakland/"
-                    className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                )},
+                { type: "content", center: true, content: (
+                  <div className="text-lg sm:text-xl font-medium">
+                    • <Link href="https://rkathuria.bearblog.dev/" className="text-blue-600 dark:text-[#85BAA1] hover:underline" target="_blank" rel="noopener noreferrer">Blog!</Link>
+                  </div>
+                )},
+                { type: "spacer", height: "h-2" },
+                { type: "content", center: true, content: (
+                  <div className="text-lg sm:text-xl font-medium">
+                    • <Link href="https://www.ktpneu.org/" className="text-blue-600 dark:text-[#85BAA1] hover:underline" target="_blank" rel="noopener noreferrer">Kappa Theta Pi</Link> @ Northeastern - Gamma Class
+                  </div>
+                )},
+                { type: "content", center: true, content: (
+                  <div className="text-lg sm:text-xl font-medium">
+                    • <Link href="https://www.rev.school/" className="text-blue-600 dark:text-[#85BAA1] hover:underline" target="_blank" rel="noopener noreferrer">REV</Link> Cohort 4
+                  </div>
+                )},
+                { type: "content", center: true, content: (
+                  <div className="text-lg sm:text-xl font-medium">
+                    • <Link href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/" className="text-blue-600 dark:text-[#85BAA1] hover:underline" target="_blank" rel="noopener noreferrer">Northeastern University Artificial Intelligence Clinic</Link>
+                  </div>
+                )},
+                { type: "content", content: <p className="text-lg sm:text-xl leading-relaxed pl-4">Founded a program that teaches small busineses how to use AI tools.</p> },
+                { type: "content", center: true, content: (
+                  <div className="text-lg sm:text-xl font-medium">
+                    • <Link href="https://makerspaces.northeastern.edu/spaces/oakland/" className="text-blue-600 dark:text-[#85BAA1] hover:underline" target="_blank" rel="noopener noreferrer">Northeastern University Oakland Makerspace</Link>
+                  </div>
+                )},
+                { type: "spacer", height: "h-4" },
+                // Contact
+                { type: "content", center: true, content: (
+                  <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+                    Contact
+                  </h2>
+                )},
+                { type: "content", center: true, content: (
+                  <p className="text-lg sm:text-xl">
+                    You can contact me at{" "}
+                    <Link href="mailto:kathuria.r@northeastern.edu" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
+                      rohan.kathuria@live.com
+                    </Link>
+                    {"."}
+                  </p>
+                )},
+              ];
+
+              // Build line number mapping (only content lines get numbers)
+              const lineNumbers: number[] = [];
+              let num = 0;
+              lines.forEach((line) => {
+                if (line.type === "content") {
+                  num++;
+                  lineNumbers.push(num);
+                } else {
+                  lineNumbers.push(-1); // spacer
+                }
+              });
+
+              let lineNum = 0;
+              return lines.map((line, i) => {
+                if (line.type === "spacer") {
+                  return <div key={i} className={`flex ${line.height}`}><div className="w-8 sm:w-10 shrink-0" /><div className="pl-4 sm:pl-5 flex-1" /></div>;
+                }
+                lineNum++;
+                const currentLineNum = lineNum;
+
+                // Calculate display number
+                let displayNum: number | string = currentLineNum;
+                if (hoveredLine !== null) {
+                  const diff = currentLineNum - hoveredLine;
+                  displayNum = diff === 0 ? currentLineNum : Math.abs(diff);
+                }
+
+                return (
+                  <div
+                    key={i}
+                    className={`flex ${line.center ? "items-center" : "items-start"} cursor-default`}
+                    onMouseEnter={() => handleLineEnter(currentLineNum)}
+                    onMouseLeave={handleLineLeave}
                   >
-                    Northeastern University Oakland Makerspace
-                  </Link>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </section>
-        {/* Contact section */}
-        <section>
-          <h2 className="text-3xl sm:text-4xl font-normal mb-4" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-            Contact
-          </h2>
-          <p className="text-lg sm:text-xl">
-            You can contact me at{" "}
-            <Link
-              href="mailto:kathuria.r@northeastern.edu"
-              className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-            >
-              rohan.kathuria@live.com
-            </Link>
-            {"."}
-          </p>
-        </section>
+                    <span
+                      className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${!line.center ? "pt-1" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
+                      style={{ fontFamily: "var(--font-departure-mono)" }}
+                    >
+                      {displayNum}
+                    </span>
+                    <div className="pl-4 sm:pl-5 flex-1">
+                      {line.content}
+                    </div>
+                  </div>
+                );
+              });
+            })()}
+          </div>
+        </div>
       </main>
     </div>
   );
