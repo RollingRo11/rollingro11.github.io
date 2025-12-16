@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCustomTheme } from "@/components/custom-theme-provider";
 
 export default function Design() {
@@ -89,10 +90,133 @@ export default function Design() {
         </h2>
 
         {/* Content */}
-        <section className="space-y-4">
+        <section className="space-y-8">
           <p className="text-lg sm:text-xl leading-relaxed">
             A collection of my design work.
           </p>
+
+          {/* This Website */}
+          <div className="space-y-4">
+            <h3
+              className="text-2xl sm:text-3xl font-normal"
+              style={{ fontFamily: "var(--font-crimson-pro)" }}
+            >
+              This Website
+            </h3>
+
+            {/* Screenshots */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Image
+                  src="/desktop.png"
+                  alt="Desktop view of this website"
+                  width={800}
+                  height={500}
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full"
+                />
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Desktop</p>
+              </div>
+              <div className="space-y-2">
+                <Image
+                  src="/mobile.png"
+                  alt="Mobile view of this website"
+                  width={800}
+                  height={500}
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full"
+                />
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Mobile</p>
+              </div>
+            </div>
+
+            {/* Fonts */}
+            <div className="space-y-2">
+              <h4 className="text-lg sm:text-xl font-medium">Fonts</h4>
+              <p className="text-base sm:text-lg">
+                <span style={{ fontFamily: "var(--font-crimson-pro)" }}>Crimson Pro</span>
+                {" / "}
+                <span style={{ fontFamily: "var(--font-paper-mono)" }}>Paper Mono</span>
+                {" / "}
+                <span style={{ fontFamily: "var(--font-departure-mono)" }}>Departure Mono</span>
+              </p>
+            </div>
+
+            {/* Color Palette */}
+            <div className="space-y-2">
+              <h4 className="text-lg sm:text-xl font-medium">Color Palette</h4>
+              <div className="grid grid-cols-5 gap-3">
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#EEEEEE" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#EEEEEE</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#222129" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#222129</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#000000" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#000000</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#FFFFFF" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#FFFFFF</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#2563EB" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#2563EB</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#85BAA1" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#85BAA1</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#9CA3AF" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#9CA3AF</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#4B5563" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#4B5563</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#D1D5DB" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#D1D5DB</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#374151" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#374151</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </div>
