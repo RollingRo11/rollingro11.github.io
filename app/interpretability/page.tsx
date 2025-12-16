@@ -81,18 +81,87 @@ export default function Interpretability() {
         </Link>
 
         {/* Page title */}
-        <h2
-          className="text-3xl sm:text-4xl font-normal mb-6"
-          style={{ fontFamily: "var(--font-crimson-pro)" }}
-        >
+        <h2 className="text-3xl sm:text-4xl font-normal mb-6" style={{ fontFamily: "var(--font-crimson-pro)" }}>
           Why Mechanistic Interpretability?
         </h2>
 
         {/* Content */}
         <section className="space-y-4">
           <p className="text-lg sm:text-xl leading-relaxed">
-            Mechanistic interpretability is important because it helps us understand how neural networks actually work.
+            AI models are grown, not built. We build the environments, algorithms, and data pipelines to train models,
+            but they "learn" their own way.
           </p>
+          <p className="text-lg sm:text-xl leading-relaxed">
+            Mechanistic Interpretability is the science of breaking down an AI model into human-interpretable
+            mechanisms. It's an attempt to understand the connections the model is making so we can further understand
+            how Artificial Intelligence thinks. For large language models, this research can yield a deeper
+            understanding of model architecture, how models think, and how we can better construct or use models for
+            certain tasks.
+          </p>
+          <p className="text-lg sm:text-xl leading-relaxed">
+            I fully believe in (and am probably more interested in) long horizon/ambitious interpretability goals. I
+            think fundamentally understanding what is happening inside these models will yield incredible byproducts of
+            science for safety, alignment, and other fields of AI research. Just because this task sounds Sisyphean,
+            doesn't mean we can't push the needle (or, the boulder) in a meaningful direction.
+          </p>
+          <p className="text-lg sm:text-xl leading-relaxed">Read more:</p>
+          <ul className="text-lg sm:text-xl leading-relaxed list-disc list-inside space-y-2">
+            <li>
+              <Link
+                href="https://www.darioamodei.com/post/the-urgency-of-interpretability#the-utility-of-interpretability"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The Urgency of Interpretability
+              </Link>{" "}
+              (Dario Amodei)
+            </li>
+            <li>
+              <Link
+                href="https://www.alignmentforum.org/posts/Hy6PX43HGgmfiTaKu/an-ambitious-vision-for-interpretability"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                An Ambitious Vision for Interpretability
+              </Link>{" "}
+              (AI Alignment Forum)
+            </li>
+            <li>
+              <Link
+                href="https://web.stanford.edu/~cgpotts/blog/interp/"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Assessing Skeptical Views of Interpretability Research
+              </Link>{" "}
+              (Chris Potts)
+            </li>
+            <li>
+              <Link
+                href="https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mechanistic Interpretability Resources
+              </Link>{" "}
+              (Neel Nanda)
+            </li>
+            <li>
+              <Link
+                href="https://www.alignmentforum.org/posts/jP9KDyMkchuv6tHwm/how-to-become-a-mechanistic-interpretability-researcher"
+                className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                How to Become a Mechanistic Interpretability Researcher
+              </Link>{" "}
+              (Neel Nanda)
+            </li>
+          </ul>
         </section>
       </main>
     </div>
