@@ -92,11 +92,11 @@ export default function Interpretability() {
             but they "learn" their own way.
           </p>
           <p className="text-lg sm:text-xl leading-relaxed">
-            Mechanistic Interpretability is the science of breaking down an AI model into human-interpretable
-            mechanisms. It's an attempt to understand the connections the model is making so we can further understand
-            how Artificial Intelligence thinks. For large language models, this research can yield a deeper
-            understanding of model architecture, how models think, and how we can better construct or use models for
-            certain tasks.
+            Mechanistic Interpretability is the science of breaking down an AI model into human-interpretable mechanisms
+            in order to decipther those learnings. It's an attempt to understand the connections the model is making so
+            we can further grasp how Artificial Intelligence thinks. For large language models, this research can yield
+            findings that can improve model architecture, post-training decisions, and navigating limitations and/or
+            safety risks for models on certain tasks.
           </p>
           <p className="text-lg sm:text-xl leading-relaxed">
             I fully believe in (and am probably more interested in) long horizon/ambitious interpretability goals. I
