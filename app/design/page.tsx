@@ -484,7 +484,7 @@ export default function Design() {
       {/* Image Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-pointer"
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-pointer min-h-dvh h-full w-full"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-[90vw] max-h-[90vh]">
