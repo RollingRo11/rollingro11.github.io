@@ -98,7 +98,7 @@ export default function Design() {
           {/* This Website */}
           <div className="space-y-4">
             <h3
-              className="text-2xl sm:text-3xl font-normal"
+              className="text-3xl sm:text-4xl font-normal"
               style={{ fontFamily: "var(--font-crimson-pro)" }}
             >
               This Website
@@ -213,6 +213,116 @@ export default function Design() {
                     style={{ backgroundColor: "#374151" }}
                   />
                   <span className="text-xs text-gray-600 dark:text-gray-400">#374151</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Crosscoder Latent Dashboard */}
+          <div className="space-y-4">
+            <h3
+              className="text-3xl sm:text-4xl font-normal"
+              style={{ fontFamily: "var(--font-crimson-pro)" }}
+            >
+              Crosscoder Latent Dashboard
+            </h3>
+
+            {/* Screenshot */}
+            <div className="space-y-2">
+              <Image
+                src="/crosscoder.png"
+                alt="Crosscoder Latent Dashboard"
+                width={800}
+                height={500}
+                className="rounded-lg border border-gray-300 dark:border-gray-700 w-full"
+              />
+            </div>
+
+            {/* Fonts */}
+            <div className="space-y-2">
+              <h4 className="text-lg sm:text-xl font-medium">Fonts</h4>
+              <p className="text-base sm:text-lg">
+                <span>System UI</span>
+                {" / "}
+                <span style={{ fontFamily: "monospace" }}>SF Mono</span>
+                {" / "}
+                <span style={{ fontFamily: "Georgia, serif" }}>Georgia</span>
+              </p>
+            </div>
+
+            {/* Color Palette */}
+            <div className="space-y-2">
+              <h4 className="text-lg sm:text-xl font-medium">Color Palette</h4>
+              <div className="grid grid-cols-5 gap-3">
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#ffffff" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#FFFFFF</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#f5f5f5" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#F5F5F5</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#1a1a1a" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#1A1A1A</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#666666" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#666666</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#e1e4e8" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#E1E4E8</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#0969da" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#0969DA</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#28a745" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#28A745</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#667eea" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#667EEA</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#764ba2" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#764BA2</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#ff6b6b" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#FF6B6B</span>
                 </div>
               </div>
             </div>
