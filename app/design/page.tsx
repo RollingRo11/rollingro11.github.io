@@ -2,10 +2,26 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { useCustomTheme } from "@/components/custom-theme-provider";
 
 export default function Design() {
   const { colorMode, setColorMode } = useCustomTheme();
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedImage(null);
+    };
+    if (selectedImage) {
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "";
+    };
+  }, [selectedImage]);
 
   const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
   const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
@@ -112,7 +128,8 @@ export default function Design() {
                   alt="Desktop view of this website"
                   width={800}
                   height={500}
-                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full"
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => setSelectedImage({ src: "/desktop.png", alt: "Desktop view of this website" })}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Desktop</p>
               </div>
@@ -122,7 +139,8 @@ export default function Design() {
                   alt="Mobile view of this website"
                   width={800}
                   height={500}
-                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full"
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => setSelectedImage({ src: "/mobile.png", alt: "Mobile view of this website" })}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Mobile</p>
               </div>
@@ -234,7 +252,8 @@ export default function Design() {
                 alt="Crosscoder Latent Dashboard"
                 width={800}
                 height={500}
-                className="rounded-lg border border-gray-300 dark:border-gray-700 w-full"
+                className="rounded-lg border border-gray-300 dark:border-gray-700 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => setSelectedImage({ src: "/crosscoder.png", alt: "Crosscoder Latent Dashboard" })}
               />
             </div>
 
@@ -327,8 +346,166 @@ export default function Design() {
               </div>
             </div>
           </div>
+
+          {/* Layer Experiments */}
+          <div className="space-y-4">
+            <h3
+              className="text-3xl sm:text-4xl font-normal"
+              style={{ fontFamily: "var(--font-crimson-pro)" }}
+            >
+              Layer Experiments
+            </h3>
+
+            {/* Screenshots */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Image
+                  src="/conceptlayer.png"
+                  alt="Layer Experiments - Layer View"
+                  width={800}
+                  height={500}
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => setSelectedImage({ src: "/conceptlayer.png", alt: "Layer Experiments - Layer View" })}
+                />
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Layer</p>
+              </div>
+              <div className="space-y-2">
+                <Image
+                  src="/conceptfeature.png"
+                  alt="Layer Experiments - Feature View"
+                  width={800}
+                  height={500}
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => setSelectedImage({ src: "/conceptfeature.png", alt: "Layer Experiments - Feature View" })}
+                />
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Feature</p>
+              </div>
+              <div className="space-y-2">
+                <Image
+                  src="/conceptsubjoiner.png"
+                  alt="Layer Experiments - Subjoiner View"
+                  width={800}
+                  height={500}
+                  className="rounded-lg border border-gray-300 dark:border-gray-700 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => setSelectedImage({ src: "/conceptsubjoiner.png", alt: "Layer Experiments - Subjoiner View" })}
+                />
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Subjoiner</p>
+              </div>
+            </div>
+
+            {/* Fonts */}
+            <div className="space-y-2">
+              <h4 className="text-lg sm:text-xl font-medium">Fonts</h4>
+              <p className="text-base sm:text-lg">
+                <span style={{ fontFamily: "monospace" }}>IBM Plex Mono</span>
+              </p>
+            </div>
+
+            {/* Color Palette */}
+            <div className="space-y-2">
+              <h4 className="text-lg sm:text-xl font-medium">Color Palette</h4>
+              <div className="grid grid-cols-5 gap-3">
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#111111" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#111111</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#1a1a1a" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#1A1A1A</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#222222" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#222222</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#cccccc" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#CCCCCC</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#888888" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#888888</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#44aa77" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#44AA77</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#44aa99" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#44AA99</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#aa7744" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#AA7744</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#aa5555" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#AA5555</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="w-12 h-12 rounded border border-gray-300 dark:border-gray-700"
+                    style={{ backgroundColor: "#333333" }}
+                  />
+                  <span className="text-xs text-gray-600 dark:text-gray-400">#333333</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-pointer"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-[90vw] max-h-[90vh]">
+            <Image
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              width={1920}
+              height={1080}
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              className="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
