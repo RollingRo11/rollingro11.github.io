@@ -269,6 +269,24 @@ export default function Home() {
                     <div className="text-lg sm:text-xl font-medium">
                       •{" "}
                       <Link
+                        href="https://generatenu.com/"
+                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Generate
+                      </Link>{" "}
+                      Design
+                    </div>
+                  ),
+                },
+                {
+                  type: "content",
+                  center: true,
+                  content: (
+                    <div className="text-lg sm:text-xl font-medium">
+                      •{" "}
+                      <Link
                         href="https://www.ktpneu.org/"
                         className="text-blue-600 dark:text-[#85BAA1] hover:underline"
                         target="_blank"
@@ -319,7 +337,7 @@ export default function Home() {
                   type: "content",
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed pl-4">
-                      Founded a program that teaches small busineses how to use AI tools.
+                      (Founded a program that teaches small busineses how to use AI tools).
                     </p>
                   ),
                 },
