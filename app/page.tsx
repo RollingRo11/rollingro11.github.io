@@ -69,6 +69,14 @@ export default function Home() {
           >
             LinkedIn
           </Link>
+          <Link
+            href="https://rkathuria.bearblog.dev/"
+            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Blog
+          </Link>
           <button
             className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
             style={{ fontFamily: "var(--font-departure-mono)" }}
@@ -244,24 +252,6 @@ export default function Home() {
                     </div>
                   ),
                 },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <div className="text-lg sm:text-xl font-medium">
-                      •{" "}
-                      <Link
-                        href="https://rkathuria.bearblog.dev/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Blog!
-                      </Link>
-                    </div>
-                  ),
-                },
-                { type: "spacer", height: "h-2" },
                 {
                   type: "content",
                   center: true,
