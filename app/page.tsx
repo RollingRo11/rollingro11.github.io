@@ -115,7 +115,7 @@ export default function Home() {
                   type: "content",
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed">
-                      I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with
+                      Howdy! I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with
                       a concentration in Artificial intelligence. I'm currently working on{" "}
                       <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
                         mechanistic interpretability
@@ -250,7 +250,7 @@ export default function Home() {
                     </h2>
                   ),
                 },
-                ...blogPosts.flatMap((post) => [
+                ...blogPosts.slice(0, 3).flatMap((post) => [
                   {
                     type: "content" as const,
                     center: true,
@@ -290,6 +290,24 @@ export default function Home() {
                       ]
                     : []),
                 ]),
+                ...(blogPosts.length > 3
+                  ? [
+                      {
+                        type: "content" as const,
+                        center: true,
+                        content: (
+                          <Link
+                            href="https://rkathuria.bearblog.dev/"
+                            className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            + {blogPosts.length - 3} more
+                          </Link>
+                        ),
+                      },
+                    ]
+                  : []),
                 { type: "spacer", height: "h-4" },
                 // Other things
                 {
