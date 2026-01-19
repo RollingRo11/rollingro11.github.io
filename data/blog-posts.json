@@ -1,0 +1,14 @@
+[
+  {
+    "title": "hyper connections & what they mean for interpretability",
+    "link": "https://rkathuria.bearblog.dev/mhc/",
+    "summary": "Hyper-connections offer a new way to think about information flow across a LLM! How do they work? How can we apply mechanistic interpretability to a completely different type of residual connection?",
+    "published": "2026-01-19T02:05:00+00:00"
+  },
+  {
+    "title": "on cross-layer transcoders",
+    "link": "https://rkathuria.bearblog.dev/clt-latents/",
+    "summary": "",
+    "published": "2025-12-24T21:18:00+00:00"
+  }
+]

@@ -2,7 +2,17 @@
 
 import Link from "next/link";
 import { useState, useRef, useCallback } from "react";
-import { useCustomTheme, ColorMode } from "@/components/custom-theme-provider";
+import { useCustomTheme } from "@/components/custom-theme-provider";
+import blogPostsData from "@/data/blog-posts.json";
+
+interface BlogPost {
+  title: string;
+  link: string;
+  summary: string;
+  published: string;
+}
+
+const blogPosts = blogPostsData as BlogPost[];
 
 export default function Home() {
   const { colorMode, setColorMode } = useCustomTheme();
@@ -229,6 +239,42 @@ export default function Home() {
                     </p>
                   ),
                 },
+                { type: "spacer", height: "h-4" },
+                // Recent Posts
+                {
+                  type: "content",
+                  center: true,
+                  content: (
+                    <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+                      Recent Posts
+                    </h2>
+                  ),
+                },
+                ...blogPosts.flatMap((post) => [
+                  {
+                    type: "content" as const,
+                    center: true,
+                    content: (
+                      <Link
+                        href={post.link}
+                        className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {post.title}
+                      </Link>
+                    ),
+                  },
+                  {
+                    type: "content" as const,
+                    center: true,
+                    content: (
+                      <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+                        {post.summary}
+                      </p>
+                    ),
+                  },
+                ]),
                 { type: "spacer", height: "h-4" },
                 // Other things
                 {
