@@ -8,7 +8,7 @@
   {
     "title": "on cross-layer transcoders",
     "link": "https://rkathuria.bearblog.dev/clt-latents/",
-    "summary": "",
+    "summary": "Cross-layer transcoders are telescopes that span the entirety of an LLM in order to help us understand them. CLTs are sometimes misleading: how can we be sure they’re faithful to the underlying LLM?",
     "published": "2025-12-24T21:18:00+00:00"
   }
 ]
