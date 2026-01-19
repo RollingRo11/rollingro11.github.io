@@ -270,10 +270,25 @@ export default function Home() {
                     center: true,
                     content: (
                       <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-                        {post.summary}
+                        {new Date(post.published).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
                       </p>
                     ),
                   },
+                  ...(post.summary
+                    ? [
+                        {
+                          type: "content" as const,
+                          center: true,
+                          content: (
+                            <p className="text-lg sm:text-xl leading-relaxed">{post.summary}</p>
+                          ),
+                        },
+                      ]
+                    : []),
                 ]),
                 { type: "spacer", height: "h-4" },
                 // Other things
