@@ -108,26 +108,7 @@ body {
         margin-bottom: 0.1rem;
     }
 
-    /* Hover effect for paragraphs (exclude gray text and certain sections) */
-    p:not(.text-gray-600):not(.text-gray-400):hover {
-        background-color: #d0d0d0;
-        color: black;
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    /* Friendlier hover color for dark mode */
-    .dark p:not(.text-gray-600):not(.text-gray-400):hover {
-        background-color: #3a3a42;
-        color: white;
-    }
-
-    /* Exclude contact section from hover effect */
-    section:last-child p:hover {
-        background-color: transparent;
-        color: inherit;
-    }
-
-    .space-y-8 > * + * {
+.space-y-8 > * + * {
         margin-top: 0.25rem;
     }
 

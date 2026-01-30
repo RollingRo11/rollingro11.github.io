@@ -115,8 +115,8 @@ export default function Home() {
                   type: "content",
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed">
-                      Howdy! I'm a 2nd year undergraduate student at Northeastern University majoring in Computer Science with
-                      a concentration in Artificial intelligence. I'm currently working on{" "}
+                      Howdy! I'm a 2nd year undergraduate student at Northeastern University majoring in Computer
+                      Science with a concentration in Artificial intelligence. I'm currently working on{" "}
                       <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
                         mechanistic interpretability
                       </Link>{" "}
@@ -283,9 +283,7 @@ export default function Home() {
                         {
                           type: "content" as const,
                           center: true,
-                          content: (
-                            <p className="text-lg sm:text-xl leading-relaxed">{post.summary}</p>
-                          ),
+                          content: <p className="text-lg sm:text-xl leading-relaxed">{post.summary}</p>,
                         },
                       ]
                     : []),
@@ -325,18 +323,6 @@ export default function Home() {
                   content: (
                     <div className="text-lg sm:text-xl font-medium">
                       •{" "}
-                      <Link href="/design" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
-                        Design Portfolio!
-                      </Link>
-                    </div>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <div className="text-lg sm:text-xl font-medium">
-                      •{" "}
                       <Link
                         href="https://generatenu.com/"
                         className="text-blue-600 dark:text-[#85BAA1] hover:underline"
@@ -345,7 +331,7 @@ export default function Home() {
                       >
                         Generate
                       </Link>{" "}
-                      Design
+                      Design Engineering
                     </div>
                   ),
                 },
@@ -410,23 +396,6 @@ export default function Home() {
                     </p>
                   ),
                 },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <div className="text-lg sm:text-xl font-medium">
-                      •{" "}
-                      <Link
-                        href="https://makerspaces.northeastern.edu/spaces/oakland/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Northeastern University Oakland Makerspace
-                      </Link>
-                    </div>
-                  ),
-                },
                 { type: "spacer", height: "h-4" },
                 // Contact
                 {
@@ -456,18 +425,6 @@ export default function Home() {
                 },
               ];
 
-              // Build line number mapping (only content lines get numbers)
-              const lineNumbers: number[] = [];
-              let num = 0;
-              lines.forEach((line) => {
-                if (line.type === "content") {
-                  num++;
-                  lineNumbers.push(num);
-                } else {
-                  lineNumbers.push(-1); // spacer
-                }
-              });
-
               let lineNum = 0;
               return lines.map((line, i) => {
                 if (line.type === "spacer") {
@@ -481,7 +438,6 @@ export default function Home() {
                 lineNum++;
                 const currentLineNum = lineNum;
 
-                // Calculate display number
                 let displayNum: number | string = currentLineNum;
                 if (hoveredLine !== null) {
                   const diff = currentLineNum - hoveredLine;
