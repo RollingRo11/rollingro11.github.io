@@ -371,31 +371,6 @@ export default function Home() {
                     </div>
                   ),
                 },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <div className="text-lg sm:text-xl font-medium">
-                      •{" "}
-                      <Link
-                        href="https://news.northeastern.edu/2025/04/02/student-ai-expertise-business-clinic/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Northeastern University Artificial Intelligence Clinic
-                      </Link>
-                    </div>
-                  ),
-                },
-                {
-                  type: "content",
-                  content: (
-                    <p className="text-lg sm:text-xl leading-relaxed pl-4">
-                      (Founded a program that teaches small busineses how to use AI tools).
-                    </p>
-                  ),
-                },
                 { type: "spacer", height: "h-4" },
                 // Contact
                 {
