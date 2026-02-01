@@ -36,8 +36,8 @@ export default function Home() {
     }, 500);
   }, []);
 
-  const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
-  const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
+  const sunAscii = "\u2600"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
+  const moonAscii = "\u263E"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
 
   const toggleColorMode = () => {
     setColorMode(colorMode === "light" ? "dark" : "light");
@@ -59,7 +59,9 @@ export default function Home() {
             aria-label="Toggle color mode"
             title="Toggle color mode"
           >
-            {colorMode === "light" ? moonAscii : sunAscii}
+            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+              {colorMode === "light" ? moonAscii : sunAscii}
+            </span>
           </button>
         </div>
         <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl flex-wrap justify-center sm:justify-end">
@@ -94,7 +96,9 @@ export default function Home() {
             aria-label="Toggle color mode"
             title="Toggle color mode"
           >
-            {colorMode === "light" ? moonAscii : sunAscii}
+            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+              {colorMode === "light" ? moonAscii : sunAscii}
+            </span>
           </button>
         </div>
       </div>
