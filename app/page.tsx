@@ -143,19 +143,66 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <h3 className="text-lg sm:text-xl font-normal">Mechanistic Interpretability @ the NEURAI Lab</h3>
+                    <h3 className="text-lg sm:text-xl font-bold">
+                      Research Fellow @ The Supervised Program for Alignment Research
+                    </h3>
                   ),
                 },
                 {
                   type: "content",
                   center: true,
-                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">In Progress</p>,
+                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">Feb 2026 - current</p>,
                 },
                 {
                   type: "content",
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed">
-                      Building tools and performing research to understand how models develop their thoughts over time.
+                      Working under mentor Santiago Aranguri (PhD @ NYU, Goodfire) on Data Attribution and Model
+                      Diffing.
+                    </p>
+                  ),
+                },
+                { type: "spacer", height: "h-2" },
+                {
+                  type: "content",
+                  center: true,
+                  content: (
+                    <h3 className="text-lg sm:text-xl font-bold">
+                      Technical Fellow @ Harvard's AI Safety Student Team (AISST)
+                    </h3>
+                  ),
+                },
+                {
+                  type: "content",
+                  center: true,
+                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">Feb 2026 - current</p>,
+                },
+                {
+                  type: "content",
+                  content: (
+                    <p className="text-lg sm:text-xl leading-relaxed">
+                      Studying technical AI safety under Jeffrey Andrade (PhD @ Harvard).
+                    </p>
+                  ),
+                },
+                { type: "spacer", height: "h-2" },
+                {
+                  type: "content",
+                  center: true,
+                  content: <h3 className="text-lg sm:text-xl font-bold">Student Researcher @ the NEURAI Lab</h3>,
+                },
+                {
+                  type: "content",
+                  center: true,
+                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">May 2025 - current</p>,
+                },
+
+                {
+                  type: "content",
+                  content: (
+                    <p className="text-lg sm:text-xl leading-relaxed">
+                      Building tools and performing mechanistic interpretability research to understand how models
+                      develop their thoughts over time.
                     </p>
                   ),
                 },
@@ -201,6 +248,7 @@ export default function Home() {
                     </p>
                   ),
                 },
+                { type: "spacer", height: "h-2" },
                 {
                   type: "content",
                   center: true,
@@ -220,6 +268,7 @@ export default function Home() {
                   center: true,
                   content: <p className="text-lg sm:text-xl leading-relaxed">Meta's Llama2 model from scratch.</p>,
                 },
+                { type: "spacer", height: "h-2" },
                 {
                   type: "content",
                   center: true,
@@ -254,7 +303,7 @@ export default function Home() {
                     </h2>
                   ),
                 },
-                ...blogPosts.slice(0, 3).flatMap((post) => [
+                ...blogPosts.slice(0, 3).flatMap((post, idx) => [
                   {
                     type: "content" as const,
                     center: true,
@@ -291,6 +340,7 @@ export default function Home() {
                         },
                       ]
                     : []),
+                  ...(idx < Math.min(blogPosts.length, 3) - 1 ? [{ type: "spacer" as const, height: "h-2" }] : []),
                 ]),
                 ...(blogPosts.length > 3
                   ? [
@@ -426,12 +476,12 @@ export default function Home() {
                 return (
                   <div
                     key={i}
-                    className={`flex ${line.center ? "items-center" : "items-start"} cursor-default`}
+                    className="flex items-start cursor-default"
                     onMouseEnter={() => handleLineEnter(currentLineNum)}
                     onMouseLeave={handleLineLeave}
                   >
                     <span
-                      className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${!line.center ? "pt-1" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
+                      className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} pt-1 ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
                       style={{ fontFamily: "var(--font-departure-mono)" }}
                     >
                       {displayNum}
