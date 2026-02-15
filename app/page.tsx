@@ -446,7 +446,7 @@ export default function Home() {
                         href="mailto:kathuria.r@northeastern.edu"
                         className="text-blue-600 dark:text-[#85BAA1] hover:underline"
                       >
-                        rohan.kathuria@live.com
+                        kathuria.r@northeastern.edu
                       </Link>
                       {"."}
                     </p>
