@@ -695,6 +695,14 @@ html.dark body {
         margin: 0;
         display: inline;
     }
+
+    /* Hyperlinks in margin notes: subtle underline, keep text color */
+    .margin-note a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-thickness: 1px;
+    }
 }
 
 /* ===== Blog Scrollbar ===== */

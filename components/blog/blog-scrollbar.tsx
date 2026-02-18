@@ -29,6 +29,7 @@ const HOVER_ZONE_WIDTH_PX = 340;
 const LABEL_START_X_PX = AXIS_X + 11;
 const CONTENT_GAP_PX = 28;
 const MIN_SAFE_TEXT_WIDTH_PX = 180;
+const TITLE_DOT_GAP_PX = 10;
 
 export function BlogScrollbar({ title }: { title?: string }) {
   const [headings, setHeadings] = useState<HeadingInfo[]>([]);
@@ -40,6 +41,7 @@ export function BlogScrollbar({ title }: { title?: string }) {
   const fadeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const progressSegRefs = useRef<(HTMLDivElement | null)[]>([]);
   const labelRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const titleRef = useRef<HTMLDivElement | null>(null);
   const activeRef = useRef<string | null>(null);
   const rafRef = useRef<number>(0);
 
@@ -132,6 +134,11 @@ export function BlogScrollbar({ title }: { title?: string }) {
       const viewportH = window.innerHeight || 1;
       const topBoundPx = (PAD_TOP / 100) * viewportH;
       const bottomBoundPx = ((100 - PAD_BOTTOM) / 100) * viewportH;
+      const titleBottomPx = titleRef.current?.getBoundingClientRect().bottom;
+      const firstDotMinPx =
+        typeof titleBottomPx === "number"
+          ? Math.max(topBoundPx, titleBottomPx + TITLE_DOT_GAP_PX)
+          : topBoundPx;
       const baseCentersPx = dotPositions.map((p) => (p / 100) * viewportH);
 
       const heights = labelRefs.current.map((el) => {
@@ -141,6 +148,7 @@ export function BlogScrollbar({ title }: { title?: string }) {
 
       const MIN_GAP_PX = 8;
       const adjustedPx = [...baseCentersPx];
+      adjustedPx[0] = Math.max(adjustedPx[0], firstDotMinPx);
 
       // Forward pass: push down to avoid overlap.
       for (let i = 1; i < adjustedPx.length; i++) {
@@ -158,8 +166,8 @@ export function BlogScrollbar({ title }: { title?: string }) {
       }
 
       // Keep top bounded.
-      if (adjustedPx[0] < topBoundPx) {
-        const shift = topBoundPx - adjustedPx[0];
+      if (adjustedPx[0] < firstDotMinPx) {
+        const shift = firstDotMinPx - adjustedPx[0];
         for (let i = 0; i < adjustedPx.length; i++) {
           adjustedPx[i] += shift;
         }
@@ -177,6 +185,13 @@ export function BlogScrollbar({ title }: { title?: string }) {
       if (finalOverflow > 0) {
         for (let i = 0; i < adjustedPx.length; i++) {
           adjustedPx[i] -= finalOverflow;
+        }
+      }
+
+      if (adjustedPx[0] < firstDotMinPx) {
+        const shift = firstDotMinPx - adjustedPx[0];
+        for (let i = 0; i < adjustedPx.length; i++) {
+          adjustedPx[i] += shift;
         }
       }
 
@@ -366,6 +381,7 @@ export function BlogScrollbar({ title }: { title?: string }) {
 
       {title && (
         <div
+          ref={titleRef}
           className={`blog-scrollbar-title ${isNear ? "visible" : ""}`}
           style={{ top: `${PAD_TOP + 0.5}%`, left: AXIS_X + 10 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
