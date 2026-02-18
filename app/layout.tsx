@@ -17,6 +17,12 @@ const departureMono = localFont({
   display: "swap",
 });
 
+const paperMono = localFont({
+  src: "./fonts/PaperMono-Regular.woff2",
+  variable: "--font-paper-mono",
+  display: "swap",
+});
+
 const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
   variable: "--font-crimson-pro",
@@ -67,7 +73,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#eeeeee",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -91,8 +97,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 document.documentElement.style.backgroundColor = '#222129';
                 document.body.style.backgroundColor = '#222129';
               } else {
-                document.documentElement.style.backgroundColor = 'rgb(238, 238, 238)';
-                document.body.style.backgroundColor = 'rgb(238, 238, 238)';
+                document.documentElement.style.backgroundColor = 'rgb(255, 255, 255)';
+                document.body.style.backgroundColor = 'rgb(255, 255, 255)';
               }
             })();
           `,
@@ -101,9 +107,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="theme-color" content="#eeeeee" />
+        <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={`${codeNewRoman.className} ${departureMono.variable} ${crimsonPro.variable}`}>
+      <body className={`${codeNewRoman.className} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable}`}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>

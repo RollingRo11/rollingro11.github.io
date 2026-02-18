@@ -37,7 +37,7 @@ export default function Design() {
   };
 
   return (
-    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-[rgb(238,238,238)] text-black">
+    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
       {/* Header with name and theme toggle */}
       <div
         className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4"
@@ -130,23 +130,25 @@ export default function Design() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Image
-                  src="/desktop.png"
+                  src="/desktop.avif"
                   alt="Desktop view of this website"
                   width={800}
                   height={500}
+                  sizes="(max-width: 640px) 100vw, 768px"
                   className="rounded-lg border border-gray-300 dark:border-gray-700 w-full sm:cursor-pointer sm:hover:opacity-90 transition-opacity"
-                  onClick={() => openImage("/desktop.png", "Desktop view of this website")}
+                  onClick={() => openImage("/desktop.avif", "Desktop view of this website")}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Desktop</p>
               </div>
               <div className="space-y-2">
                 <Image
-                  src="/mobile.png"
+                  src="/mobile.avif"
                   alt="Mobile view of this website"
                   width={800}
                   height={500}
+                  sizes="(max-width: 640px) 100vw, 768px"
                   className="rounded-lg border border-gray-300 dark:border-gray-700 w-full sm:cursor-pointer sm:hover:opacity-90 transition-opacity"
-                  onClick={() => openImage("/mobile.png", "Mobile view of this website")}
+                  onClick={() => openImage("/mobile.avif", "Mobile view of this website")}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Mobile</p>
               </div>
@@ -254,12 +256,13 @@ export default function Design() {
             {/* Screenshot */}
             <div className="space-y-2">
               <Image
-                src="/crosscoder.png"
+                src="/crosscoder.avif"
                 alt="Crosscoder Latent Dashboard"
                 width={800}
                 height={500}
+                sizes="(max-width: 640px) 100vw, 768px"
                 className="rounded-lg border border-gray-300 dark:border-gray-700 w-full sm:cursor-pointer sm:hover:opacity-90 transition-opacity"
-                onClick={() => openImage("/crosscoder.png", "Crosscoder Latent Dashboard")}
+                onClick={() => openImage("/crosscoder.avif", "Crosscoder Latent Dashboard")}
               />
             </div>
 
@@ -366,34 +369,37 @@ export default function Design() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Image
-                  src="/conceptlayer.png"
+                  src="/conceptlayer.avif"
                   alt="Layer Experiments - Layer View"
                   width={800}
                   height={500}
+                  sizes="(max-width: 640px) 100vw, 768px"
                   className="rounded-lg border border-gray-300 dark:border-gray-700 w-full sm:cursor-pointer sm:hover:opacity-90 transition-opacity"
-                  onClick={() => openImage("/conceptlayer.png", "Layer Experiments - Layer View")}
+                  onClick={() => openImage("/conceptlayer.avif", "Layer Experiments - Layer View")}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Layer</p>
               </div>
               <div className="space-y-2">
                 <Image
-                  src="/conceptfeature.png"
+                  src="/conceptfeature.avif"
                   alt="Layer Experiments - Feature View"
                   width={800}
                   height={500}
+                  sizes="(max-width: 640px) 100vw, 768px"
                   className="rounded-lg border border-gray-300 dark:border-gray-700 w-full sm:cursor-pointer sm:hover:opacity-90 transition-opacity"
-                  onClick={() => openImage("/conceptfeature.png", "Layer Experiments - Feature View")}
+                  onClick={() => openImage("/conceptfeature.avif", "Layer Experiments - Feature View")}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Feature</p>
               </div>
               <div className="space-y-2">
                 <Image
-                  src="/conceptsubjoiner.png"
+                  src="/conceptsubjoiner.avif"
                   alt="Layer Experiments - Subjoiner View"
                   width={800}
                   height={500}
+                  sizes="(max-width: 640px) 100vw, 768px"
                   className="rounded-lg border border-gray-300 dark:border-gray-700 w-full sm:cursor-pointer sm:hover:opacity-90 transition-opacity"
-                  onClick={() => openImage("/conceptsubjoiner.png", "Layer Experiments - Subjoiner View")}
+                  onClick={() => openImage("/conceptsubjoiner.avif", "Layer Experiments - Subjoiner View")}
                 />
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center">Subjoiner</p>
               </div>
@@ -500,6 +506,7 @@ export default function Design() {
               alt={selectedImage.alt}
               width={1920}
               height={1080}
+              sizes="90vw"
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}
             />

@@ -1,45 +1,32 @@
-import { writeFileSync } from "fs";
+import { writeFileSync, readdirSync, readFileSync, existsSync } from "fs";
+import matter from "gray-matter";
 
-function decodeHtmlEntities(str) {
-  return str
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-}
+const BLOG_DIR = "./content/blog";
 
-async function fetchBlogPosts() {
-  try {
-    const response = await fetch("https://rkathuria.bearblog.dev/feed/");
-    const text = await response.text();
-
-    // Parse XML manually (simple approach for Atom feed)
-    const entries = [];
-    const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
-    let match;
-
-    while ((match = entryRegex.exec(text)) !== null) {
-      const entryXml = match[1];
-      const title = decodeHtmlEntities(entryXml.match(/<title[^>]*>([\s\S]*?)<\/title>/)?.[1] || "");
-      const link = entryXml.match(/<link[^>]*href="([^"]*)"[^>]*\/>/)?.[1] || "";
-      const summary = decodeHtmlEntities(entryXml.match(/<summary[^>]*>([\s\S]*?)<\/summary>/)?.[1] || "");
-      const published = entryXml.match(/<published>([\s\S]*?)<\/published>/)?.[1] || "";
-
-      entries.push({ title, link, summary, published });
-    }
-
-    writeFileSync(
-      "./data/blog-posts.json",
-      JSON.stringify(entries.slice(0, 5), null, 2)
-    );
-
-    console.log(`Fetched ${entries.length} blog posts`);
-  } catch (error) {
-    console.error("Failed to fetch blog posts:", error);
-    // Write empty array so build doesn't fail
+function readLocalPosts() {
+  if (!existsSync(BLOG_DIR)) {
+    console.log("No content/blog directory found, writing empty array");
     writeFileSync("./data/blog-posts.json", "[]");
+    return;
   }
+
+  const files = readdirSync(BLOG_DIR).filter((f) => f.endsWith(".md"));
+  const posts = files
+    .map((file) => {
+      const slug = file.replace(/\.md$/, "");
+      const raw = readFileSync(`${BLOG_DIR}/${file}`, "utf8");
+      const { data } = matter(raw);
+      return {
+        title: data.title || slug,
+        link: `/blog/${slug}/`,
+        summary: data.summary || "",
+        published: data.date || "",
+      };
+    })
+    .sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+
+  writeFileSync("./data/blog-posts.json", JSON.stringify(posts, null, 2));
+  console.log(`Found ${posts.length} local blog post(s)`);
 }
 
-fetchBlogPosts();
+readLocalPosts();

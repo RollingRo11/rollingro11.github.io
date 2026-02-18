@@ -4,7 +4,7 @@
 
 :root {
     --foreground-rgb: 8, 7, 8;
-    --background-rgb: 238, 238, 238;
+    --background-rgb: 255, 255, 255;
 }
 
 /* Default background will be set by theme script */
@@ -238,11 +238,11 @@ body {
 
 /* Ensure proper background coverage for light mode */
 html:not(.dark) {
-    background-color: rgb(238, 238, 238);
+    background-color: rgb(255, 255, 255);
 }
 
 html:not(.dark) body {
-    background-color: rgb(238, 238, 238);
+    background-color: rgb(255, 255, 255);
 }
 
 /* Ensure proper background coverage for dark mode */
@@ -256,7 +256,6 @@ html.dark body {
 
 /* Responsive LaTeX block equations */
 @layer base {
-    /* Block math equations - enable horizontal scroll on mobile */
     .katex-display {
         overflow-x: auto;
         overflow-y: hidden;
@@ -264,9 +263,650 @@ html.dark body {
         padding: 0.5rem 0;
     }
 
-    /* Ensure inline math doesn't break layout */
     .katex {
         max-width: 100%;
         overflow-x: auto;
+    }
+}
+
+/* ===== Blog Header ===== */
+
+.blog-header {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.blog-header-name {
+    font-size: 22px;
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog-header-name:hover {
+    opacity: 0.8;
+}
+
+.blog-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 16px;
+}
+
+.blog-header-link {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.blog-header-link:hover {
+    opacity: 1;
+}
+
+.blog-header-toggle {
+    font-size: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    padding: 0;
+    line-height: 1;
+}
+
+/* ===== Blog Index ===== */
+
+.blog-index-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+}
+
+.blog-index-title {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+.blog-index-empty {
+    font-size: 16px;
+    opacity: 0.6;
+    font-style: italic;
+}
+
+.blog-index-list {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.blog-index-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.blog-index-entry-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2563EB;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.dark .blog-index-entry-title {
+    color: #85BAA1;
+}
+
+.blog-index-entry-title:hover {
+    text-decoration: underline;
+}
+
+.blog-index-entry-date {
+    font-family: var(--font-paper-mono), monospace;
+    font-size: 13px;
+    opacity: 0.55;
+    font-style: italic;
+}
+
+.blog-index-entry-summary {
+    font-family: var(--font-paper-mono), monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+/* ===== Blog Post ===== */
+
+.blog-post-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+}
+
+.blog-post-header {
+    margin-bottom: 40px;
+}
+
+.blog-post-title {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 8px;
+}
+
+.blog-post-date {
+    font-family: var(--font-paper-mono), monospace;
+    font-size: 13px;
+    opacity: 0.55;
+    font-style: italic;
+}
+
+/* ===== Blog Prose (Markdown content) ===== */
+
+.blog-prose {
+    font-family: var(--font-paper-mono), monospace;
+    font-size: 15px;
+    line-height: 1.75;
+    color: inherit;
+}
+
+.blog-prose h1,
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4,
+.blog-prose h5,
+.blog-prose h6 {
+    font-family: var(--font-crimson-pro), Georgia, serif;
+}
+
+.blog-prose h1 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    line-height: 1.3;
+}
+
+.blog-prose h2 {
+    font-size: 23px;
+    font-weight: 500;
+    margin-top: 2em;
+    margin-bottom: 0.7em;
+    line-height: 1.35;
+}
+
+.blog-prose h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+    line-height: 1.4;
+}
+
+.blog-prose p {
+    margin-bottom: 1.2em;
+}
+
+.blog-prose a {
+    color: #2563EB;
+    text-decoration: underline;
+}
+
+.dark .blog-prose a {
+    color: #85BAA1;
+}
+
+.blog-prose strong {
+    font-weight: 700;
+}
+
+.blog-prose em {
+    font-style: italic;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+    margin-bottom: 1.2em;
+    padding-left: 1.6em;
+}
+
+.blog-prose li {
+    margin-bottom: 0.4em;
+}
+
+.blog-prose blockquote {
+    border-left: 3px solid #d1d5db;
+    padding-left: 1em;
+    margin: 1.5em 0;
+    opacity: 0.85;
+    font-style: italic;
+}
+
+.dark .blog-prose blockquote {
+    border-left-color: #4b5563;
+}
+
+.blog-prose code {
+    font-family: var(--font-code-new-roman), monospace;
+    font-size: 0.9em;
+    background: rgba(0, 0, 0, 0.06);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+}
+
+.dark .blog-prose code {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.blog-prose pre {
+    margin: 1.5em 0;
+    padding: 1em;
+    overflow-x: auto;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+}
+
+.dark .blog-prose pre {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.blog-prose pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.blog-prose hr {
+    border: none;
+    border-top: 1px solid #d1d5db;
+    margin: 2em 0;
+}
+
+.dark .blog-prose hr {
+    border-top-color: #4b5563;
+}
+
+/* Responsive markdown tables */
+.blog-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.2em 0;
+}
+
+.blog-table-wrap table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+.blog-prose th,
+.blog-prose td {
+    padding: 0.45em 0.65em;
+    border-bottom: 1px solid #d1d5db;
+    text-align: left;
+}
+
+.dark .blog-prose th,
+.dark .blog-prose td {
+    border-bottom-color: #4b5563;
+}
+
+/* KaTeX overrides for blog */
+.blog-prose .katex-display {
+    margin: 1.5em 0;
+    font-size: 1em;
+}
+
+.blog-prose .katex {
+    font-size: 1.05em;
+}
+
+/* ===== Footnotes (bottom) ===== */
+
+.blog-prose [data-footnotes] {
+    margin-top: 1.5em;
+    padding-top: 0;
+    border-top: none;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.dark .blog-prose [data-footnotes] {
+    border-top: none;
+}
+
+.blog-prose [data-footnotes] hr {
+    display: none;
+}
+
+.blog-prose [data-footnotes] h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.blog-prose [data-footnotes] ol {
+    padding-left: 1.4em;
+    margin-bottom: 0;
+    list-style: decimal;
+}
+
+.blog-prose [data-footnotes] li {
+    margin-bottom: 0.6em;
+}
+
+.blog-prose [data-footnotes] li p {
+    margin-bottom: 0.3em;
+}
+
+/* Footnote reference superscripts */
+.blog-prose [data-footnote-ref] {
+    font-size: 0.75em;
+    color: #2563EB;
+    text-decoration: none;
+    font-weight: 600;
+    vertical-align: super;
+    line-height: 0;
+    padding: 0 1px;
+    transition: color 0.15s;
+}
+
+.dark .blog-prose [data-footnote-ref] {
+    color: #85BAA1;
+}
+
+.blog-prose [data-footnote-ref]:hover {
+    text-decoration: underline;
+}
+
+/* Footnote backref */
+.blog-prose [data-footnote-backref] {
+    font-size: 0.85em;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+/* ===== Margin Notes (sidenotes) ===== */
+
+.margin-notes-container {
+    display: none;
+}
+
+@media (min-width: 1200px) {
+    .margin-notes-container {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 240px;
+        margin-left: 32px;
+        pointer-events: none;
+    }
+
+    .margin-note {
+        position: absolute;
+        font-family: var(--font-paper-mono), monospace;
+        font-size: 12px;
+        line-height: 1.55;
+        color: #6b7280;
+        pointer-events: auto;
+        transition: color 0.2s, opacity 0.2s;
+        padding-left: 12px;
+        border-left: 2px solid transparent;
+    }
+
+    .dark .margin-note {
+        color: #9ca3af;
+    }
+
+    .margin-note--active {
+        color: #374151;
+        border-left-color: #2563EB;
+    }
+
+    .dark .margin-note--active {
+        color: #e5e7eb;
+        border-left-color: #85BAA1;
+    }
+
+    .margin-note-number {
+        font-weight: 700;
+        color: #2563EB;
+    }
+
+    .dark .margin-note-number {
+        color: #85BAA1;
+    }
+
+    .margin-note p {
+        margin: 0;
+        display: inline;
+    }
+}
+
+/* ===== Blog Scrollbar ===== */
+
+.blog-scrollbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 100%;
+    z-index: 40;
+    pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+    .blog-scrollbar {
+        display: none;
+    }
+}
+
+/* Invisible wide rectangle for hover detection */
+.blog-scrollbar-hover-zone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 340px;
+    height: 100%;
+    pointer-events: auto;
+    z-index: 0;
+}
+
+/* Interactive elements sit above the hover zone */
+.blog-scrollbar-dot-wrapper {
+    z-index: 1;
+}
+
+.blog-scrollbar-title {
+    z-index: 1;
+}
+
+/* Title at the top of the scrollbar */
+.blog-scrollbar-title {
+    position: absolute;
+    display: block;
+    width: min(34ch, var(--blog-scrollbar-safe-width, 34ch));
+    max-width: min(34ch, var(--blog-scrollbar-safe-width, 34ch));
+    white-space: normal;
+    line-height: 1.1;
+    overflow-wrap: normal;
+    word-break: normal;
+    text-wrap: pretty;
+    font-family: var(--font-crimson-pro), Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #6b7280;
+    opacity: 0;
+    filter: blur(5px);
+    transition: opacity 0.45s ease, filter 0.45s ease;
+    pointer-events: auto;
+    user-select: none;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.dark .blog-scrollbar-title {
+    color: #9ca3af;
+}
+
+.blog-scrollbar-title.visible {
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* Line segments between dots (with gaps) */
+.blog-scrollbar-segment {
+    position: absolute;
+    width: 1px;
+    background: #d4d4d4;
+    pointer-events: none;
+}
+
+.dark .blog-scrollbar-segment {
+    background: #3a3a44;
+}
+
+/* Dark progress bar — fixed length, slides along track */
+.blog-scrollbar-progress {
+    position: absolute;
+    width: 2px;
+    background: #555;
+    pointer-events: none;
+    border-radius: 1px;
+}
+
+.dark .blog-scrollbar-progress {
+    background: #c0c0c8;
+}
+
+/* Dot wrapper — dot is centered on the line, label flows right */
+.blog-scrollbar-dot-wrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: max-content;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: translateY(-50%);
+}
+
+/* Expand clickable hitbox without changing visual layout */
+.blog-scrollbar-dot-wrapper::after {
+    content: "";
+    position: absolute;
+    left: -8px;
+    right: -12px;
+    top: -8px;
+    bottom: -8px;
+}
+
+/* Filled circle, centered on the line */
+.blog-scrollbar-dot {
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #b0b0b0;
+    transition: background-color 0.25s;
+    box-sizing: border-box;
+}
+
+.dark .blog-scrollbar-dot {
+    background: #6b7280;
+}
+
+.blog-scrollbar-dot.active {
+    background: #b0b0b0;
+}
+
+.dark .blog-scrollbar-dot.active {
+    background: #6b7280;
+}
+
+/* Heading labels */
+.blog-scrollbar-label {
+    margin-left: 10px;
+    white-space: normal;
+    max-width: min(clamp(220px, 30vw, 420px), var(--blog-scrollbar-safe-width, 420px));
+    line-height: 1.15;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-break: normal;
+    font-family: var(--font-paper-mono), monospace;
+    font-size: 12px;
+    color: #6b7280;
+    opacity: 0;
+    filter: blur(4px);
+    transition: opacity 0.4s ease, filter 0.4s ease;
+    user-select: none;
+    cursor: pointer;
+}
+
+.dark .blog-scrollbar-label {
+    color: #9ca3af;
+}
+
+.blog-scrollbar-label.visible {
+    opacity: 1;
+    filter: blur(0);
+}
+
+@media (max-width: 1440px) {
+    .blog-scrollbar-label {
+        max-width: 340px;
+    }
+}
+
+.blog-scrollbar-label.active {
+    color: #2563EB;
+    font-weight: 600;
+}
+
+.dark .blog-scrollbar-label.active {
+    color: #85BAA1;
+}
+
+@media (max-width: 768px) {
+    .blog-post-container {
+        max-width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .blog-index-container {
+        max-width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .blog-prose {
+        width: 100%;
+        max-width: 100%;
+        font-size: 13px;
+    }
+
+    /* Shrink LaTeX on mobile so long equations fit better */
+    .blog-prose .katex-display {
+        font-size: 0.8em;
+    }
+
+    .blog-prose .katex {
+        font-size: 0.9em;
     }
 }

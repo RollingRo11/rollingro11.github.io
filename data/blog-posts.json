@@ -1,20 +1,8 @@
 [
   {
-    "title": "Preserving knowledge via dataset-specific loss curvature",
-    "link": "https://rkathuria.bearblog.dev/memorization/",
-    "summary": "You can see what a model has memorized vs. what it knows by looking at the curvature of its loss landscape. I extend this method with domain-specific Hessians to preserve math reasoning.",
-    "published": "2026-01-30T22:35:00+00:00"
-  },
-  {
-    "title": "hyper-connections & what they mean for interpretability",
-    "link": "https://rkathuria.bearblog.dev/mhc/",
-    "summary": "Hyper-connections offer a new way to think about information flow across a LLM! How do they work? How can we apply mechanistic interpretability to a completely different type of residual connection?",
-    "published": "2026-01-19T02:05:00+00:00"
-  },
-  {
-    "title": "on cross-layer transcoders",
-    "link": "https://rkathuria.bearblog.dev/clt-latents/",
-    "summary": "Cross-layer transcoders are telescopes that span the entirety of an LLM in order to help us understand them. CLTs can be misleading—how can we verify that they're faithful to the underlying model?",
-    "published": "2025-12-24T21:18:00+00:00"
+    "title": "A Primer on Attention Mechanisms",
+    "link": "/blog/attention-is-all-you-need/",
+    "summary": "A walkthrough of the attention mechanism at the heart of modern language models, from dot-product similarity to multi-head self-attention.",
+    "published": "2026-02-15"
   }
 ]
