@@ -157,6 +157,9 @@ export default function Home() {
                     <p className="text-lg sm:text-xl leading-relaxed">
                       Working under mentor Santiago Aranguri (PhD @ NYU, Goodfire) on Data Attribution and Model
                       Diffing.
+                      <br /><br />
+                      Large language models are getting smart enough to know when they're being tested.
+                      We're investigating the training dynamics that lead to this behavior.
                     </p>
                   ),
                 },
