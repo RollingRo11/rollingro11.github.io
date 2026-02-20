@@ -470,13 +470,13 @@ export default function Home() {
                 return (
                   <div
                     key={i}
-                    className="flex items-start cursor-default"
+                    className="flex items-baseline cursor-default"
                     onMouseEnter={() => handleLineEnter(currentLineNum)}
                     onMouseLeave={handleLineLeave}
                   >
                     <span
-                      className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} pt-1 ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
-                      style={{ fontFamily: "var(--font-departure-mono)" }}
+                      className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
+                      style={{ fontFamily: "var(--font-departure-mono)", transform: "translateY(-2px)" }}
                     >
                       {displayNum}
                     </span>
