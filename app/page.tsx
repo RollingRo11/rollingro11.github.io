@@ -3,16 +3,6 @@
 import Link from "next/link";
 import { useState, useRef, useCallback } from "react";
 import { useCustomTheme } from "@/components/custom-theme-provider";
-import blogPostsData from "@/data/blog-posts.json";
-
-interface BlogPost {
-  title: string;
-  link: string;
-  summary: string;
-  published: string;
-}
-
-const blogPosts = blogPostsData as BlogPost[];
 
 export default function Home() {
   const { colorMode, setColorMode } = useCustomTheme();
@@ -45,64 +35,44 @@ export default function Home() {
 
   return (
     <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
-      {/* Header with name and theme toggle */}
+      {/* Header area aligned with text content */}
       <div
-        className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4"
+        className="max-w-[52rem] mx-auto pl-[calc(1.5rem+2rem+1rem)] sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
-        <div className="flex items-center gap-4 text-center sm:text-left">
-          <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
-          <button
-            className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
-            style={{ fontFamily: "var(--font-departure-mono)" }}
-            onClick={toggleColorMode}
-            aria-label="Toggle color mode"
-            title="Toggle color mode"
-          >
-            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
-              {colorMode === "light" ? moonAscii : sunAscii}
-            </span>
-          </button>
-        </div>
-        <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl flex-wrap justify-center sm:justify-end">
-          <Link
-            href="https://github.com/RollingRo11"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github
-          </Link>
-          <Link
-            href="https://linkedin.com/in/rohanekathuria"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </Link>
-          <Link
-            href="/blog/"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-          >
-            Blog
-          </Link>
-          <button
-            className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
-            style={{ fontFamily: "var(--font-departure-mono)" }}
-            onClick={toggleColorMode}
-            aria-label="Toggle color mode"
-            title="Toggle color mode"
-          >
-            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
-              {colorMode === "light" ? moonAscii : sunAscii}
-            </span>
-          </button>
+        <div className="flex items-baseline justify-between mt-8 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-normal">
+            Rohan Kathuria
+          </h1>
+          <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl">
+            <Link
+              href="https://linkedin.com/in/rohanekathuria"
+              className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </Link>
+            <Link href="/blog/" className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider">
+              Blog
+            </Link>
+            <button
+              className="text-2xl bg-transparent border-none cursor-pointer focus:outline-none"
+              style={{ fontFamily: "var(--font-departure-mono)" }}
+              onClick={toggleColorMode}
+              aria-label="Toggle color mode"
+              title="Toggle color mode"
+            >
+              <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+                {colorMode === "light" ? moonAscii : sunAscii}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Main content with line numbers */}
-      <main className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 pb-12 sm:pb-16 lg:pb-20">
+      <main className="max-w-[52rem] mx-auto px-6 sm:px-10 lg:px-20 pb-12 sm:pb-16 lg:pb-20">
         <div className="relative">
           {/* Continuous vertical line */}
           <div className="absolute left-8 sm:left-10 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700" />
@@ -110,260 +80,66 @@ export default function Home() {
           <div className="space-y-1">
             {(() => {
               const lines: Array<
-                { type: "content"; content: React.ReactNode; center?: boolean } | { type: "spacer"; height: string }
+                { type: "content"; content: React.ReactNode; center?: boolean; header?: boolean } | { type: "spacer"; height: string }
               > = [
                 // Intro
                 {
                   type: "content",
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed">
-                      Howdy! I'm a 2nd year undergraduate student at Northeastern University majoring in Computer
-                      Science with a concentration in Artificial intelligence. I'm currently working on{" "}
+                      Howdy! I'm a 2nd year CS student at Northeastern University focused on{" "}
                       <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
                         mechanistic interpretability
-                      </Link>{" "}
-                      research in the hopes that we can understand the superintelligence we might one day create.
-                    </p>
-                  ),
-                },
-                { type: "spacer", height: "h-4" },
-                // Research
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-                      Research
-                    </h2>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <h3 className="text-lg sm:text-xl font-bold">
-                      Research Fellow @ The Supervised Program for Alignment Research
-                    </h3>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">Feb 2026 - current</p>,
-                },
-                {
-                  type: "content",
-                  content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
-                      Working under mentor Santiago Aranguri (PhD @ NYU, Goodfire) on Data Attribution and Model
-                      Diffing.
-                      <br /><br />
-                      Large language models are getting smart enough to know when they're being tested.
-                      We're investigating the training dynamics that lead to this behavior.
-                    </p>
-                  ),
-                },
-                { type: "spacer", height: "h-2" },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <h3 className="text-lg sm:text-xl font-bold">
-                      Technical Fellow @ Harvard's AI Safety Student Team (AISST)
-                    </h3>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">Feb 2026 - current</p>,
-                },
-                {
-                  type: "content",
-                  content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
-                      Studying technical AI safety under Jeffrey Andrade (PhD @ Harvard).
-                    </p>
-                  ),
-                },
-                { type: "spacer", height: "h-2" },
-                {
-                  type: "content",
-                  center: true,
-                  content: <h3 className="text-lg sm:text-xl font-bold">Student Researcher @ the NEURAI Lab</h3>,
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">May 2025 - current</p>,
-                },
-
-                {
-                  type: "content",
-                  content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
-                      Building tools and performing mechanistic interpretability research to understand how models
-                      develop their thoughts over time.
-                    </p>
-                  ),
-                },
-                { type: "spacer", height: "h-4" },
-                // Projects
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-                      Projects
-                    </h2>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <Link
-                      href="https://github.com/RollingRo11/crosslayer-features"
-                      className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Sparse Crosscoders
-                    </Link>
-                  ),
-                },
-                {
-                  type: "content",
-                  content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
-                      Development repository used to train acausal{" "}
+                      </Link>
+                      . I'm currently a research fellow at the{" "}
                       <Link
-                        href="https://transformer-circuits.pub/2024/crosscoders/index.html"
+                        href="https://sparai.org/"
                         className="text-blue-600 dark:text-[#85BAA1] hover:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        crosscoders
+                        Supervised Program for Alignment Research
                       </Link>{" "}
-                      at all layers of a language model.
+                      working under Santiago Aranguri (PhD @ NYU, Goodfire) on decreasing model evaluation awareness.
+                      I'm also a technical fellow at{" "}
+                      <Link
+                        href="https://aisst.ai/"
+                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Harvard's AI Safety Student Team
+                      </Link>
+                      .
                     </p>
                   ),
                 },
                 { type: "spacer", height: "h-2" },
                 {
                   type: "content",
-                  center: true,
-                  content: (
-                    <Link
-                      href="https://github.com/RollingRo11/llama2"
-                      className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Llama 2
-                    </Link>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
-                  content: <p className="text-lg sm:text-xl leading-relaxed">Meta's Llama2 model from scratch.</p>,
-                },
-                { type: "spacer", height: "h-2" },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <Link
-                      href="https://github.com/RollingRo11/attention-is-all-you-need"
-                      className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Attention Is All You Need
-                    </Link>
-                  ),
-                },
-                {
-                  type: "content",
-                  center: true,
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed">
-                      Simple implementation of the transformer architecture.
+                      I was previously at Northeastern's{" "}
+                      <Link
+                        href="https://neurai.sites.northeastern.edu/"
+                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Research in AI Lab
+                      </Link>{" "}
+                      in Silicon Valley working on understanding cross-layer superposition.
                     </p>
                   ),
                 },
-                { type: "spacer", height: "h-4" },
-                // Recent Posts
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-                      Recent Posts
-                    </h2>
-                  ),
-                },
-                ...blogPosts.slice(0, 3).flatMap((post, idx) => [
-                  {
-                    type: "content" as const,
-                    center: true,
-                    content: (
-                      <Link
-                        href={post.link}
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl font-medium block"
-                      >
-                        {post.title}
-                      </Link>
-                    ),
-                  },
-                  {
-                    type: "content" as const,
-                    center: true,
-                    content: (
-                      <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-                        {new Date(post.published).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </p>
-                    ),
-                  },
-                  ...(post.summary
-                    ? [
-                        {
-                          type: "content" as const,
-                          center: true,
-                          content: <p className="text-lg sm:text-xl leading-relaxed">{post.summary}</p>,
-                        },
-                      ]
-                    : []),
-                  ...(idx < Math.min(blogPosts.length, 3) - 1 ? [{ type: "spacer" as const, height: "h-2" }] : []),
-                ]),
-                ...(blogPosts.length > 3
-                  ? [
-                      {
-                        type: "content" as const,
-                        center: true,
-                        content: (
-                          <Link
-                            href="/blog/"
-                            className="text-blue-600 dark:text-[#85BAA1] hover:underline text-lg sm:text-xl"
-                          >
-                            + {blogPosts.length - 3} more
-                          </Link>
-                        ),
-                      },
-                    ]
-                  : []),
                 { type: "spacer", height: "h-4" },
                 // Other things
                 {
                   type: "content",
                   center: true,
+                  header: true,
                   content: (
-                    <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+                    <h2 className="text-2xl sm:text-3xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
                       Other things
                     </h2>
                   ),
@@ -423,16 +199,6 @@ export default function Home() {
                   ),
                 },
                 { type: "spacer", height: "h-4" },
-                // Contact
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <h2 className="text-3xl sm:text-4xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-                      Contact
-                    </h2>
-                  ),
-                },
                 {
                   type: "content",
                   center: true,
@@ -479,7 +245,7 @@ export default function Home() {
                   >
                     <span
                       className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
-                      style={{ fontFamily: "var(--font-departure-mono)", transform: "translateY(-2px)" }}
+                      style={{ fontFamily: "var(--font-departure-mono)", transform: `translateY(${line.header ? "-2px" : "1px"})` }}
                     >
                       {displayNum}
                     </span>

@@ -11,15 +11,15 @@ const config: Config = {
   theme: {
     extend: {
       fontSize: {
-        'sm': '0.6125rem',   // ~9.8px at 16px root
-        'base': '0.7rem',    // ~11.2px
-        'lg': '0.7875rem',   // ~12.6px
-        'xl': '0.875rem',    // 14px (your target)
-        '2xl': '1.05rem',    // ~16.8px
-        '3xl': '1.3125rem',  // 21px
-        '4xl': '1.575rem',   // ~25.2px
-        '5xl': '2.1rem',     // ~33.6px
-        '6xl': '2.625rem',   // 42px
+        'sm': '0.7rem',
+        'base': '0.775rem',
+        'lg': '0.85rem',
+        'xl': '0.95rem',
+        '2xl': '1.15rem',
+        '3xl': '1.4rem',
+        '4xl': '1.7rem',
+        '5xl': '2.25rem',
+        '6xl': '2.8rem',
       },
       typography: {
         xs: {
