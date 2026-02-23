@@ -44,7 +44,7 @@ export default function Home() {
           <div className="flex items-baseline gap-3">
             <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
             <button
-              className="sm:hidden text-5xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
+              className="sm:hidden text-4xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
               style={{ fontFamily: "var(--font-departure-mono)" }}
               onClick={toggleColorMode}
               aria-label="Toggle color mode"
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
           <div className="hidden sm:flex items-center">
             <button
-              className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
+              className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
               style={{ fontFamily: "var(--font-departure-mono)" }}
               onClick={toggleColorMode}
               aria-label="Toggle color mode"
@@ -106,6 +106,13 @@ export default function Home() {
                         rel="noopener noreferrer"
                       >
                         github
+                      </Link>
+                      {" | "}
+                      <Link
+                        href="/blog/"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
+                      >
+                        blog
                       </Link>
                     </p>
                   ),

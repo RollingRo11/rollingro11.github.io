@@ -46,7 +46,7 @@ export default function Design() {
         <div className="flex items-center gap-4 text-center sm:text-left">
           <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
           <button
-            className="text-6xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden relative top-[2px]"
+            className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden relative top-[2px]"
             style={{ fontFamily: "var(--font-departure-mono)" }}
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
@@ -57,7 +57,7 @@ export default function Design() {
         </div>
         <div className="flex items-center">
           <button
-            className="text-6xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block relative top-[2px]"
+            className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block relative top-[2px]"
             style={{ fontFamily: "var(--font-departure-mono)" }}
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
