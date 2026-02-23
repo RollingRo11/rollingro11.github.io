@@ -44,7 +44,7 @@ export default function Home() {
           <div className="flex items-baseline gap-3">
             <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
             <button
-              className="sm:hidden text-3xl bg-transparent border-none cursor-pointer focus:outline-none"
+              className="sm:hidden text-5xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
               style={{ fontFamily: "var(--font-departure-mono)" }}
               onClick={toggleColorMode}
               aria-label="Toggle color mode"
@@ -55,23 +55,9 @@ export default function Home() {
               </span>
             </button>
           </div>
-          <div className="hidden sm:flex items-center gap-6 lg:gap-8 text-xl sm:text-2xl">
-            <Link
-              href="https://linkedin.com/in/rohanekathuria"
-              className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70 tracking-wider"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </Link>
-            <Link
-              href="/blog/"
-              className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70 tracking-wider"
-            >
-              Blog
-            </Link>
+          <div className="hidden sm:flex items-center">
             <button
-              className="text-2xl bg-transparent border-none cursor-pointer focus:outline-none"
+              className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
               style={{ fontFamily: "var(--font-departure-mono)" }}
               onClick={toggleColorMode}
               aria-label="Toggle color mode"
@@ -97,6 +83,34 @@ export default function Home() {
                 | { type: "content"; content: React.ReactNode; center?: boolean; header?: boolean }
                 | { type: "spacer"; height: string }
               > = [
+                // Contact (first line)
+                {
+                  type: "content",
+                  content: (
+                    <p className="text-lg sm:text-xl leading-relaxed">
+                      kathuria.r@northeastern.edu
+                      {" | "}
+                      <Link
+                        href="https://linkedin.com/in/rohanekathuria"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        linkedin
+                      </Link>
+                      {" | "}
+                      <Link
+                        href="https://github.com/RollingRo11"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github
+                      </Link>
+                    </p>
+                  ),
+                },
+                { type: "spacer", height: "h-2" },
                 // Intro
                 {
                   type: "content",
@@ -105,14 +119,14 @@ export default function Home() {
                       Howdy! I'm a 2nd year CS student at Northeastern University focused on{" "}
                       <Link
                         href="/interpretability"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                       >
                         mechanistic interpretability.
                       </Link>{" "}
                       I'm currently a research fellow at the{" "}
                       <Link
                         href="https://sparai.org/"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -122,7 +136,7 @@ export default function Home() {
                       I'm also a technical fellow at{" "}
                       <Link
                         href="https://aisst.ai/"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -140,7 +154,7 @@ export default function Home() {
                       I was previously at Northeastern's{" "}
                       <Link
                         href="https://neurai.sites.northeastern.edu/"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -166,11 +180,11 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-lg sm:text-xl font-medium">
+                    <div className="text-lg sm:text-xl">
                       •{" "}
                       <Link
                         href="https://generatenu.com/"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -184,11 +198,11 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-lg sm:text-xl font-medium">
+                    <div className="text-lg sm:text-xl">
                       •{" "}
                       <Link
                         href="https://www.ktpneu.org/"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -202,11 +216,11 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-lg sm:text-xl font-medium">
+                    <div className="text-lg sm:text-xl">
                       •{" "}
                       <Link
                         href="https://www.rev.school/"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -214,23 +228,6 @@ export default function Home() {
                       </Link>{" "}
                       Cohort 4
                     </div>
-                  ),
-                },
-                { type: "spacer", height: "h-4" },
-                {
-                  type: "content",
-                  center: true,
-                  content: (
-                    <p className="text-lg sm:text-xl">
-                      You can contact me at{" "}
-                      <Link
-                        href="mailto:kathuria.r@northeastern.edu"
-                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
-                      >
-                        kathuria.r@northeastern.edu
-                      </Link>
-                      {"."}
-                    </p>
                   ),
                 },
               ];

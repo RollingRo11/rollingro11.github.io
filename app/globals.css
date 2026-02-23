@@ -281,13 +281,15 @@ html.dark body {
 }
 
 .blog-header-toggle {
-    font-size: 22px;
+    font-size: 36px;
     background: transparent;
     border: none;
     cursor: pointer;
     color: inherit;
     padding: 0;
     line-height: 1;
+    position: relative;
+    top: 2px;
 }
 
 /* ===== Blog Index ===== */
@@ -331,7 +333,8 @@ html.dark body {
 }
 
 .dark .blog-index-entry-title {
-    color: #85BAA1;
+    color: inherit;
+    text-decoration: underline;
 }
 
 .blog-index-entry-title:hover {
@@ -431,7 +434,8 @@ html.dark body {
 }
 
 .dark .blog-prose a {
-    color: #85BAA1;
+    color: inherit;
+    text-decoration: underline;
 }
 
 .blog-prose strong {
@@ -595,7 +599,8 @@ html.dark body {
 }
 
 .dark .blog-prose [data-footnote-ref] {
-    color: #85BAA1;
+    color: inherit;
+    text-decoration: underline;
 }
 
 .blog-prose [data-footnote-ref]:hover {
@@ -649,7 +654,7 @@ html.dark body {
 
     .dark .margin-note--active {
         color: #e5e7eb;
-        border-left-color: #85BAA1;
+        border-left-color: currentColor;
     }
 
     .margin-note-number {
@@ -658,7 +663,8 @@ html.dark body {
     }
 
     .dark .margin-note-number {
-        color: #85BAA1;
+        color: inherit;
+        text-decoration: underline;
     }
 
     .margin-note p {
@@ -857,7 +863,8 @@ html.dark body {
 }
 
 .dark .blog-scrollbar-label.active {
-    color: #85BAA1;
+    color: inherit;
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {

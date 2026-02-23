@@ -46,7 +46,7 @@ export default function Design() {
         <div className="flex items-center gap-4 text-center sm:text-left">
           <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
           <button
-            className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden"
+            className="text-6xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden relative top-[2px]"
             style={{ fontFamily: "var(--font-departure-mono)" }}
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
@@ -55,33 +55,9 @@ export default function Design() {
             {colorMode === "light" ? moonAscii : sunAscii}
           </button>
         </div>
-        <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl flex-wrap justify-center sm:justify-end">
-          <Link
-            href="https://github.com/RollingRo11"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github
-          </Link>
-          <Link
-            href="https://linkedin.com/in/rohanekathuria"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </Link>
-          <Link
-            href="https://rkathuria.bearblog.dev/"
-            className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Blog
-          </Link>
+        <div className="flex items-center">
           <button
-            className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block"
+            className="text-6xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block relative top-[2px]"
             style={{ fontFamily: "var(--font-departure-mono)" }}
             onClick={toggleColorMode}
             aria-label="Toggle color mode"
@@ -97,7 +73,7 @@ export default function Design() {
         {/* Back button */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-lg sm:text-xl text-blue-600 dark:text-[#85BAA1] hover:underline mb-6"
+          className="inline-flex items-center gap-2 text-lg sm:text-xl text-blue-600 dark:text-inherit dark:underline hover:underline mb-6"
         >
           <span>&larr;</span>
           <span>Back</span>
