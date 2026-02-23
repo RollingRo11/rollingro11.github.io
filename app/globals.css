@@ -31,7 +31,7 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 400;
     /* Ensure body fills viewport */
     min-height: 100vh;
     min-height: 100dvh;
@@ -67,10 +67,10 @@ body {
         font-weight: 550;
     }
     .font-medium {
-        font-weight: 500;
+        font-weight: 450;
     }
     .font-normal {
-        font-weight: 450;
+        font-weight: 400;
     }
 
     /* Reduce paragraph spacing */

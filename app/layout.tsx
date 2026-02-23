@@ -104,16 +104,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `,
           }}
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+      <body className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable}`} style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif" }}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>

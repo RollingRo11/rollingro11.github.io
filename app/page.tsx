@@ -41,19 +41,20 @@ export default function Home() {
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-baseline justify-between mt-8 mb-6">
-          <h1 className="text-2xl sm:text-3xl font-normal">
-            Rohan Kathuria
-          </h1>
+          <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
           <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl">
             <Link
               href="https://linkedin.com/in/rohanekathuria"
-              className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider"
+              className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70 tracking-wider"
               target="_blank"
               rel="noopener noreferrer"
             >
               LinkedIn
             </Link>
-            <Link href="/blog/" className="text-blue-600 dark:text-[#85BAA1] hover:underline tracking-wider">
+            <Link
+              href="/blog/"
+              className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70 tracking-wider"
+            >
               Blog
             </Link>
             <button
@@ -80,7 +81,8 @@ export default function Home() {
           <div className="space-y-1">
             {(() => {
               const lines: Array<
-                { type: "content"; content: React.ReactNode; center?: boolean; header?: boolean } | { type: "spacer"; height: string }
+                | { type: "content"; content: React.ReactNode; center?: boolean; header?: boolean }
+                | { type: "spacer"; height: string }
               > = [
                 // Intro
                 {
@@ -88,13 +90,16 @@ export default function Home() {
                   content: (
                     <p className="text-lg sm:text-xl leading-relaxed">
                       Howdy! I'm a 2nd year CS student at Northeastern University focused on{" "}
-                      <Link href="/interpretability" className="text-blue-600 dark:text-[#85BAA1] hover:underline">
-                        mechanistic interpretability
-                      </Link>
-                      . I'm currently a research fellow at the{" "}
+                      <Link
+                        href="/interpretability"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
+                      >
+                        mechanistic interpretability.
+                      </Link>{" "}
+                      I'm currently a research fellow at the{" "}
                       <Link
                         href="https://sparai.org/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -104,7 +109,7 @@ export default function Home() {
                       I'm also a technical fellow at{" "}
                       <Link
                         href="https://aisst.ai/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -122,7 +127,7 @@ export default function Home() {
                       I was previously at Northeastern's{" "}
                       <Link
                         href="https://neurai.sites.northeastern.edu/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -152,7 +157,7 @@ export default function Home() {
                       •{" "}
                       <Link
                         href="https://generatenu.com/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -170,7 +175,7 @@ export default function Home() {
                       •{" "}
                       <Link
                         href="https://www.ktpneu.org/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -188,7 +193,7 @@ export default function Home() {
                       •{" "}
                       <Link
                         href="https://www.rev.school/"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -207,7 +212,7 @@ export default function Home() {
                       You can contact me at{" "}
                       <Link
                         href="mailto:kathuria.r@northeastern.edu"
-                        className="text-blue-600 dark:text-[#85BAA1] hover:underline"
+                        className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70"
                       >
                         kathuria.r@northeastern.edu
                       </Link>
@@ -245,7 +250,10 @@ export default function Home() {
                   >
                     <span
                       className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
-                      style={{ fontFamily: "var(--font-departure-mono)", transform: `translateY(${line.header ? "-2px" : "1px"})` }}
+                      style={{
+                        fontFamily: "var(--font-departure-mono)",
+                        transform: `translateY(${line.header ? "-2px" : "1px"})`,
+                      }}
                     >
                       {displayNum}
                     </span>
