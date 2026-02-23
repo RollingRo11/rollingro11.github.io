@@ -41,8 +41,21 @@ export default function Home() {
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-baseline justify-between mt-8 mb-6">
-          <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
-          <div className="flex items-center gap-6 sm:gap-6 lg:gap-8 text-xl sm:text-2xl">
+          <div className="flex items-baseline gap-3">
+            <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
+            <button
+              className="sm:hidden text-3xl bg-transparent border-none cursor-pointer focus:outline-none"
+              style={{ fontFamily: "var(--font-departure-mono)" }}
+              onClick={toggleColorMode}
+              aria-label="Toggle color mode"
+              title="Toggle color mode"
+            >
+              <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+                {colorMode === "light" ? moonAscii : sunAscii}
+              </span>
+            </button>
+          </div>
+          <div className="hidden sm:flex items-center gap-6 lg:gap-8 text-xl sm:text-2xl">
             <Link
               href="https://linkedin.com/in/rohanekathuria"
               className="text-blue-600 no-underline hover:underline dark:text-current dark:underline dark:decoration-2 dark:decoration-current/40 dark:hover:decoration-current/70 tracking-wider"
