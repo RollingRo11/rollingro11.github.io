@@ -37,7 +37,7 @@ export default function Home() {
     <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
       {/* Header area aligned with text content */}
       <div
-        className="max-w-[52rem] mx-auto pl-[calc(1.5rem+2rem+1rem)] sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
+        className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-baseline justify-between mt-8 mb-6">
@@ -74,8 +74,8 @@ export default function Home() {
       {/* Main content with line numbers */}
       <main className="max-w-[52rem] mx-auto px-6 sm:px-10 lg:px-20 pb-12 sm:pb-16 lg:pb-20">
         <div className="relative">
-          {/* Continuous vertical line */}
-          <div className="absolute left-8 sm:left-10 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700" />
+          {/* Continuous vertical line (hidden on mobile when line numbers are hidden) */}
+          <div className="absolute left-8 sm:left-10 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block" />
 
           <div className="space-y-1">
             {(() => {
@@ -244,8 +244,8 @@ export default function Home() {
                 if (line.type === "spacer") {
                   return (
                     <div key={i} className={`flex ${line.height}`}>
-                      <div className="w-8 sm:w-10 shrink-0" />
-                      <div className="pl-4 sm:pl-5 flex-1" />
+                      <div className="w-0 sm:w-10 shrink-0" />
+                      <div className="pl-0 sm:pl-5 flex-1" />
                     </div>
                   );
                 }
@@ -266,7 +266,7 @@ export default function Home() {
                     onMouseLeave={handleLineLeave}
                   >
                     <span
-                      className={`w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
+                      className={`hidden sm:block w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
                       style={{
                         fontFamily: "var(--font-departure-mono)",
                         transform: `translateY(${line.header ? "-2px" : "1px"})`,
@@ -274,7 +274,7 @@ export default function Home() {
                     >
                       {displayNum}
                     </span>
-                    <div className="pl-4 sm:pl-5 flex-1">{line.content}</div>
+                    <div className="pl-0 sm:pl-5 flex-1">{line.content}</div>
                   </div>
                 );
               });
