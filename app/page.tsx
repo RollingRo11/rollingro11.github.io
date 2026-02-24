@@ -215,7 +215,7 @@ export default function Home() {
                       >
                         Kappa Theta Pi
                       </Link>{" "}
-                      @ Northeastern - Gamma Class
+                      @ Northeastern, Backend Lead
                     </div>
                   ),
                 },
