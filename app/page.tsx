@@ -398,7 +398,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-xl sm:text-2xl leading-relaxed">
+                    <p className="text-2xl sm:text-2xl leading-relaxed">
                       kathuria.r@northeastern.edu
                       {" | "}
                       <Link
@@ -433,7 +433,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-xl sm:text-2xl leading-relaxed">
+                    <p className="text-2xl sm:text-2xl leading-relaxed">
                       {HighlightedText({ paragraphIndex: 0, tokens: [
                         "Howdy! I'm a 2nd year CS student at Northeastern University",
                         "focused",
@@ -459,7 +459,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-xl sm:text-2xl leading-relaxed">
+                    <p className="text-2xl sm:text-2xl leading-relaxed">
                       {HighlightedText({ paragraphIndex: 1, tokens: [
                         "I was",
                         "previously",
@@ -488,7 +488,7 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-xl sm:text-2xl">
+                    <div className="text-2xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://generatenu.com/"
@@ -506,7 +506,7 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-xl sm:text-2xl">
+                    <div className="text-2xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://www.ktpneu.org/"
@@ -524,7 +524,7 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-xl sm:text-2xl">
+                    <div className="text-2xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://www.rev.school/"
