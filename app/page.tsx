@@ -160,7 +160,7 @@ export default function Home() {
                     <p className="text-lg sm:text-xl leading-relaxed">
                       I was previously at Northeastern's{" "}
                       <Link
-                        href="https://neurai.sites.northeastern.edu/"
+                        href="https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/"
                         className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
                         target="_blank"
                         rel="noopener noreferrer"

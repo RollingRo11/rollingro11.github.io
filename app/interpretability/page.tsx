@@ -6,8 +6,8 @@ import { useCustomTheme } from "@/components/custom-theme-provider";
 export default function Interpretability() {
   const { colorMode, setColorMode } = useCustomTheme();
 
-  const sunAscii = "\u2726"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
-  const moonAscii = "\u2727"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
+  const sunAscii = "\u2600"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
+  const moonAscii = "\u263E"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
 
   const toggleColorMode = () => {
     setColorMode(colorMode === "light" ? "dark" : "light");
@@ -29,7 +29,9 @@ export default function Interpretability() {
             aria-label="Toggle color mode"
             title="Toggle color mode"
           >
-            {colorMode === "light" ? moonAscii : sunAscii}
+            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+              {colorMode === "light" ? moonAscii : sunAscii}
+            </span>
           </button>
         </div>
         <div className="flex items-center">
@@ -40,7 +42,9 @@ export default function Interpretability() {
             aria-label="Toggle color mode"
             title="Toggle color mode"
           >
-            {colorMode === "light" ? moonAscii : sunAscii}
+            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+              {colorMode === "light" ? moonAscii : sunAscii}
+            </span>
           </button>
         </div>
       </div>
