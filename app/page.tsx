@@ -142,7 +142,11 @@ export default function Home() {
 
   useEffect(() => { setMounted(true); }, []);
 
+  // Disable hover effect on touch devices
+  const isTouchDevice = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
   const handleTextMouseMove = useCallback((e: React.MouseEvent) => {
+    if (isTouchDevice) return;
     const target = (e.target as HTMLElement).closest("[data-fi]") as HTMLElement | null;
     if (!target) {
       if (lastPopupRef.current) { lastPopupRef.current = null; setPopup(null); }
@@ -394,7 +398,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       kathuria.r@northeastern.edu
                       {" | "}
                       <Link
@@ -429,7 +433,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       {HighlightedText({ paragraphIndex: 0, tokens: [
                         "Howdy! I'm a 2nd year CS student at Northeastern University",
                         "focused",
@@ -455,7 +459,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-lg sm:text-xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       {HighlightedText({ paragraphIndex: 1, tokens: [
                         "I was",
                         "previously",
@@ -484,7 +488,7 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-lg sm:text-xl">
+                    <div className="text-xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://generatenu.com/"
@@ -502,7 +506,7 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-lg sm:text-xl">
+                    <div className="text-xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://www.ktpneu.org/"
@@ -520,7 +524,7 @@ export default function Home() {
                   type: "content",
                   center: true,
                   content: (
-                    <div className="text-lg sm:text-xl">
+                    <div className="text-xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://www.rev.school/"
