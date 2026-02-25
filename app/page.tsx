@@ -137,13 +137,33 @@ export default function Home() {
 
   const [popup, setPopup] = useState<PopupData | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   // Track last popup params to avoid redundant state updates
   const lastPopupRef = useRef<{ fi: number; bottom: number } | null>(null);
+  const zigzagRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { setMounted(true); }, []);
 
   // Disable hover effect on touch devices
   const isTouchDevice = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
+  // Show help text when cursor is at or below the zigzag line
+  useEffect(() => {
+    if (!mounted || isTouchDevice) return;
+    const onMove = (e: MouseEvent) => {
+      const el = zigzagRef.current;
+      if (!el) return;
+      setShowHelp(e.clientY >= el.getBoundingClientRect().top);
+    };
+    const onLeave = () => setShowHelp(false);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseleave", onLeave);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+    };
+  }, [mounted, isTouchDevice]);
+
 
   const handleTextMouseMove = useCallback((e: React.MouseEvent) => {
     if (isTouchDevice) return;
@@ -152,23 +172,28 @@ export default function Home() {
       if (lastPopupRef.current) { lastPopupRef.current = null; setPopup(null); }
       return;
     }
-    const fi = Number(target.dataset.fi);
-    const act = Number(target.dataset.act);
 
-    // Find the line rect closest to the cursor Y — handles multi-line inline spans
-    // and padding gaps where the cursor falls between rects
+    // Verify cursor is within the actual text bounds of the element (not just the
+    // vertical padding). getClientRects() gives per-line rects of the inline element.
     const rects = target.getClientRects();
     let bestRect: DOMRect | null = null;
-    let minDist = Infinity;
     for (let r = 0; r < rects.length; r++) {
-      const mid = (rects[r].top + rects[r].bottom) / 2;
-      const dist = Math.abs(e.clientY - mid);
-      if (dist < minDist) {
-        minDist = dist;
-        bestRect = rects[r];
+      const rect = rects[r];
+      if (e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+        bestRect = rect;
+        break;
       }
     }
-    const bottom = bestRect ? bestRect.bottom : e.clientY + 20;
+    // If cursor isn't inside any actual line rect, it's in the padding/margin area — dismiss
+    if (!bestRect) {
+      if (lastPopupRef.current) { lastPopupRef.current = null; setPopup(null); }
+      return;
+    }
+
+    const fi = Number(target.dataset.fi);
+    const act = Number(target.dataset.act);
+    const bottom = bestRect.bottom;
 
     // Dedup: skip if same feature on same line (avoids jitter from horizontal mouse movement)
     const prev = lastPopupRef.current;
@@ -582,6 +607,17 @@ export default function Home() {
             })()}
           </div>
         </div>
+        {/* Help text — desktop only, appears when cursor is at or below zigzag */}
+        <div className="hidden sm:block mt-8 sm:mt-12">
+          <div ref={zigzagRef} className="flex justify-center opacity-15 select-none" aria-hidden="true">
+            <svg width="300" height="8" viewBox="0 0 300 8" fill="none" className="text-current">
+              <path d="M0 4 L10 0 L20 8 L30 0 L40 8 L50 0 L60 8 L70 0 L80 8 L90 0 L100 8 L110 0 L120 8 L130 0 L140 8 L150 0 L160 8 L170 0 L180 8 L190 0 L200 8 L210 0 L220 8 L230 0 L240 8 L250 0 L260 8 L270 0 L280 8 L290 0 L300 4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            </svg>
+          </div>
+          <div className={`pl-0 sm:pl-[calc(2.5rem+1.25rem)] text-xl leading-relaxed font-sans max-w-[40rem] mt-6 transition-opacity duration-300 ${showHelp ? "opacity-50" : "opacity-0"}`}>
+            <p>The text above is annotated with <a href="https://transformer-circuits.pub/2023/monosemantic-features" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70">sparse autoencoder</a> (SAE) features extracted by <a href="https://www.neuronpedia.org/" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70">Neuronpedia</a> using GemmaScope on Gemma 2 2B. Hover over any word to see which learned feature activates on that token, what the feature represents, and examples of where it fires most strongly in the training data.</p>
+          </div>
+        </div>
       </main>
 
       {/* Single shared popup for SAE feature details — pointer-events: none so cursor passes through to text */}
@@ -595,10 +631,10 @@ export default function Home() {
         >
           {/* Arrow */}
           <div
-            className="absolute -top-[5px] w-[10px] h-[10px] rotate-45 border-l border-t border-border bg-popover"
+            className="absolute -top-[5px] w-[10px] h-[10px] rotate-45 border-l border-t border-border bg-gray-50 dark:bg-[#2a2a33]"
             style={{ left: popup.arrowX - popup.left }}
           />
-          <div className="rounded-md border shadow-md overflow-hidden bg-popover text-popover-foreground mt-[1px]">
+          <div className="rounded-md border overflow-hidden bg-gray-50 dark:bg-[#2a2a33] text-black dark:text-white mt-[1px]" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }}>
           {(() => {
             const feature = saeFeatures[String(popup.featureIndex)];
             const rgb = HIGHLIGHT_RGB;
