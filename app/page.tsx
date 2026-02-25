@@ -514,7 +514,7 @@ export default function Home() {
                   center: true,
                   content: (
                     <div className="text-2xl sm:text-2xl">
-                      •{" "}
+                      • Staff Design Fellow @{" "}
                       <Link
                         href="https://generatenu.com/"
                         className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
@@ -522,8 +522,7 @@ export default function Home() {
                         rel="noopener noreferrer"
                       >
                         Generate
-                      </Link>{" "}
-                      Design Engineering
+                      </Link>
                     </div>
                   ),
                 },
