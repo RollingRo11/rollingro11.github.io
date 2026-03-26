@@ -50,9 +50,7 @@ export default function Home() {
   // Single highlight color: blue in light mode, green in dark mode
   const HIGHLIGHT_RGB = colorMode === "light" ? [37, 99, 235] : [133, 186, 161];
 
-  type Token =
-    | string
-    | { text: string; href: string; external?: boolean };
+  type Token = string | { text: string; href: string; external?: boolean };
 
   // Fallback constants (used when SAE data unavailable)
   const LIGHT_COLOR = [37, 99, 235];
@@ -112,14 +110,18 @@ export default function Home() {
                   className="no-underline rounded-[3px] px-1 box-decoration-clone"
                   style={style}
                   {...(token.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >{token.text}</Link>{" "}
+                >
+                  {token.text}
+                </Link>{" "}
               </span>
             );
           }
 
           return (
             <span key={i}>
-              <span className="rounded-[2px]" style={style}>{token.text}</span>{" "}
+              <span className="rounded-[2px]" style={style}>
+                {token.text}
+              </span>{" "}
             </span>
           );
         })}
@@ -142,7 +144,9 @@ export default function Home() {
   const lastPopupRef = useRef<{ fi: number; bottom: number } | null>(null);
   const zigzagRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Disable hover effect on touch devices
   const isTouchDevice = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
@@ -164,12 +168,14 @@ export default function Home() {
     };
   }, [mounted, isTouchDevice]);
 
-
   const handleTextMouseMove = useCallback((e: React.MouseEvent) => {
     if (isTouchDevice) return;
     const target = (e.target as HTMLElement).closest("[data-fi]") as HTMLElement | null;
     if (!target) {
-      if (lastPopupRef.current) { lastPopupRef.current = null; setPopup(null); }
+      if (lastPopupRef.current) {
+        lastPopupRef.current = null;
+        setPopup(null);
+      }
       return;
     }
 
@@ -179,15 +185,17 @@ export default function Home() {
     let bestRect: DOMRect | null = null;
     for (let r = 0; r < rects.length; r++) {
       const rect = rects[r];
-      if (e.clientX >= rect.left && e.clientX <= rect.right &&
-          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
         bestRect = rect;
         break;
       }
     }
     // If cursor isn't inside any actual line rect, it's in the padding/margin area — dismiss
     if (!bestRect) {
-      if (lastPopupRef.current) { lastPopupRef.current = null; setPopup(null); }
+      if (lastPopupRef.current) {
+        lastPopupRef.current = null;
+        setPopup(null);
+      }
       return;
     }
 
@@ -250,7 +258,7 @@ export default function Home() {
     }
 
     // How much text the display tokens cover (SAE text may include trailing chars like ".")
-    const displayText = tokens.map(t => typeof t === "string" ? t : t.text).join(" ");
+    const displayText = tokens.map((t) => (typeof t === "string" ? t : t.text)).join(" ");
     const textExtent = displayText.length;
 
     // Sort SAE tokens by start position and build segments (SAE tokens + gap fills)
@@ -286,18 +294,18 @@ export default function Home() {
     }
 
     // Normalize opacity relative to max activation in this paragraph
-    const maxAct = Math.max(...saeTokens.map(t => t.activation), 1);
-
-
+    const maxAct = Math.max(...saeTokens.map((t) => t.activation), 1);
 
     // Use overlap (not strict containment) so tokens with leading spaces still match links
-    const findLink = (start: number, end: number) =>
-      linkRegions.find(lr => start < lr.end && end > lr.start);
+    const findLink = (start: number, end: number) => linkRegions.find((lr) => start < lr.end && end > lr.start);
 
     // Precompute nearest feature for gap segments
     const nearestFeature = (idx: number) => {
-      const prev = segments.slice(0, idx).reverse().find(s => s.featureIndex !== undefined);
-      const next = segments.slice(idx + 1).find(s => s.featureIndex !== undefined);
+      const prev = segments
+        .slice(0, idx)
+        .reverse()
+        .find((s) => s.featureIndex !== undefined);
+      const next = segments.slice(idx + 1).find((s) => s.featureIndex !== undefined);
       return prev || next;
     };
 
@@ -315,17 +323,26 @@ export default function Home() {
             if (link) {
               // Only strip leading space from underline if it's before the link region
               const spaceBeforeLink = seg.start < link.start;
-              const gapLeading = spaceBeforeLink ? (seg.text.match(/^(\s+)/)?.[1] || "") : "";
+              const gapLeading = spaceBeforeLink ? seg.text.match(/^(\s+)/)?.[1] || "" : "";
               const gapWord = seg.text.slice(gapLeading.length);
               return (
-                <span key={i} style={linePad} {...dataAttrs as Record<string, unknown>}>
-                  {gapLeading}<Link href={link.href} className="underline"
+                <span key={i} style={linePad} {...(dataAttrs as Record<string, unknown>)}>
+                  {gapLeading}
+                  <Link
+                    href={link.href}
+                    className="underline"
                     {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  >{gapWord}</Link>
+                  >
+                    {gapWord}
+                  </Link>
                 </span>
               );
             }
-            return <span key={i} style={linePad} {...dataAttrs}>{seg.text}</span>;
+            return (
+              <span key={i} style={linePad} {...dataAttrs}>
+                {seg.text}
+              </span>
+            );
           }
 
           // SAE token — highlight span always present (transparent when idle) to prevent layout shift
@@ -345,24 +362,37 @@ export default function Home() {
           if (link) {
             if (atLinkBoundary) {
               return (
-                <span key={i} style={linePad} {...dataAttrs as Record<string, unknown>}>
-                  {leadingSpace}<Link href={link.href} className="underline"
+                <span key={i} style={linePad} {...(dataAttrs as Record<string, unknown>)}>
+                  {leadingSpace}
+                  <Link
+                    href={link.href}
+                    className="underline"
                     {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  ><span style={{ backgroundColor: bg }}>{wordPart}</span></Link>
+                  >
+                    <span style={{ backgroundColor: bg }}>{wordPart}</span>
+                  </Link>
                 </span>
               );
             }
             return (
-              <span key={i} style={linePad} {...dataAttrs as Record<string, unknown>}>
-                <Link href={link.href} className="underline"
+              <span key={i} style={linePad} {...(dataAttrs as Record<string, unknown>)}>
+                <Link
+                  href={link.href}
+                  className="underline"
                   {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >{leadingSpace}<span style={{ backgroundColor: bg }}>{wordPart}</span></Link>
+                >
+                  {leadingSpace}
+                  <span style={{ backgroundColor: bg }}>{wordPart}</span>
+                </Link>
               </span>
             );
           }
 
           return (
-            <span key={i} style={linePad} {...dataAttrs}>{leadingSpace}<span style={{ backgroundColor: bg }}>{wordPart}</span></span>
+            <span key={i} style={linePad} {...dataAttrs}>
+              {leadingSpace}
+              <span style={{ backgroundColor: bg }}>{wordPart}</span>
+            </span>
           );
         })}
       </span>
@@ -377,21 +407,15 @@ export default function Home() {
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-baseline justify-between mt-8 mb-6">
-          <div className="flex items-baseline gap-3">
-            <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
-            <button
-              className="sm:hidden text-4xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
-              style={{ fontFamily: "var(--font-departure-mono)" }}
-              onClick={toggleColorMode}
-              aria-label="Toggle color mode"
-              title="Toggle color mode"
+          <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
+          <nav className="flex items-center gap-5">
+            <Link
+              href="/blog/"
+              className="text-xl opacity-70 hover:opacity-100 transition-opacity no-underline"
+              style={{ color: "inherit" }}
             >
-              <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
-                {colorMode === "light" ? moonAscii : sunAscii}
-              </span>
-            </button>
-          </div>
-          <div className="hidden sm:flex items-center">
+              Blog
+            </Link>
             <button
               className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
               style={{ fontFamily: "var(--font-departure-mono)" }}
@@ -403,7 +427,7 @@ export default function Home() {
                 {colorMode === "light" ? moonAscii : sunAscii}
               </span>
             </button>
-          </div>
+          </nav>
         </div>
       </div>
 
@@ -443,13 +467,6 @@ export default function Home() {
                       >
                         github
                       </Link>
-                      {" | "}
-                      <Link
-                        href="/blog/"
-                        className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
-                      >
-                        blog
-                      </Link>
                     </p>
                   ),
                 },
@@ -459,23 +476,30 @@ export default function Home() {
                   type: "content",
                   content: (
                     <p className="text-2xl sm:text-2xl leading-relaxed">
-                      {HighlightedText({ paragraphIndex: 0, tokens: [
-                        "Howdy! I'm a 2nd year CS student at Northeastern University",
-                        "focused",
-                        "on",
-                        { text: "mechanistic interpretability.", href: "/interpretability" },
-                        "I'm",
-                        "currently",
-                        "a research fellow at",
-                        "the",
-                        { text: "Supervised Program for Alignment Research", href: "https://sparai.org/", external: true },
-                        "working",
-                        "under",
-                        "Santiago Aranguri (PhD @ NYU, Goodfire) on decreasing model evaluation awareness. I'm also a technical",
-                        "fellow",
-                        "at",
-                        { text: "Harvard's AI Safety Student Team", href: "https://aisst.ai/", external: true },
-                      ]})}
+                      {HighlightedText({
+                        paragraphIndex: 0,
+                        tokens: [
+                          "Howdy! I'm a 2nd year CS student at Northeastern University",
+                          "focused",
+                          "on",
+                          { text: "mechanistic interpretability.", href: "/interpretability" },
+                          "I'm",
+                          "currently",
+                          "a research fellow at",
+                          "the",
+                          {
+                            text: "Supervised Program for Alignment Research",
+                            href: "https://sparai.org/",
+                            external: true,
+                          },
+                          "working",
+                          "under",
+                          "Santiago Aranguri (PhD @ NYU, Goodfire) on decreasing model evaluation awareness. I'm also a technical",
+                          "fellow",
+                          "at",
+                          { text: "Harvard's AI Safety Student Team", href: "https://aisst.ai/", external: true },
+                        ],
+                      })}
                       .
                     </p>
                   ),
@@ -485,15 +509,22 @@ export default function Home() {
                   type: "content",
                   content: (
                     <p className="text-2xl sm:text-2xl leading-relaxed">
-                      {HighlightedText({ paragraphIndex: 1, tokens: [
-                        "I was",
-                        "previously",
-                        "at",
-                        { text: "Northeastern's Research in AI Lab", href: "https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/", external: true },
-                        "in",
-                        "Silicon",
-                        "Valley working on understanding cross-layer superposition.",
-                      ]})}
+                      {HighlightedText({
+                        paragraphIndex: 1,
+                        tokens: [
+                          "I was",
+                          "previously",
+                          "at",
+                          {
+                            text: "Northeastern's Research in AI Lab",
+                            href: "https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/",
+                            external: true,
+                          },
+                          "in",
+                          "Silicon",
+                          "Valley working on understanding cross-layer superposition.",
+                        ],
+                      })}
                     </p>
                   ),
                 },
@@ -610,93 +641,129 @@ export default function Home() {
         <div className="hidden sm:block mt-8 sm:mt-12">
           <div ref={zigzagRef} className="flex justify-center opacity-15 select-none" aria-hidden="true">
             <svg width="300" height="8" viewBox="0 0 300 8" fill="none" className="text-current">
-              <path d="M0 4 L10 0 L20 8 L30 0 L40 8 L50 0 L60 8 L70 0 L80 8 L90 0 L100 8 L110 0 L120 8 L130 0 L140 8 L150 0 L160 8 L170 0 L180 8 L190 0 L200 8 L210 0 L220 8 L230 0 L240 8 L250 0 L260 8 L270 0 L280 8 L290 0 L300 4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <path
+                d="M0 4 L10 0 L20 8 L30 0 L40 8 L50 0 L60 8 L70 0 L80 8 L90 0 L100 8 L110 0 L120 8 L130 0 L140 8 L150 0 L160 8 L170 0 L180 8 L190 0 L200 8 L210 0 L220 8 L230 0 L240 8 L250 0 L260 8 L270 0 L280 8 L290 0 L300 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                fill="none"
+              />
             </svg>
           </div>
-          <div className={`pl-0 sm:pl-[calc(2.5rem+1.25rem)] text-xl leading-relaxed font-sans max-w-[40rem] mt-6 transition-opacity duration-300 ${showHelp ? "opacity-50" : "opacity-0"}`}>
-            <p>The text above is annotated with <a href="https://transformer-circuits.pub/2023/monosemantic-features" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70">sparse autoencoder</a> (SAE) features extracted by <a href="https://www.neuronpedia.org/" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70">Neuronpedia</a> using GemmaScope on Gemma 2 2B. Hover over any word to see which learned feature activates on that token, what the feature represents, and examples of where it fires most strongly in the training data.</p>
+          <div
+            className={`pl-0 sm:pl-[calc(2.5rem+1.25rem)] text-xl leading-relaxed font-sans max-w-[40rem] mt-6 transition-opacity duration-300 ${showHelp ? "opacity-50" : "opacity-0"}`}
+          >
+            <p>
+              The text above is annotated with{" "}
+              <a
+                href="https://transformer-circuits.pub/2023/monosemantic-features"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-70"
+              >
+                sparse autoencoder
+              </a>{" "}
+              (SAE) features extracted by{" "}
+              <a
+                href="https://www.neuronpedia.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-70"
+              >
+                Neuronpedia
+              </a>{" "}
+              using GemmaScope on Gemma 2 2B. Hover over any word to see which learned feature activates on that token,
+              what the feature represents, and examples of where it fires most strongly in the training data.
+            </p>
           </div>
         </div>
       </main>
 
       {/* Single shared popup for SAE feature details — pointer-events: none so cursor passes through to text */}
-      {mounted && popup && createPortal(
-        <div
-          className="fixed z-50 w-[300px] pointer-events-none font-sans text-sm"
-          style={{
-            top: popup.top,
-            left: popup.left,
-          }}
-        >
-          {/* Arrow */}
+      {mounted &&
+        popup &&
+        createPortal(
           <div
-            className="absolute -top-[5px] w-[10px] h-[10px] rotate-45 border-l border-t border-border bg-gray-50 dark:bg-[#2a2a33]"
-            style={{ left: popup.arrowX - popup.left }}
-          />
-          <div className="rounded-md border overflow-hidden bg-gray-50 dark:bg-[#2a2a33] text-black dark:text-white mt-[1px]" style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }}>
-          {(() => {
-            const feature = saeFeatures[String(popup.featureIndex)];
-            const rgb = HIGHLIGHT_RGB;
+            className="fixed z-50 w-[300px] pointer-events-none font-sans text-sm"
+            style={{
+              top: popup.top,
+              left: popup.left,
+            }}
+          >
+            {/* Arrow */}
+            <div
+              className="absolute -top-[5px] w-[10px] h-[10px] rotate-45 border-l border-t border-border bg-gray-50 dark:bg-[#2a2a33]"
+              style={{ left: popup.arrowX - popup.left }}
+            />
+            <div
+              className="rounded-md border overflow-hidden bg-gray-50 dark:bg-[#2a2a33] text-black dark:text-white mt-[1px]"
+              style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)" }}
+            >
+              {(() => {
+                const feature = saeFeatures[String(popup.featureIndex)];
+                const rgb = HIGHLIGHT_RGB;
 
-            return (
-              <>
-                {/* Header */}
-                <div className="px-2.5 pt-2 pb-1 border-b border-border/50">
-                  <div className="flex items-center gap-1.5 mb-0.5">
-                    <span
-                      className="w-2 h-2 rounded-sm shrink-0"
-                      style={{ backgroundColor: `rgb(${rgb.join(",")})` }}
-                    />
-                    <span className="font-medium opacity-50">
-                      #{popup.featureIndex}
-                    </span>
-                    <span className="opacity-40 ml-auto">
-                      {popup.activation.toFixed(1)}
-                    </span>
-                  </div>
-                  {feature?.explanation && (
-                    <p className="leading-snug">{feature.explanation}</p>
-                  )}
-                </div>
+                return (
+                  <>
+                    {/* Header */}
+                    <div className="px-2.5 pt-2 pb-1 border-b border-border/50">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <span
+                          className="w-2 h-2 rounded-sm shrink-0"
+                          style={{ backgroundColor: `rgb(${rgb.join(",")})` }}
+                        />
+                        <span className="font-medium opacity-50">#{popup.featureIndex}</span>
+                        <span className="opacity-40 ml-auto">{popup.activation.toFixed(1)}</span>
+                      </div>
+                      {feature?.explanation && <p className="leading-snug">{feature.explanation}</p>}
+                    </div>
 
-                {/* Activation examples — centered on max activating token, 2-line clamp */}
-                {feature?.activations && feature.activations.length > 0 && (
-                  <div className="px-2.5 py-1 divide-y divide-border/30">
-                    {feature.activations.slice(0, 2).map((example, j) => {
-                      // Center window of tokens around the max activating token
-                      const center = example.maxValueTokenIndex;
-                      const windowSize = 8;
-                      const start = Math.max(0, center - windowSize);
-                      const end = Math.min(example.tokens.length, center + windowSize + 1);
-                      const slicedTokens = example.tokens.slice(start, end);
-                      const slicedValues = example.values.slice(start, end);
+                    {/* Activation examples — centered on max activating token, 2-line clamp */}
+                    {feature?.activations && feature.activations.length > 0 && (
+                      <div className="px-2.5 py-1 divide-y divide-border/30">
+                        {feature.activations.slice(0, 2).map((example, j) => {
+                          // Center window of tokens around the max activating token
+                          const center = example.maxValueTokenIndex;
+                          const windowSize = 8;
+                          const start = Math.max(0, center - windowSize);
+                          const end = Math.min(example.tokens.length, center + windowSize + 1);
+                          const slicedTokens = example.tokens.slice(start, end);
+                          const slicedValues = example.values.slice(start, end);
 
-                      return (
-                        <div key={j} className="text-xs leading-snug py-1 overflow-hidden" style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
-                          {start > 0 && <span className="opacity-40">...</span>}
-                          {slicedTokens.map((tok, k) => {
-                            const val = slicedValues[k] || 0;
-                            const opacity = example.maxValue > 0 ? Math.min(val / example.maxValue, 1) * 0.5 + 0.05 : 0;
-                            return (
-                              <span
-                                key={k}
-                                style={val > 0 ? { backgroundColor: `rgba(${rgb.join(",")},${opacity})` } : undefined}
-                              >{tok.replace(/▁/g, " ")}</span>
-                            );
-                          })}
-                          {end < example.tokens.length && <span className="opacity-40">...</span>}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </>
-            );
-          })()}
-          </div>
-        </div>,
-        document.body
-      )}
+                          return (
+                            <div
+                              key={j}
+                              className="text-xs leading-snug py-1 overflow-hidden"
+                              style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}
+                            >
+                              {start > 0 && <span className="opacity-40">...</span>}
+                              {slicedTokens.map((tok, k) => {
+                                const val = slicedValues[k] || 0;
+                                const opacity =
+                                  example.maxValue > 0 ? Math.min(val / example.maxValue, 1) * 0.5 + 0.05 : 0;
+                                return (
+                                  <span
+                                    key={k}
+                                    style={
+                                      val > 0 ? { backgroundColor: `rgba(${rgb.join(",")},${opacity})` } : undefined
+                                    }
+                                  >
+                                    {tok.replace(/▁/g, " ")}
+                                  </span>
+                                );
+                              })}
+                              {end < example.tokens.length && <span className="opacity-40">...</span>}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }

@@ -1,8 +1,20 @@
 [
   {
-    "title": "A Primer on Attention Mechanisms",
-    "link": "/blog/attention-is-all-you-need/",
-    "summary": "A walkthrough of the attention mechanism at the heart of modern language models, from dot-product similarity to multi-head self-attention.",
-    "published": "2026-02-15"
+    "title": "Transformers learn factored representations of non-ergodic HMMs",
+    "link": "/blog/simplex/",
+    "summary": "I train a 2-layer transformer on a mixture of 3 Mess3 processes and find that the model linearly encodes both within-component belief states and the posterior over which component generated the sequence. The residual stream geometry mirrors the block-diagonal structure of the data generator.",
+    "published": "2026-03-23"
+  },
+  {
+    "title": "Preserving knowledge via dataset-specific loss curvature",
+    "link": "/blog/memorization/",
+    "summary": "You can see what a model has memorized vs. what it knows by looking at the curvature of its loss landscape. I extend this method with domain-specific Hessians to preserve math reasoning.",
+    "published": "2026-01-30"
+  },
+  {
+    "title": "Hyper-connections & what they mean for interpretability",
+    "link": "/blog/mhc/",
+    "summary": "Hyper-connections offer a new way to think about information flow across a LLM! How do they work? How can we apply mechanistic interpretability to a completely different type of residual connection?",
+    "published": "2026-01-18"
   }
 ]
