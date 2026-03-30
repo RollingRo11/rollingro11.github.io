@@ -44,7 +44,7 @@ export default function Design() {
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-center gap-4 text-center sm:text-left">
-          <h1 className="text-4xl sm:text-5xl font-normal">Rohan Kathuria</h1>
+          <h1 className="text-4xl sm:text-5xl font-normal group/name">Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria</h1>
           <button
             className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden relative top-[2px]"
             style={{ fontFamily: "var(--font-departure-mono)" }}

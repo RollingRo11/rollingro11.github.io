@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import { Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
-import { OutsideMode } from "@/components/outside-mode";
+
 
 const codeNewRoman = localFont({
   src: "./fonts/cnr.otf",
@@ -112,7 +112,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable}`} style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif" }}>
         <CustomThemeProvider>
-          <OutsideMode />
           {children}
         </CustomThemeProvider>
       </body>

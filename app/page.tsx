@@ -407,7 +407,7 @@ export default function Home() {
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-baseline justify-between mt-8 mb-6">
-          <h1 className="text-2xl sm:text-3xl font-normal">Rohan Kathuria</h1>
+          <h1 className="text-2xl sm:text-3xl font-normal group/name">Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria</h1>
           <nav className="flex items-center gap-5">
             <Link
               href="/blog/"
@@ -552,7 +552,7 @@ export default function Home() {
                   center: true,
                   content: (
                     <div className="text-2xl sm:text-2xl">
-                      • Staff Design Fellow @{" "}
+                      • Design @{" "}
                       <Link
                         href="https://generatenu.com/"
                         className="text-blue-600 no-underline hover:underline dark:text-inherit dark:underline"
@@ -578,7 +578,7 @@ export default function Home() {
                       >
                         Kappa Theta Pi
                       </Link>{" "}
-                      @ Northeastern, Backend Lead
+                      @ Northeastern, Tech Lead
                     </div>
                   ),
                 },

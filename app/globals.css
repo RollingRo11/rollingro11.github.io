@@ -224,47 +224,6 @@ html.dark body {
     background-color: #222129;
 }
 
-/* ===== Outside Mode (dappled light) ===== */
-
-.outside-leaves {
-    filter: url(#outside-wind);
-    animation: outside-sway-1 8s ease-in-out infinite;
-}
-
-.outside-leaves-secondary {
-    animation: outside-sway-2 11s ease-in-out infinite;
-}
-
-.outside-leaves-tertiary {
-    animation: outside-sway-3 14s ease-in-out infinite;
-}
-
-@keyframes outside-sway-1 {
-    0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
-    15%  { transform: translate(24px, -14px) rotate(1deg) scale(1.02); }
-    35%  { transform: translate(-18px, 10px) rotate(-1.5deg) scale(0.975); }
-    55%  { transform: translate(20px, -8px) rotate(0.7deg) scale(1.015); }
-    75%  { transform: translate(-10px, 16px) rotate(-0.8deg) scale(0.985); }
-    100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-}
-
-@keyframes outside-sway-2 {
-    0%   { transform: scaleX(-1) translate(0, 0) rotate(0deg); }
-    20%  { transform: scaleX(-1) translate(-20px, 12px) rotate(1.2deg); }
-    45%  { transform: scaleX(-1) translate(16px, -16px) rotate(-1.8deg); }
-    65%  { transform: scaleX(-1) translate(-12px, 10px) rotate(0.8deg); }
-    85%  { transform: scaleX(-1) translate(10px, -8px) rotate(-0.5deg); }
-    100% { transform: scaleX(-1) translate(0, 0) rotate(0deg); }
-}
-
-@keyframes outside-sway-3 {
-    0%   { transform: rotate(8deg) translate(0, 0); }
-    20%  { transform: rotate(10deg) translate(14px, -10px); }
-    40%  { transform: rotate(6deg) translate(-12px, 14px); }
-    60%  { transform: rotate(9.5deg) translate(10px, -6px); }
-    80%  { transform: rotate(7deg) translate(-8px, 10px); }
-    100% { transform: rotate(8deg) translate(0, 0); }
-}
 
 /* Responsive LaTeX block equations */
 @layer base {
@@ -670,8 +629,6 @@ html.dark body {
     font-weight: 500;
     color: #6b7280;
     opacity: 0;
-    filter: blur(5px);
-    transition: opacity 0.45s ease, filter 0.45s ease;
     pointer-events: auto;
     user-select: none;
     transform: translateY(-50%);
@@ -684,7 +641,6 @@ html.dark body {
 
 .blog-scrollbar-title.visible {
     opacity: 1;
-    filter: blur(0);
 }
 
 /* Line segments between dots (with gaps) */
@@ -771,8 +727,6 @@ html.dark body {
     font-size: 12px;
     color: #6b7280;
     opacity: 0;
-    filter: blur(4px);
-    transition: opacity 0.4s ease, filter 0.4s ease;
     user-select: none;
     cursor: pointer;
 }
@@ -783,7 +737,6 @@ html.dark body {
 
 .blog-scrollbar-label.visible {
     opacity: 1;
-    filter: blur(0);
 }
 
 @media (max-width: 1440px) {

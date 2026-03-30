@@ -258,7 +258,7 @@ export function BlogScrollbar({ title }: { title?: string }) {
         setIsNear(true);
       } else {
         if (fadeTimeout.current) clearTimeout(fadeTimeout.current);
-        fadeTimeout.current = setTimeout(() => setIsNear(false), 2400);
+        setIsNear(false);
       }
     };
 

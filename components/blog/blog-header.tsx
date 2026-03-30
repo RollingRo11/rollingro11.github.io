@@ -21,10 +21,10 @@ export function BlogHeader() {
       <div className="flex items-baseline justify-between mt-8 mb-6">
         <Link
           href="/"
-          className="text-2xl sm:text-3xl font-normal no-underline"
+          className="text-2xl sm:text-3xl font-normal no-underline group/name"
           style={{ color: "inherit" }}
         >
-          Rohan Kathuria
+          Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria
         </Link>
         <nav className="flex items-center gap-5">
           <Link
