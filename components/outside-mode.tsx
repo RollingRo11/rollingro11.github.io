@@ -25,7 +25,7 @@ export function OutsideMode() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      if (e.key === "o" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      if (e.key === "s" && !e.metaKey && !e.ctrlKey && !e.altKey) {
         toggle();
       }
     };

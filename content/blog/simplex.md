@@ -4,11 +4,13 @@ date: "2026-03-23"
 summary: "I train a 2-layer transformer on a mixture of 3 Mess3 processes and find that the model linearly encodes both within-component belief states and the posterior over which component generated the sequence. The residual stream geometry mirrors the block-diagonal structure of the data generator."
 ---
 
-I train a 2-layer transformer on a non-ergodic mixture of 3 Mess3 processes. The model linearly encodes the within-component belief state (each Mess3's fractal simplex geometry) and the posterior over which component generated the sequence. PCA shows the activations splitting into three process clusters at later context positions, with simplex structure visible inside each one. I then test whether the three component representations sit in orthogonal subspaces of the residual stream, which is what the block-diagonal data generator would predict.
+Large language models are a tangled web of different internal mechanisms that represent the model's training process over a large dataset. What if we knew some geometric fact about the dataset? Does the model learn the same geometry internally? [Simplex](https://www.simplexaisafety.com/) says that they do!
 
-Code can be found [here](https://github.com/RollingRo11/simplex).
 
----
+## What the hell is a simplex?
+
+Paul Riechers and Adam Shai (Simplex), set off to understand if a transformer can learn its dataset's "belief state geometry". That is, if we know the structure of the thing that generated the data, we can then plot
+
 
 ## Non-Ergodic Training Dataset
 

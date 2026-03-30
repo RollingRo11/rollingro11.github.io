@@ -36,15 +36,15 @@ export default async function BlogPostPage({
       <BlogScrollbar title={post.title} />
       <BlogHeader />
 
-      <main className="blog-post-container">
-        <header className="blog-post-header">
+      <main className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pb-12 sm:pb-16 lg:pb-20">
+        <header className="mb-10">
           <h1
-            className="blog-post-title"
+            className="text-[34px] font-normal leading-[1.25] mb-2"
             style={{ fontFamily: "var(--font-crimson-pro)" }}
           >
             {post.title}
           </h1>
-          <time className="blog-post-date">
+          <time className="text-[13px] opacity-55 italic" style={{ fontFamily: "var(--font-paper-mono), monospace" }}>
             {new Date(post.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",

@@ -14,33 +14,46 @@ export function BlogHeader() {
   };
 
   return (
-    <header
-      className="blog-header"
+    <div
+      className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
       style={{ fontFamily: "var(--font-crimson-pro)" }}
     >
-      <Link href="/" className="blog-header-name">
-        Rohan Kathuria
-      </Link>
-      <nav className="blog-header-nav">
-        <Link href="/" className="blog-header-link">
-          Home
-        </Link>
-        <Link href="/blog/" className="blog-header-link">
-          Blog
-        </Link>
-        <button
-          className="blog-header-toggle"
-          style={{ fontFamily: "var(--font-departure-mono)" }}
-          onClick={toggleColorMode}
-          aria-label="Toggle color mode"
+      <div className="flex items-baseline justify-between mt-8 mb-6">
+        <Link
+          href="/"
+          className="text-2xl sm:text-3xl font-normal no-underline"
+          style={{ color: "inherit" }}
         >
-          <span
-            style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}
+          Rohan Kathuria
+        </Link>
+        <nav className="flex items-center gap-5">
+          <Link
+            href="/blog/"
+            className="text-xl opacity-70 hover:opacity-100 transition-opacity no-underline"
+            style={{ color: "inherit" }}
           >
-            {colorMode === "light" ? moonAscii : sunAscii}
-          </span>
-        </button>
-      </nav>
-    </header>
+            Blog
+          </Link>
+          <button
+            className="bg-transparent border-none cursor-pointer focus:outline-none flex items-center justify-center w-[1.5em] h-[1.5em] text-xl p-0"
+            style={{ fontFamily: "var(--font-departure-mono)" }}
+            onClick={toggleColorMode}
+            aria-label="Toggle color mode"
+            title="Toggle color mode"
+          >
+            <span
+              className="leading-none"
+              style={
+                colorMode === "light"
+                  ? { fontSize: "1.35em", position: "relative", top: "1px", left: "-1px" }
+                  : { fontSize: "1.75em", position: "relative", top: "2px" }
+              }
+            >
+              {colorMode === "light" ? moonAscii : sunAscii}
+            </span>
+          </button>
+        </nav>
+      </div>
+    </div>
   );
 }

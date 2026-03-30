@@ -417,13 +417,20 @@ export default function Home() {
               Blog
             </Link>
             <button
-              className="text-4xl bg-transparent border-none cursor-pointer focus:outline-none relative top-[2px]"
+              className="bg-transparent border-none cursor-pointer focus:outline-none flex items-center justify-center w-[1.5em] h-[1.5em] text-xl p-0"
               style={{ fontFamily: "var(--font-departure-mono)" }}
               onClick={toggleColorMode}
               aria-label="Toggle color mode"
               title="Toggle color mode"
             >
-              <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
+              <span
+                className="leading-none"
+                style={
+                  colorMode === "light"
+                    ? { fontSize: "1.35em", position: "relative", top: "1px", left: "-1px" }
+                    : { fontSize: "1.75em", position: "relative", top: "2px" }
+                }
+              >
                 {colorMode === "light" ? moonAscii : sunAscii}
               </span>
             </button>
