@@ -152,7 +152,7 @@ export function BlogPostRenderer({ content }: { content: string }) {
                 <img
                   src={src}
                   alt={alt ?? ""}
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                   style={{ maxWidth: "100%", height: "auto" }}
                 />
