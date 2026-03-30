@@ -50,15 +50,21 @@ Our 3-Mess3 mixture works the same way. All three processes emit from the same v
 
 We can write the non-ergodic mixture as a single block-diagonal GHMM with 9 latent states (3 per Mess3 component). Before seeing any tokens, the predictive vector is uniform over all 9 states.
 
-$$\beta^{\emptyset} = \frac{1}{9} [\underbrace{1, 1, 1}_{\text{Mess3A}}, \underbrace{1, 1, 1}_{\text{Mess3B}}, \underbrace{1, 1, 1}_{\text{Mess3C}}]$$
+$$
+\beta^{\emptyset} = \frac{1}{9} [\underbrace{1, 1, 1}_{\text{Mess3A}}, \underbrace{1, 1, 1}_{\text{Mess3B}}, \underbrace{1, 1, 1}_{\text{Mess3C}}]
+$$
 
 Because $T^{x}_{\text{big}}$ is block-diagonal, the three components' latent states never interact. The predictive vector decomposes as:
 
-$$\beta^{x_{1:\ell}} = [w_A \cdot \beta_A^{x_{1:\ell}}, \quad w_B \cdot \beta_B^{x_{1:\ell}}, \quad w_C \cdot \beta_C^{x_{1:\ell}}]$$
+$$
+\beta^{x_{1:\ell}} = [w_A \cdot \beta_A^{x_{1:\ell}}, \quad w_B \cdot \beta_B^{x_{1:\ell}}, \quad w_C \cdot \beta_C^{x_{1:\ell}}]
+$$
 
 where $w_A, w_B, w_C$ are posterior component weights (they sum to 1) and each $\beta_n^{x_{1:\ell}}$ is the within-component belief. The weights update via Bayes' rule:
 
-$$w_n^{(\ell)} = \frac{w_n^{(\ell-1)} \cdot P(x_\ell \mid \text{component } n, \beta_n^{(\ell-1)})}{\sum_m w_m^{(\ell-1)} \cdot P(x_\ell \mid \text{component } m, \beta_m^{(\ell-1)})}$$
+$$
+w_n^{(\ell)} = \frac{w_n^{(\ell-1)} \cdot P(x_\ell \mid \text{component } n, \beta_n^{(\ell-1)})}{\sum_m w_m^{(\ell-1)} \cdot P(x_\ell \mid \text{component } m, \beta_m^{(\ell-1)})}
+$$
 
 and each within-component belief updates independently with its own transition matrix.
 
@@ -66,11 +72,15 @@ and each within-component belief updates independently with its own transition m
 
 Why? The GHMM's latent space is a direct sum by construction:
 
-$$S = S_A \oplus S_B \oplus S_C = \mathbb{R}^3 \oplus \mathbb{R}^3 \oplus \mathbb{R}^3$$
+$$
+S = S_A \oplus S_B \oplus S_C = \mathbb{R}^3 \oplus \mathbb{R}^3 \oplus \mathbb{R}^3
+$$
 
 The block-diagonal transitions keep these subspaces from ever interacting:
 
-$$T^{x}_{\text{big}} \begin{pmatrix} v_A \\ v_B \\ v_C \end{pmatrix} = \begin{pmatrix} T^{x}_A v_A \\ T^{x}_B v_B \\ T^{x}_C v_C \end{pmatrix}$$
+$$
+T^{x}_{\text{big}} \begin{pmatrix} v_A \\ v_B \\ v_C \end{pmatrix} = \begin{pmatrix} T^{x}_A v_A \\ T^{x}_B v_B \\ T^{x}_C v_C \end{pmatrix}
+$$
 
 So the ground truth vectors already sit in three orthogonal subspaces of $\mathbb{R}^9$. If the transformer learns a linear map of these predictive vectors, that orthogonal structure should show up in the residual stream: three separate 2D subspaces (one per component's 2-simplex), each encoding that component's belief.
 
