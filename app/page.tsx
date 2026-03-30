@@ -629,7 +629,7 @@ export default function Home() {
                     onMouseLeave={handleLineLeave}
                   >
                     <span
-                      className={`hidden sm:block w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-600"}`}
+                      className={`hidden sm:block w-8 sm:w-10 text-right pr-3 sm:pr-4 select-none shrink-0 text-sm sm:text-base ${transitionEnabled ? "transition-colors" : ""} ${hoveredLine === currentLineNum ? "text-black dark:text-gray-200" : "text-gray-400 dark:text-gray-600"}`}
                       style={{
                         fontFamily: "var(--font-departure-mono)",
                         transform: `translateY(${line.header ? "-2px" : "1px"})`,
