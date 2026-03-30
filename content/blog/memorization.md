@@ -65,9 +65,9 @@ $$
 
 The problem is that any concept represented as a minority in the training data can appear low-curvature in the general Hessian (even if computationally important).
 
-For example, the following screenshot from Goodfire's blogpost shows OLMo-2-7B before and after the top-$k$ eigenvectors have been removed:
+For example, the following screenshot from Goodfire's blogpost shows how removing top-$k$ eigenvectors from OLMo-2-7B affects performance across a spectrum of tasks — with math benchmarks like GSM8K taking the biggest hit:
 
-![](https://research-posts.s3.amazonaws.com/kfac-gsm8k-example.png)
+![](https://research-posts.s3.amazonaws.com/kfac/task-spectrum.png)
 
 So I hypothesized a way to fix it by "zooming in" our dataset context to look at eigenvectors specifically related to a topic!
 
