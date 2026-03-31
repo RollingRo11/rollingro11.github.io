@@ -1,64 +1,13 @@
-"use client";
-
 import Link from "next/link";
-import { useCustomTheme } from "@/components/custom-theme-provider";
+import { BlogHeader } from "@/components/blog/blog-header";
 
 export default function Interpretability() {
-  const { colorMode, setColorMode } = useCustomTheme();
-
-  const sunAscii = "\u2600"; // ✦ BLACK FOUR POINTED STAR (shown in dark mode)
-  const moonAscii = "\u263E"; // ✧ WHITE FOUR POINTED STAR (shown in light mode)
-
-  const toggleColorMode = () => {
-    setColorMode(colorMode === "light" ? "dark" : "light");
-  };
-
   return (
     <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
-      {/* Header with name and theme toggle */}
-      <div
-        className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 py-8 sm:py-12 lg:py-16 flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4"
-        style={{ fontFamily: "var(--font-crimson-pro)" }}
-      >
-        <div className="flex items-center gap-4 text-center sm:text-left">
-          <h1 className="text-4xl sm:text-5xl font-normal group/name">Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria</h1>
-          <button
-            className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none sm:hidden relative top-[2px]"
-            style={{ fontFamily: "var(--font-departure-mono)" }}
-            onClick={toggleColorMode}
-            aria-label="Toggle color mode"
-            title="Toggle color mode"
-          >
-            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
-              {colorMode === "light" ? moonAscii : sunAscii}
-            </span>
-          </button>
-        </div>
-        <div className="flex items-center">
-          <button
-            className="text-5xl bg-transparent border-none cursor-pointer focus:outline-none hidden sm:block relative top-[2px]"
-            style={{ fontFamily: "var(--font-departure-mono)" }}
-            onClick={toggleColorMode}
-            aria-label="Toggle color mode"
-            title="Toggle color mode"
-          >
-            <span style={colorMode === "light" ? { fontSize: "0.75em" } : undefined}>
-              {colorMode === "light" ? moonAscii : sunAscii}
-            </span>
-          </button>
-        </div>
-      </div>
+      <BlogHeader />
 
       {/* Main content */}
-      <main className="max-w-3xl mx-auto px-6 sm:px-12 lg:px-24 pb-12 sm:pb-16 lg:pb-20 -mt-4 sm:-mt-6">
-        {/* Back button */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-lg sm:text-xl text-blue-600 dark:text-inherit dark:underline hover:underline mb-6"
-        >
-          <span>&larr;</span>
-          <span>Back</span>
-        </Link>
+      <main className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pb-12 sm:pb-16 lg:pb-20">
 
         {/* Page title */}
         <h2 className="text-3xl sm:text-4xl font-normal mb-6" style={{ fontFamily: "var(--font-crimson-pro)" }}>
