@@ -52,10 +52,13 @@ export default function Starfield() {
 
     // Per-constellation hover fade progress (0 = invisible, 1 = fully revealed).
     // Keyed by name so values survive reprojection (which rebuilds `cons` from
-    // scratch every 200 ms). Exponential lerp toward target each frame gives an
-    // ease-out fade-in and matching fade-out.
+    // scratch every 200 ms). Exponential approach uses real wall-clock delta
+    // so the fade duration is consistent across browsers regardless of their
+    // effective frame rate — Firefox's slower canvas-filter path was previously
+    // stretching the fade because the lerp was per-frame.
     const hoverProgress = new Map<string, number>();
-    const FADE_RATE = 0.06;
+    const FADE_TAU_MS = 220; // ~time constant; ~halfway in ~150ms, ~95% in ~660ms
+    let lastFrameMs = -1;
 
     let mouseX = -1;
     let mouseY = -1;
@@ -296,12 +299,16 @@ export default function Starfield() {
 
       const isMobile = width < 640;
 
-      // Advance per-constellation hover progress toward target each frame.
+      // Advance per-constellation hover progress toward target each frame,
+      // time-based so the wall-clock fade duration matches across browsers.
+      const dtMs = lastFrameMs < 0 ? 16 : Math.min(100, t - lastFrameMs);
+      lastFrameMs = t;
+      const lerpFactor = 1 - Math.exp(-dtMs / FADE_TAU_MS);
       const hoveredName = hovered ? hovered.name : null;
       for (const con of cons) {
         const target = con.name === hoveredName ? 1 : 0;
         const current = hoverProgress.get(con.name) ?? 0;
-        const next = current + (target - current) * FADE_RATE;
+        const next = current + (target - current) * lerpFactor;
         hoverProgress.set(con.name, next);
       }
 
@@ -373,10 +380,16 @@ export default function Starfield() {
 
       // Constellation labels — same fade-in treatment. Only the hovered
       // constellation's label is shown, ramping in with hoverProgress.
+      //
+      // Safari note: `globalAlpha + fillText` and a `shadowBlur` that ramps
+      // from 0 both cause the text to "pop" rather than fade. So alpha is
+      // baked into the rgba() of the fill and shadow colors, and shadowBlur
+      // stays fixed — only the shadow's color alpha fades.
       g.save();
       g.font = `italic 13px ${serifFont}`;
       g.textAlign = "center";
       g.textBaseline = "middle";
+      g.shadowBlur = 8;
       for (const con of cons) {
         if (!con.labelVisible) continue;
         const p = hoverProgress.get(con.name) ?? 0;
@@ -394,10 +407,8 @@ export default function Starfield() {
           }
         }
         if (inMask) continue;
-        g.fillStyle = "#e8f5ec";
-        g.globalAlpha = p;
+        g.fillStyle = `rgba(232, 245, 236, ${p})`;
         g.shadowColor = `rgba(170, 240, 200, ${0.6 * p})`;
-        g.shadowBlur = 8 * p;
         g.fillText(con.name, con.cx, con.cy);
       }
       g.restore();

@@ -80,7 +80,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-2xl sm:text-2xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       Howdy! I&apos;m a Computer Science student at Northeastern University concentrated
                       in Artificial Intelligence. I work on{" "}
                       <Link href="/interpretability" className={linkClass}>
@@ -94,7 +94,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-2xl sm:text-2xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       I&apos;m currently working with the{" "}
                       <Link
                         href="https://baulab.info/"
@@ -121,7 +121,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-2xl sm:text-2xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       I&apos;ve previously worked with{" "}
                       <Link
                         href="https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/"
@@ -157,7 +157,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <div className="text-2xl sm:text-2xl">
+                    <div className="text-xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://aisst.ai/"
@@ -173,7 +173,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <div className="text-2xl sm:text-2xl">
+                    <div className="text-xl sm:text-2xl">
                       • Design @{" "}
                       <Link
                         href="https://generatenu.com/"
@@ -189,7 +189,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <div className="text-2xl sm:text-2xl">
+                    <div className="text-xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://www.ktpneu.org/"
@@ -206,7 +206,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <div className="text-2xl sm:text-2xl">
+                    <div className="text-xl sm:text-2xl">
                       •{" "}
                       <Link
                         href="https://www.rev.school/"
@@ -224,7 +224,7 @@ export default function Home() {
                 {
                   type: "content",
                   content: (
-                    <p className="text-2xl sm:text-2xl leading-relaxed">
+                    <p className="text-xl sm:text-2xl leading-relaxed">
                       kathuria.r@northeastern.edu
                       {" | "}
                       <Link
