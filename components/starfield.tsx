@@ -50,6 +50,13 @@ export default function Starfield() {
     let cons: ProjCon[] = [];
     let lastProjectMs = -Infinity;
 
+    // Per-constellation hover fade progress (0 = invisible, 1 = fully revealed).
+    // Keyed by name so values survive reprojection (which rebuilds `cons` from
+    // scratch every 200 ms). Exponential lerp toward target each frame gives an
+    // ease-out fade-in and matching fade-out.
+    const hoverProgress = new Map<string, number>();
+    const FADE_RATE = 0.06;
+
     let mouseX = -1;
     let mouseY = -1;
 
@@ -287,23 +294,19 @@ export default function Starfield() {
       g.setLineDash([]);
       g.restore();
 
-      // Cardinals — anchored to viewport edges so they're always visible.
-      // (The actual horizon ring is larger than the viewport in stereographic projection,
-      // so this is a readable proxy for "where N/E/S/W lie".)
-      g.save();
-      g.globalAlpha = 0.7;
-      g.fillStyle = "#d4d6e0";
-      g.font = `18px ${monoFont}`;
-      g.textAlign = "center";
-      g.textBaseline = "middle";
-      const edgePad = 26;
-      g.fillText("N", centerX, edgePad);
-      g.fillText("S", centerX, height - edgePad);
-      g.fillText("E", width - edgePad, centerY);
-      g.fillText("W", edgePad, centerY);
-      g.restore();
+      const isMobile = width < 640;
 
-      // Constellation lines — draw unhovered first, hovered on top so it crisply overlays.
+      // Advance per-constellation hover progress toward target each frame.
+      const hoveredName = hovered ? hovered.name : null;
+      for (const con of cons) {
+        const target = con.name === hoveredName ? 1 : 0;
+        const current = hoverProgress.get(con.name) ?? 0;
+        const next = current + (target - current) * FADE_RATE;
+        hoverProgress.set(con.name, next);
+      }
+
+      // Default faint constellation lines — drawn for all visible
+      // constellations as a baseline, in a single batched stroke pass.
       g.save();
       g.lineCap = "round";
       g.strokeStyle = "#9aa0b5";
@@ -311,20 +314,27 @@ export default function Starfield() {
       g.globalAlpha = 0.13;
       g.beginPath();
       for (const con of cons) {
-        if (con === hovered) continue;
         for (const s of con.segs) {
           g.moveTo(s.x1, s.y1);
           g.lineTo(s.x2, s.y2);
         }
       }
       g.stroke();
-      if (hovered) {
+      g.restore();
+
+      // Hover overlay — the bright glow + crisp core fade in over the faint
+      // baseline lines as the cursor approaches, modulated by hoverProgress.
+      g.save();
+      g.lineCap = "round";
+      for (const con of cons) {
+        const p = hoverProgress.get(con.name) ?? 0;
+        if (p < 0.01) continue;
         // Outer glow
-        g.strokeStyle = "rgba(170, 240, 200, 0.18)";
+        g.strokeStyle = `rgba(170, 240, 200, ${0.18 * p})`;
         g.lineWidth = 4;
         g.globalAlpha = 1;
         g.beginPath();
-        for (const s of hovered.segs) {
+        for (const s of con.segs) {
           g.moveTo(s.x1, s.y1);
           g.lineTo(s.x2, s.y2);
         }
@@ -332,9 +342,9 @@ export default function Starfield() {
         // Bright core
         g.strokeStyle = "#dde6f5";
         g.lineWidth = 1.2;
-        g.globalAlpha = 0.95;
+        g.globalAlpha = 0.95 * p;
         g.beginPath();
-        for (const s of hovered.segs) {
+        for (const s of con.segs) {
           g.moveTo(s.x1, s.y1);
           g.lineTo(s.x2, s.y2);
         }
@@ -342,34 +352,35 @@ export default function Starfield() {
       }
       g.restore();
 
-      // Stars
+      // Stars — rendered as ASCII glyphs (asterisk / plus / dot) sized by
+      // apparent magnitude. Twinkle still drives alpha. Single font set once
+      // outside the loop so the per-frame cost stays cheap.
       g.save();
       g.fillStyle = "#e8eaf0";
+      g.font = `14px ${monoFont}`;
+      g.textAlign = "center";
+      g.textBaseline = "middle";
       const time = t / 1000;
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i];
         const tw = 1 + 0.16 * Math.sin(time + s.seed * 7.3);
         const a = Math.max(0, Math.min(1, s.baseAlpha * tw));
         g.globalAlpha = a;
-        g.beginPath();
-        g.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        g.fill();
-        if (s.size > 1.4) {
-          g.globalAlpha = a * 0.2;
-          g.beginPath();
-          g.arc(s.x, s.y, s.size * 2.8, 0, Math.PI * 2);
-          g.fill();
-        }
+        const glyph = s.size > 1.6 ? "*" : s.size > 1.0 ? "+" : ".";
+        g.fillText(glyph, s.x, s.y);
       }
       g.restore();
 
-      // Constellation labels (Crimson Pro italic, like a classical star atlas).
+      // Constellation labels — same fade-in treatment. Only the hovered
+      // constellation's label is shown, ramping in with hoverProgress.
       g.save();
       g.font = `italic 13px ${serifFont}`;
       g.textAlign = "center";
       g.textBaseline = "middle";
       for (const con of cons) {
         if (!con.labelVisible) continue;
+        const p = hoverProgress.get(con.name) ?? 0;
+        if (p < 0.01) continue;
         // Hide labels falling inside any masked text section. Doc-coord rects
         // are compared in doc space (label position + scroll offset).
         const dx = con.cx + scrollX;
@@ -383,19 +394,32 @@ export default function Starfield() {
           }
         }
         if (inMask) continue;
-        const isHovered = con === hovered;
-        if (isHovered) {
-          g.fillStyle = "#e8f5ec";
-          g.globalAlpha = 1;
-          g.shadowColor = "rgba(170, 240, 200, 0.6)";
-          g.shadowBlur = 8;
-        } else {
-          g.fillStyle = "#bdc1d1";
-          g.globalAlpha = 0.32;
-          g.shadowBlur = 0;
-        }
+        g.fillStyle = "#e8f5ec";
+        g.globalAlpha = p;
+        g.shadowColor = `rgba(170, 240, 200, ${0.6 * p})`;
+        g.shadowBlur = 8 * p;
         g.fillText(con.name, con.cx, con.cy);
       }
+      g.restore();
+
+      // Pre-compute geometry for canvas-drawn text (cardinals + caption) so
+      // those areas get the same blurred mask treatment as the HTML body text.
+      // The mask is drawn first, then cardinals and caption are rendered on
+      // top of it.
+      const now = new Date();
+      const hh = String(now.getUTCHours()).padStart(2, "0");
+      const mm = String(now.getUTCMinutes()).padStart(2, "0");
+      const ss = String(now.getUTCSeconds()).padStart(2, "0");
+      const captionText = `Night sky over Boston, Massachusetts @ ${hh}:${mm}:${ss} UTC`;
+      const captionSize = Math.max(9, Math.min(14, width / 36));
+      const bottomPad = Math.max(12, Math.min(20, width / 50));
+      const edgePad = 26;
+      const cardinalFontSize = 18;
+
+      // Measure caption width once (used for both masking and drawing).
+      g.save();
+      g.font = `${captionSize}px ${monoFont}`;
+      const captionWidth = g.measureText(captionText).width;
       g.restore();
 
       // Soft-edged "holes" punched through the canvas — one per text section.
@@ -404,13 +428,12 @@ export default function Starfield() {
       // per rect, which triggered a Gaussian blur shader pass *per rect*; with
       // 30–50 text-line rects that saturated the GPU and made everything feel
       // sluggish. One fill = one blur pass.
-      if (cachedDocRects.length > 0) {
+      {
         const padX = 4;
         const padY = 6;
         g.save();
         g.filter = "blur(18px)";
-        // Semi-opaque dark overlay drawn on top of the stars. The alpha here
-        // controls how much of the sky shows through behind the text.
+        // Solid dark overlay; the alpha here would let stars through.
         g.fillStyle = "rgba(34, 33, 41, 1)";
         g.beginPath();
         for (let i = 0; i < cachedDocRects.length; i++) {
@@ -422,28 +445,59 @@ export default function Starfield() {
             r.bottom - r.top + padY * 2,
           );
         }
+        // Cardinals (N / E / W) — single-character rects centered on their
+        // anchor points. Only included on non-mobile where they're drawn.
+        if (!isMobile) {
+          const cardW = cardinalFontSize * 0.85;
+          const cardH = cardinalFontSize;
+          const cPadX = 6;
+          const cPadY = 6;
+          // N — top-center
+          g.rect(centerX - cardW / 2 - cPadX, edgePad - cardH / 2 - cPadY, cardW + cPadX * 2, cardH + cPadY * 2);
+          // E — right edge
+          g.rect(width - edgePad - cardW / 2 - cPadX, centerY - cardH / 2 - cPadY, cardW + cPadX * 2, cardH + cPadY * 2);
+          // W — left edge
+          g.rect(edgePad - cardW / 2 - cPadX, centerY - cardH / 2 - cPadY, cardW + cPadX * 2, cardH + cPadY * 2);
+        }
+        // Caption — bottom-center.
+        const capPadX = 8;
+        const capPadY = 6;
+        g.rect(
+          centerX - captionWidth / 2 - capPadX,
+          height - bottomPad - captionSize - capPadY,
+          captionWidth + capPadX * 2,
+          captionSize + capPadY * 2,
+        );
         g.fill();
         g.restore();
       }
 
-      // Caption — Departure Mono, low-opacity, bottom-right. UTC clock ticks
-      // every frame so the "@" timestamp is genuinely live.
-      {
-        const now = new Date();
-        const hh = String(now.getUTCHours()).padStart(2, "0");
-        const mm = String(now.getUTCMinutes()).padStart(2, "0");
-        const ss = String(now.getUTCSeconds()).padStart(2, "0");
+      // Cardinals — drawn on top of the mask so they sit cleanly over the
+      // darkened patch instead of being obscured by it.
+      if (!isMobile) {
         g.save();
-        g.font = `14px ${monoFont}`;
+        g.globalAlpha = 0.7;
+        g.fillStyle = "#d4d6e0";
+        g.font = `${cardinalFontSize}px ${monoFont}`;
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.fillText("N", centerX, edgePad);
+        g.fillText("E", width - edgePad, centerY);
+        g.fillText("W", edgePad, centerY);
+        g.restore();
+      }
+
+      // Caption — Departure Mono, low-opacity, bottom-center. Sits over its
+      // own mask patch (added above) so the UTC clock and "Night sky over
+      // Boston" text don't have constellations bleeding through them.
+      {
+        g.save();
+        g.font = `${captionSize}px ${monoFont}`;
         g.fillStyle = "#bdc1d1";
         g.globalAlpha = 0.5;
-        g.textAlign = "right";
+        g.textAlign = "center";
         g.textBaseline = "bottom";
-        g.fillText(
-          `Night sky over Boston, Massachusetts @ ${hh}:${mm}:${ss} UTC`,
-          width - 28,
-          height - 20,
-        );
+        g.fillText(captionText, centerX, height - bottomPad);
         g.restore();
       }
 

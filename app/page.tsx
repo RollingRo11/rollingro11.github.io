@@ -45,13 +45,6 @@ export default function Home() {
         <div className="flex items-baseline justify-between mt-8 mb-6">
           <h1 className="text-2xl sm:text-3xl font-normal group/name">Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria</h1>
           <nav className="flex items-center gap-5">
-            <Link
-              href="/blog/"
-              className="text-xl opacity-70 hover:opacity-100 transition-opacity no-underline"
-              style={{ color: "inherit" }}
-            >
-              Blog
-            </Link>
             <button
               className="bg-transparent border-none cursor-pointer focus:outline-none flex items-center justify-center w-[1.5em] h-[1.5em] text-xl p-0"
               onClick={toggleColorMode}
@@ -159,6 +152,22 @@ export default function Home() {
                     <h2 className="text-2xl sm:text-3xl font-normal" style={{ fontFamily: "var(--font-crimson-pro)" }}>
                       Other things
                     </h2>
+                  ),
+                },
+                {
+                  type: "content",
+                  content: (
+                    <div className="text-2xl sm:text-2xl">
+                      •{" "}
+                      <Link
+                        href="https://aisst.ai/"
+                        className={linkClass}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        AISST
+                      </Link>
+                    </div>
                   ),
                 },
                 {
