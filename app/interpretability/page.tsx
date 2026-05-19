@@ -1,40 +1,42 @@
 import Link from "next/link";
 import { BlogHeader } from "@/components/blog/blog-header";
+import Starfield from "@/components/starfield";
 
 export default function Interpretability() {
   return (
-    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
+    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black relative">
+      <Starfield />
       <BlogHeader />
 
       {/* Main content */}
-      <main className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pb-12 sm:pb-16 lg:pb-20">
+      <main className="relative z-10 max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pb-12 sm:pb-16 lg:pb-20">
 
         {/* Page title */}
-        <h2 className="text-3xl sm:text-4xl font-normal mb-6" style={{ fontFamily: "var(--font-crimson-pro)" }}>
+        <h2 data-sky-mask className="text-3xl sm:text-4xl font-normal mb-6" style={{ fontFamily: "var(--font-crimson-pro)" }}>
           Why Mechanistic Interpretability?
         </h2>
 
         {/* Content */}
         <section className="space-y-4">
-          <p className="text-lg sm:text-xl leading-relaxed">
+          <p data-sky-mask className="text-lg sm:text-xl leading-relaxed">
             AI models are grown, not built. We build the environments, algorithms, and data pipelines to train models,
             but they "learn" their own way.
           </p>
-          <p className="text-lg sm:text-xl leading-relaxed">
+          <p data-sky-mask className="text-lg sm:text-xl leading-relaxed">
             Mechanistic Interpretability is the science of breaking down an AI model into human-interpretable mechanisms
             in order to decipther those learnings. It's an attempt to understand the connections the model is making so
             we can further grasp how Artificial Intelligence thinks. For large language models, this research can yield
             findings that can improve model architecture, post-training decisions, and navigating limitations and/or
             safety risks for models on certain tasks.
           </p>
-          <p className="text-lg sm:text-xl leading-relaxed">
+          <p data-sky-mask className="text-lg sm:text-xl leading-relaxed">
             I fully believe in (and am probably more interested in) long horizon/ambitious interpretability goals. I
             think fundamentally understanding what is happening inside these models will yield incredible byproducts of
             science for safety, alignment, and other fields of AI research. Just because this task sounds Sisyphean,
             doesn't mean we can't push the needle (or, the boulder) in a meaningful direction.
           </p>
-          <p className="text-lg sm:text-xl leading-relaxed">Read more:</p>
-          <ul className="text-lg sm:text-xl leading-relaxed list-disc list-inside space-y-2">
+          <p data-sky-mask className="text-lg sm:text-xl leading-relaxed">Read more:</p>
+          <ul data-sky-mask className="text-lg sm:text-xl leading-relaxed list-disc list-inside space-y-2">
             <li>
               <Link
                 href="https://www.darioamodei.com/post/the-urgency-of-interpretability#the-utility-of-interpretability"
