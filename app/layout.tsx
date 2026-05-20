@@ -111,9 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable}`} style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif" }}>
-        <CustomThemeProvider>
-          {children}
-        </CustomThemeProvider>
+        <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>
   );

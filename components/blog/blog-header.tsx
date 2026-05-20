@@ -15,7 +15,7 @@ export function BlogHeader({ crumb }: { crumb?: string } = {}) {
       className="relative z-10 max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
       style={{ fontFamily: "var(--font-crimson-pro)" }}
     >
-      <div data-sky-mask className="flex items-baseline justify-between mt-8 mb-6">
+      <div className="flex items-baseline justify-between mt-8 mb-6">
         <h1 className="text-2xl sm:text-3xl font-normal">
           <Link
             href="/"

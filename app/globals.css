@@ -87,12 +87,6 @@
     }
 }
 
-/* ===== Sky mask =====
-   The actual masking happens on the canvas itself (see Starfield component),
-   using `destination-out` with a Gaussian-blurred rectangle. That gives a true
-   feathered cut with no half-erased line fragments, which CSS backdrop-filter
-   could not. Nothing needed here. */
-
 /* ===== Lume (dark mode hover glow, aged tritium) ===== */
 
 @media (hover: hover) {

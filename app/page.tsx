@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useRef, useCallback } from "react";
 import { useCustomTheme } from "@/components/custom-theme-provider";
-import Starfield from "@/components/starfield";
 
 export default function Home() {
   const { colorMode, setColorMode } = useCustomTheme();
@@ -34,17 +33,22 @@ export default function Home() {
   const linkClass = "text-blue-600 no-underline hover:underline dark:text-inherit dark:underline";
 
   return (
-    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black relative">
-      <Starfield />
+    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
       {/* Header area aligned with text content */}
       <div
-        data-sky-mask
-        className="relative z-10 max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
+        className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pt-6 sm:pt-8"
         style={{ fontFamily: "var(--font-crimson-pro)" }}
       >
         <div className="flex items-baseline justify-between mt-8 mb-6">
           <h1 className="text-2xl sm:text-3xl font-normal group/name">Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria</h1>
           <nav className="flex items-center gap-5">
+            <Link
+              href="/blog/"
+              className="text-xl opacity-70 hover:opacity-100 transition-opacity no-underline"
+              style={{ color: "inherit" }}
+            >
+              Blog
+            </Link>
             <button
               className="bg-transparent border-none cursor-pointer focus:outline-none flex items-center justify-center w-[1.5em] h-[1.5em] text-xl p-0"
               onClick={toggleColorMode}
@@ -63,10 +67,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main content with line numbers. Each row tags itself with
-          `data-sky-mask` so the starfield punches a separate soft-edged hole
-          per section, not one giant slab over all of main. */}
-      <main className="relative z-10 max-w-[52rem] mx-auto px-6 sm:px-10 lg:px-20 pb-12 sm:pb-16 lg:pb-20">
+      {/* Main content with line numbers */}
+      <main className="max-w-[52rem] mx-auto px-6 sm:px-10 lg:px-20 pb-12 sm:pb-16 lg:pb-20">
         <div className="relative">
           {/* Continuous vertical line (hidden on mobile when line numbers are hidden) */}
           <div className="absolute left-8 sm:left-10 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block" />
@@ -271,7 +273,7 @@ export default function Home() {
                 return (
                   <div
                     key={i}
-                    data-sky-mask
+                   
                     className="flex items-baseline cursor-default"
                     onMouseEnter={() => handleLineEnter(currentLineNum)}
                     onMouseLeave={handleLineLeave}
