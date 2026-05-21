@@ -1,0 +1,52 @@
+.item {
+  align-items: stretch;
+  background: transparent;
+  color: var(--theme-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  outline: 0;
+  border: 0;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+
+.flush {
+  margin-bottom: 0;
+}
+
+/* Hover/focus highlights the whole row — icon cell and the full text bar.
+   (No underline here — underlining is done per-link via the .srcl-ul span so
+   it stays permanent and doesn't leak into the dropdown menu items.) */
+.item:hover .icon,
+.item:focus .icon,
+.item:hover .text,
+.item:focus .text {
+  background: var(--theme-focused-foreground);
+}
+
+.icon {
+  align-items: center;
+  align-self: stretch; /* match the text bar's height — no gap below the arrow */
+  background: var(--theme-button-foreground);
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 3ch;
+  user-select: none;
+  margin: 0;
+  transition: background 150ms ease-out;
+}
+
+.text {
+  align-items: center;
+  align-self: stretch;
+  background: var(--theme-button-background);
+  display: inline-flex;
+  justify-content: flex-start;
+  min-width: 10%;
+  padding: 0 1ch;
+  user-select: none;
+  width: 100%;
+  transition: background 150ms ease-out;
+}

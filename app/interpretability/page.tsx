@@ -1,97 +1,52 @@
-import Link from "next/link";
 import { BlogHeader } from "@/components/blog/blog-header";
+import { Card, ActionListItem, Divider } from "@/components/srcl";
 
 export default function Interpretability() {
   return (
-    <div className="min-h-dvh selection:bg-blue-600 selection:text-white dark:bg-[#222129] dark:text-white dark:selection:bg-[#85BAA1] dark:selection:text-white bg-white text-black">
-      <BlogHeader />
+    <div className="srcl-page">
+      <BlogHeader crumb="Interpretability?" />
 
-      {/* Main content */}
-      <main className="max-w-[52rem] mx-auto pl-6 sm:pl-[calc(2.5rem+2.5rem+1.25rem)] lg:pl-[calc(5rem+2.5rem+1.25rem)] pr-6 sm:pr-10 lg:pr-20 pb-12 sm:pb-16 lg:pb-20">
+      <main className="srcl-main">
+        <Card title="Why Mechanistic Interpretability?">
+          <p>
+            AI models are grown, not built. We build the environments, algorithms, and data pipelines
+            to train models, but they &ldquo;learn&rdquo; their own way.
+          </p>
+          <p>
+            Mechanistic Interpretability is the science of breaking down an AI model into
+            human-interpretable mechanisms in order to decipher those learnings. It&apos;s an attempt
+            to understand the connections the model is making so we can further grasp how Artificial
+            Intelligence thinks. For large language models, this research can yield findings that
+            improve model architecture, post-training decisions, and navigating limitations and
+            safety risks on certain tasks.
+          </p>
+          <p>
+            I fully believe in (and am probably more interested in) long-horizon, ambitious
+            interpretability goals. Fundamentally understanding what is happening inside these models
+            will yield incredible byproducts of science for safety, alignment, and other fields of AI
+            research. Just because this task sounds Sisyphean doesn&apos;t mean we can&apos;t push
+            the needle &mdash; or the boulder &mdash; in a meaningful direction.
+          </p>
 
-        {/* Page title */}
-        <h2 className="text-3xl sm:text-4xl font-normal mb-6" style={{ fontFamily: "var(--font-crimson-pro)" }}>
-          Why Mechanistic Interpretability?
-        </h2>
+          <Divider type="double" style={{ margin: "0.75rem 0" }} />
 
-        {/* Content */}
-        <section className="space-y-4">
-          <p className="text-lg sm:text-xl leading-relaxed">
-            AI models are grown, not built. We build the environments, algorithms, and data pipelines to train models,
-            but they "learn" their own way.
-          </p>
-          <p className="text-lg sm:text-xl leading-relaxed">
-            Mechanistic Interpretability is the science of breaking down an AI model into human-interpretable mechanisms
-            in order to decipther those learnings. It's an attempt to understand the connections the model is making so
-            we can further grasp how Artificial Intelligence thinks. For large language models, this research can yield
-            findings that can improve model architecture, post-training decisions, and navigating limitations and/or
-            safety risks for models on certain tasks.
-          </p>
-          <p className="text-lg sm:text-xl leading-relaxed">
-            I fully believe in (and am probably more interested in) long horizon/ambitious interpretability goals. I
-            think fundamentally understanding what is happening inside these models will yield incredible byproducts of
-            science for safety, alignment, and other fields of AI research. Just because this task sounds Sisyphean,
-            doesn't mean we can't push the needle (or, the boulder) in a meaningful direction.
-          </p>
-          <p className="text-lg sm:text-xl leading-relaxed">Read more:</p>
-          <ul className="text-lg sm:text-xl leading-relaxed list-disc list-inside space-y-2">
-            <li>
-              <Link
-                href="https://www.darioamodei.com/post/the-urgency-of-interpretability#the-utility-of-interpretability"
-                className="text-blue-600 dark:text-inherit dark:underline hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                The Urgency of Interpretability
-              </Link>{" "}
-              (Dario Amodei)
-            </li>
-            <li>
-              <Link
-                href="https://www.alignmentforum.org/posts/Hy6PX43HGgmfiTaKu/an-ambitious-vision-for-interpretability"
-                className="text-blue-600 dark:text-inherit dark:underline hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                An Ambitious Vision for Interpretability
-              </Link>{" "}
-              (AI Alignment Forum)
-            </li>
-            <li>
-              <Link
-                href="https://web.stanford.edu/~cgpotts/blog/interp/"
-                className="text-blue-600 dark:text-inherit dark:underline hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Assessing Skeptical Views of Interpretability Research
-              </Link>{" "}
-              (Chris Potts)
-            </li>
-            <li>
-              <Link
-                href="https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J"
-                className="text-blue-600 dark:text-inherit dark:underline hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Mechanistic Interpretability Resources
-              </Link>{" "}
-              (Neel Nanda)
-            </li>
-            <li>
-              <Link
-                href="https://www.alignmentforum.org/posts/jP9KDyMkchuv6tHwm/how-to-become-a-mechanistic-interpretability-researcher"
-                className="text-blue-600 dark:text-inherit dark:underline hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                How to Become a Mechanistic Interpretability Researcher
-              </Link>{" "}
-              (Neel Nanda)
-            </li>
-          </ul>
-        </section>
+          <p className="srcl-section-label">Read more</p>
+          <ActionListItem href="https://www.darioamodei.com/post/the-urgency-of-interpretability#the-utility-of-interpretability">
+            <span className="srcl-ul">The Urgency of Interpretability</span> &nbsp;·&nbsp; Dario Amodei
+          </ActionListItem>
+          <ActionListItem href="https://www.alignmentforum.org/posts/Hy6PX43HGgmfiTaKu/an-ambitious-vision-for-interpretability">
+            <span className="srcl-ul">An Ambitious Vision for Interpretability</span> &nbsp;·&nbsp; AI Alignment Forum
+          </ActionListItem>
+          <ActionListItem href="https://web.stanford.edu/~cgpotts/blog/interp/">
+            <span className="srcl-ul">Assessing Skeptical Views of Interpretability Research</span> &nbsp;·&nbsp; Chris Potts
+          </ActionListItem>
+          <ActionListItem href="https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J">
+            <span className="srcl-ul">Mechanistic Interpretability Resources</span> &nbsp;·&nbsp; Neel Nanda
+          </ActionListItem>
+          <ActionListItem href="https://www.alignmentforum.org/posts/jP9KDyMkchuv6tHwm/how-to-become-a-mechanistic-interpretability-researcher">
+            <span className="srcl-ul">How to Become a Mechanistic Interpretability Researcher</span> &nbsp;·&nbsp; Neel Nanda
+          </ActionListItem>
+        </Card>
       </main>
     </div>
   );

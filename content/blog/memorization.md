@@ -2,6 +2,7 @@
 title: "Preserving knowledge via dataset-specific loss curvature"
 date: "2026-01-30"
 summary: "You can see what a model has memorized vs. what it knows by looking at the curvature of its loss landscape. I extend this method with domain-specific Hessians to preserve math reasoning."
+crumb: "memorization"
 ---
 
 I like this quote from Andrej's conversation with Dwarkesh on the Dwarkesh Podcast:

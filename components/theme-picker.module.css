@@ -1,0 +1,35 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 1ch;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size);
+}
+
+.toggle {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  color: var(--theme-text);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.toggleBox {
+  position: relative;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid currentColor;
+}
+
+.toggleBoxFilled {
+  position: absolute;
+  inset: 2px;
+  background: currentColor;
+}

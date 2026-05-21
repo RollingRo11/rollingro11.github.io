@@ -9,6 +9,9 @@ export interface BlogPostMeta {
   title: string;
   date: string;
   summary: string;
+  /* Optional short label shown after "Rohan Kathuria /" in the nav for this
+     post. Set via the `crumb` frontmatter field; falls back to nothing. */
+  crumb?: string;
 }
 
 export interface BlogPost extends BlogPostMeta {
@@ -30,6 +33,7 @@ export function getAllPosts(): BlogPostMeta[] {
         title: data.title ?? slug,
         date: data.date ?? "",
         summary: data.summary ?? "",
+        crumb: data.crumb ?? undefined,
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -47,6 +51,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     title: data.title ?? slug,
     date: data.date ?? "",
     summary: data.summary ?? "",
+    crumb: data.crumb ?? undefined,
     content,
   };
 }

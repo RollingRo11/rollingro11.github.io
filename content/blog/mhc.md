@@ -2,6 +2,7 @@
 title: "Hyper-connections & what they mean for interpretability"
 date: "2026-01-18"
 summary: "Hyper-connections offer a new way to think about information flow across a LLM! How do they work? How can we apply mechanistic interpretability to a completely different type of residual connection?"
+crumb: "hyper-connections"
 ---
 
 Deepseek's new (viral) mHC paper kickstarted 2026 and brought attention to one of the few meaningful innovations to an LLM's _residual stream_ that we've seen in recent years: Hyper-Connections!

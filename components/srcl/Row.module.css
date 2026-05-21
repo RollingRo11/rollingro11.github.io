@@ -1,0 +1,14 @@
+.row {
+  display: block;
+  outline: 0;
+  border: 0;
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  outline: 0;
+  border: 0;
+  gap: 1ch;
+}

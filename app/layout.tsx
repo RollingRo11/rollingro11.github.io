@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Crimson_Pro } from "next/font/google";
+import { Crimson_Pro, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
@@ -27,6 +27,12 @@ const paperMono = localFont({
 const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
   variable: "--font-crimson-pro",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -79,27 +85,39 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable} ${geistMono.variable}`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
             (function() {
               const savedColorMode = localStorage.getItem('colorMode');
-              // Migrate old darkMode setting if it exists
               let colorMode = savedColorMode;
               if (!colorMode) {
                 const oldDarkMode = localStorage.getItem('darkMode');
                 colorMode = oldDarkMode !== null ? (oldDarkMode === 'true' ? 'dark' : 'light') : 'dark';
               }
+              const savedTint = localStorage.getItem('tint') || 'orange';
+              const allowedTints = ['green','blue','red','yellow','purple','orange','pink'];
+
+              // SRCL theme + tint classes on <html> (the inline script runs
+              // before <body> exists, so we attach to documentElement to
+              // avoid a FOUC. CSS selectors match either <html> or <body>.)
+              const themeClass = colorMode === 'dark' ? 'theme-dark' : 'theme-light';
+              document.documentElement.classList.add(themeClass);
+              if (allowedTints.indexOf(savedTint) !== -1) {
+                document.documentElement.classList.add('tint-' + savedTint);
+              }
 
               if (colorMode === 'dark') {
                 document.documentElement.classList.add('dark');
-                document.documentElement.style.backgroundColor = '#222129';
-                document.body.style.backgroundColor = '#222129';
+                if (savedTint === 'none') document.documentElement.style.backgroundColor = '#080808';
               } else {
-                document.documentElement.style.backgroundColor = 'rgb(255, 255, 255)';
-                document.body.style.backgroundColor = 'rgb(255, 255, 255)';
+                if (savedTint === 'none') document.documentElement.style.backgroundColor = '#ffffff';
               }
             })();
           `,
@@ -110,7 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable}`} style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif" }}>
+      <body style={{ fontFamily: "var(--font-family-mono)" }}>
         <CustomThemeProvider>{children}</CustomThemeProvider>
       </body>
     </html>

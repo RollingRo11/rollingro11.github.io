@@ -2,6 +2,7 @@
 title: "Exploring how transformers represent dataset geometry"
 date: "2026-03-23"
 summary: "Can transformers learn geometric information about a dataset? Maybe! I briefly explain one framework to reason about this using transformers and a toy dataset, and then dive into some experiments building ontop of it."
+crumb: "simplex"
 ---
 
 Large language models are a tangled web of different internal mechanisms that represent the model's training process over a large dataset. What if we knew some geometric fact about the dataset? Does the model learn the same geometry internally? [Simplex](https://www.simplexaisafety.com/) says that they do!
