@@ -22,7 +22,7 @@ const samples: Sample[] = [
     ],
     fonts: (
       <>
-        <span style={{ fontFamily: "var(--font-geist-mono)" }}>Geist Mono</span>
+        <span style={{ fontFamily: "var(--font-lilex)" }}>Lilex</span>
         {" · "}
         <span style={{ fontFamily: "var(--font-crimson-pro)" }}>Crimson Pro</span>
         {" · "}
@@ -84,7 +84,7 @@ export default function Design() {
           <p>A collection of my design work.</p>
         </Card>
 
-        {samples.map((sample, i) => (
+        {samples.map((sample) => (
           <Card key={sample.title} title={sample.title}>
             <div className="srcl-design-images">
               {sample.images.map((img) => (

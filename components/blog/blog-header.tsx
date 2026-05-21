@@ -8,8 +8,8 @@ export function BlogHeader({ crumb, wide }: { crumb?: string; wide?: boolean } =
     <header className={`srcl-header ${wide ? "srcl-header--wide" : ""}`.trim()}>
       <div className="srcl-header-row">
         <h1 className="srcl-header-title">
-          <Link href="/" className="srcl-header-link srcl-name group/name">
-            Rohan<span className="hidden group-hover/name:inline"> [Emrick]</span> Kathuria
+          <Link href="/" className="srcl-header-link srcl-name">
+            Rohan<span className="srcl-name-mid"> [Emrick]</span> Kathuria
           </Link>
           {crumb && (
             <>

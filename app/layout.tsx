@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Crimson_Pro, Geist_Mono } from "next/font/google";
+import { Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/custom-theme-provider";
 
@@ -24,15 +24,21 @@ const paperMono = localFont({
   display: "swap",
 });
 
-const crimsonPro = Crimson_Pro({
-  subsets: ["latin"],
-  variable: "--font-crimson-pro",
+// Lilex — Zed editor's monospace font (self-hosted). The primary site font.
+const lilex = localFont({
+  src: [
+    { path: "./fonts/Lilex-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Lilex-Italic.ttf", weight: "400", style: "italic" },
+    { path: "./fonts/Lilex-Bold.ttf", weight: "700", style: "normal" },
+    { path: "./fonts/Lilex-BoldItalic.ttf", weight: "700", style: "italic" },
+  ],
+  variable: "--font-lilex",
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-crimson-pro",
   display: "swap",
 });
 
@@ -88,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable} ${geistMono.variable}`}
+      className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable} ${lilex.variable}`}
     >
       <head>
         <script

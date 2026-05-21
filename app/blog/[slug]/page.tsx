@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 import { BlogHeader } from "@/components/blog/blog-header";
-import { BlogPostRenderer } from "@/components/blog/blog-post-renderer";
+import { BlogProse } from "@/components/blog/blog-prose";
+import { BlogMarginNotes } from "@/components/blog/blog-margin-notes";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
 import { Card } from "@/components/srcl";
 
@@ -44,9 +45,11 @@ export default async function BlogPostPage({
       <main className="srcl-main srcl-main--wide srcl-blogpost">
         <Card title={dateLabel}>
           <h1 className="srcl-post-h1">{post.title}</h1>
-          <BlogPostRenderer content={post.content} />
+          <BlogProse content={post.content} />
         </Card>
       </main>
+
+      <BlogMarginNotes />
     </div>
   );
 }

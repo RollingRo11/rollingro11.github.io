@@ -6,13 +6,13 @@ import styles from "./theme-picker.module.css";
 
 export function ThemePicker() {
   const { colorMode, setColorMode, tint, setTint } = useCustomTheme();
-  const current = TINTS.find((t) => t.value === tint) ?? TINTS[0];
+  const currentTint = TINTS.find((t) => t.value === tint) ?? TINTS[0];
 
   return (
     <div className={styles.root}>
       <DropdownMenu
         aria-label="Theme tint"
-        label={current.label}
+        label={currentTint.label}
         items={TINTS.map((t) => ({ label: t.label, value: t.value, selected: t.value === tint }))}
         onSelect={(v) => setTint(v as Tint)}
       />
