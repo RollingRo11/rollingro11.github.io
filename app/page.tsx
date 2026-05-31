@@ -68,7 +68,7 @@ export default function Home() {
           <ActionListItem href="https://www.ktpneu.org/">
             <span className="srcl-ul">Kappa Theta Pi @ Northeastern</span> · Tech Lead
           </ActionListItem>
-          <ActionListItem href="https://www.rev.school/">
+          <ActionListItem href="https://rev.school/">
             <span className="srcl-ul">REV</span> · Cohort 4
           </ActionListItem>
 
