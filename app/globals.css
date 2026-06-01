@@ -343,12 +343,21 @@
     max-width: 88ch;
 }
 
-/* Only blog-post Card windows are white in light mode (so screenshots /
-   images with white backgrounds blend in). Overriding --theme-window-background
-   on this container means the Card inside inherits white; every other page's
-   windows keep their theme/tint default. Dark mode is unaffected. */
-.theme-light .srcl-blogpost {
-    --theme-window-background: #ffffff;
+/* Blog post pages render their content directly on the page background (no
+   Card window): pure white in light mode (even under an active tint), the
+   darker outer background in dark mode. */
+.theme-light .srcl-page--blog {
+    --theme-background: #ffffff;
+}
+
+/* The uppercase date sits above the title like the old Card title did. */
+.srcl-post-date {
+    font-size: var(--font-size);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+    margin: 0;
 }
 
 @media (min-width: 720px) {
@@ -705,7 +714,10 @@
 /* KaTeX overrides for blog */
 .blog-prose .katex-display {
     margin: 1.5em 0;
-    font-size: 1em;
+    /* Big block equations on desktop, scaling down with the viewport on
+       smaller screens so they don't overflow the column (overflow-x: auto
+       in the @layer base rule is the final safety net). */
+    font-size: clamp(1.05rem, 3vw, 1.7rem);
 }
 
 .blog-prose .katex {
@@ -896,10 +908,6 @@
         width: 100%;
         max-width: 100%;
         font-size: 13px;
-    }
-
-    .blog-prose .katex-display {
-        font-size: 0.8em;
     }
 
     .blog-prose .katex {

@@ -4,7 +4,6 @@ import { BlogHeader } from "@/components/blog/blog-header";
 import { BlogProse } from "@/components/blog/blog-prose";
 import { BlogMarginNotes } from "@/components/blog/blog-margin-notes";
 import { BlogSidebar } from "@/components/blog/blog-sidebar";
-import { Card } from "@/components/srcl";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -38,15 +37,14 @@ export default async function BlogPostPage({
     .toUpperCase();
 
   return (
-    <div className="srcl-page">
+    <div className="srcl-page srcl-page--blog">
       <BlogSidebar />
       <BlogHeader wide crumb={post.crumb} />
 
       <main className="srcl-main srcl-main--wide srcl-blogpost">
-        <Card title={dateLabel}>
-          <h1 className="srcl-post-h1">{post.title}</h1>
-          <BlogProse content={post.content} />
-        </Card>
+        <p className="srcl-post-date">{dateLabel}</p>
+        <h1 className="srcl-post-h1">{post.title}</h1>
+        <BlogProse content={post.content} />
       </main>
 
       <BlogMarginNotes />
