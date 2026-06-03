@@ -98,19 +98,21 @@ So I hypothesized a way to fix it by "zooming in" our dataset context to look at
 My idea to improve math performance is to compute additional, domain-specific Hessians by running the same procedure on domain-specific data. The idea is that within a more focused distribution, domain-specific circuits appear high-curvature because they're used/seen more frequently rather than being diluted across diverse text.
 
 ```equation
-\eqterm{Ag}{A_{\text{general}}} = \eqterm{Eag}{\mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[aa^\top]}, \quad \eqterm{Gg}{G_{\text{general}}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[gg^\top]
+\eqterm{Ag}{A_{\text{general}}} = \eqterm{Eag}{\mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[aa^\top]}, \quad \eqterm{Gg}{G_{\text{general}}} = \eqterm{Egg}{\mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[gg^\top]}
 
 @Ag: The activation covariance computed over the broad, general-text distribution.
-@Eag: An expectation over examples $x$ drawn from the general data distribution $\mathcal{D}_{\text{general}}$.
+@Eag: An expectation of the input outer product $aa^\top$ over examples $x$ drawn from the general data distribution $\mathcal{D}_{\text{general}}$.
 @Gg: The gradient covariance over the same general distribution. Together these form the general Hessian.
+@Egg: An expectation of the gradient outer product $gg^\top$ over examples $x$ drawn from the general distribution $\mathcal{D}_{\text{general}}$.
 ```
 
 ```equation
-\eqterm{Am}{A_{\text{math}}} = \eqterm{Eam}{\mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[aa^\top]}, \quad \eqterm{Gm}{G_{\text{math}}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[gg^\top]
+\eqterm{Am}{A_{\text{math}}} = \eqterm{Eam}{\mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[aa^\top]}, \quad \eqterm{Gm}{G_{\text{math}}} = \eqterm{Egm}{\mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[gg^\top]}
 
 @Am: The activation covariance computed over a focused math distribution.
-@Eam: An expectation over examples $x$ drawn from the math distribution $\mathcal{D}_{\text{math}}$ — here math circuits look high-curvature because they fire often.
+@Eam: An expectation of the input outer product $aa^\top$ over examples $x$ drawn from the math distribution $\mathcal{D}_{\text{math}}$ — here math circuits look high-curvature because they fire often.
 @Gm: The gradient covariance over the math distribution, forming the domain-specific Hessian.
+@Egm: An expectation of the gradient outer product $gg^\top$ over examples $x$ drawn from the math distribution $\mathcal{D}_{\text{math}}$.
 ```
 
 
