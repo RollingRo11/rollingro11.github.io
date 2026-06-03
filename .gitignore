@@ -28,3 +28,6 @@ next-env.d.ts
 
 # large files
 public/shadow-overlays.zip
+
+# original images preserved before optimization (recoverable)
+image-originals/

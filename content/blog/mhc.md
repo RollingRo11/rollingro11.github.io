@@ -11,12 +11,12 @@ Deepseek's new (viral) mHC paper kickstarted 2026 and brought attention to one o
 
 Large language models are made up of a sequence of transformer blocks that continuously "build" the output!
 
-![](https://rkathuria.com/resid.avif)
+![](/resid.avif)
 (Image from Anthropic)[^1]
 
 Each block, and each component of each block, reads and writes from the __residual stream__. This is the communication highway that allows every part of the model to learn (with little-to-no penalty for increasing model lengths).
 
-![](https://rkathuria.com/subspaces.avif)
+![](/subspaces.avif)
 (Image from Anthropic)[^1]
 
 
@@ -32,7 +32,7 @@ that, instead of using one single residual stream from the previous layer to the
 
 The idea is best explained by this graphic from Zhu et al.'s paper [^2].
 
-![](https://arxiv.org/html/2409.19606v3/x5.png)
+![](/external/arxiv-2409.19606-x5.webp)
 
 First, you'll notice that HC introduces multiple $\text{hidden vectors}$ ($h \text{ becomes } h_1, h_2, ..., h_n$). This is the model expanding the input into $n$ copies creating a "hyper-hidden matrix". 
 Hyper-connections introduce more lanes for information to travel through!
@@ -42,11 +42,17 @@ Hyper-connections introduce more lanes for information to travel through!
 
 For a single layer, this can be defined as:
 
-$$
+```equation
+\eqterm{xnext}{\mathbf{x}_{l+1}}=\eqterm{Hres}{\mathcal{H}_l^{\mathrm{res}}} \eqterm{xl}{\mathbf{x}_l}+\eqterm{Hpost}{\mathcal{H}_l^{\mathrm{post} \top}} \eqterm{F}{\mathcal{F}\left(\eqterm{Hpre}{\mathcal{H}_l^{\mathrm{pre}}} \eqterm{xl}{\mathbf{x}_l}, \eqterm{W}{\mathcal{W}_l}\right)}
 
-\mathbf{x}_{l+1}=\mathcal{H}_l^{\mathrm{res}} \mathbf{x}_l+\mathcal{H}_l^{\mathrm{post} \top} \mathcal{F}\left(\mathcal{H}_l^{\mathrm{pre}} \mathbf{x}_l, \mathcal{W}_l\right)
-
-$$
+@xnext: The stack of hidden vectors (the "hyper-hidden matrix") handed to the next layer $l+1$.
+@Hres: The residual (depth) routing matrix — learned weights deciding how much of each stream carries forward.
+@xl: The current layer's hyper-hidden matrix — its $n$ parallel residual streams.
+@Hpost: The post-weights that map the layer's output back out across the $n$ streams.
+@F: The layer's transformation (attention or MLP) applied to the mixed input.
+@Hpre: The pre-weights that mix the $n$ streams into the input the layer function actually sees.
+@W: The ordinary weights of this layer's attention/MLP block.
+```
 
 
 The most fun part about this architecture is that it allows the model layers to work in even more parallel than they already do!
@@ -57,7 +63,7 @@ In a standard LLM, each layer must __wait on the previous layer__ to compute som
 
 In hyper-connections, the network learns a _routing matrix_; that is, a matrix that determines how much information flows from one layer to another. Specifically, this means the model is learning individual weights for each connection between layers. In practice, the model can now do things like 0 out an entire connection (skip a layer) and allow the next layer to start processing "at the same time".
 
-![](https://arxiv.org/html/2409.19606v3/x6.png)
+![](/external/arxiv-2409.19606-x6.webp)
 
 The paper calls this "Sequential-Parallel Duality". It shows that by just changing the values in the Hyper-Connection matrix, the network can switch between a sequential and a parallel structure. 
 
@@ -69,15 +75,26 @@ The classical residual stream ($y = x + f(x)$) maintains that the model is only 
 
 To contrast from the formal single-layer definition of hyper-connections from earlier, here's what it might look like between two or more layers:
 
-$$
-\mathbf{x}_L=\left(\prod_{i=1}^{L-l} \mathcal{H}_{L-i}^{\mathrm{res}}\right) \mathbf{x}_l+\sum_{i=l}^{L-1}\left(\prod_{j=1}^{L-1-i} \mathcal{H}_{L-j}^{\mathrm{res}}\right) \mathcal{H}_i^{\mathrm{post} \top} \mathcal{F}\left(\mathcal{H}_i^{\mathrm{pre}} \mathbf{x}_i, \mathcal{W}_i\right),
-$$
+```equation
+\eqterm{xL}{\mathbf{x}_L}=\eqterm{prod}{\left(\prod_{i=1}^{L-l} \mathcal{H}_{L-i}^{\mathrm{res}}\right)} \eqterm{xl}{\mathbf{x}_l}+\eqterm{sum}{\sum_{i=l}^{L-1}}\left(\prod_{j=1}^{L-1-i} \mathcal{H}_{L-j}^{\mathrm{res}}\right) \eqterm{Hpost}{\mathcal{H}_i^{\mathrm{post} \top}} \eqterm{F}{\mathcal{F}\left(\mathcal{H}_i^{\mathrm{pre}} \mathbf{x}_i, \mathcal{W}_i\right)},
+
+@xL: The hidden state at a much later layer $L$, written purely in terms of an earlier layer $l$.
+@prod: The product of every residual routing matrix between layers $l$ and $L$ — the signal must pass through all of them in sequence.
+@xl: The hidden state at the earlier layer $l$ being propagated forward.
+@sum: The accumulated contributions injected by each intermediate layer $i$ along the way.
+@Hpost: The post-weights of intermediate layer $i$, writing its output into the streams.
+@F: The transformation computed at intermediate layer $i$.
+```
 
 Where $L$ and $l$ are a further layer and a previous layer, respectively. Pay close attention to the first term:
 
-$$
-\mathbf{x}_L=\left(\prod_{i=1}^{L-l} \mathcal{H}_{L-i}^{\mathrm{res}}\right) \mathbf{x}_l
-$$
+```equation
+\eqterm{xL}{\mathbf{x}_L}=\eqterm{prod}{\left(\prod_{i=1}^{L-l} \mathcal{H}_{L-i}^{\mathrm{res}}\right)} \eqterm{xl}{\mathbf{x}_l}
+
+@xL: The signal as it arrives at the final layer $L$.
+@prod: The chained product of every in-between residual matrix. If each one scales by even 1.05–1.1×, the product blows up across many layers — the source of the unbounded growth.
+@xl: The original signal at layer $l$ being carried forward.
+```
 
 $\left(\prod_{i=1}^{L-l} \mathcal{H}_{L-i}^{\mathrm{res}}\right)$ is saying in order to get the signal to the last layer of the network, you have to multiply by every matrix in-between. If the average scaling that each matrix in-between is just a small about like 1.05x or 1.1x, you're failing to preserve the global mean; resulting in __unbounded growth__.
 
@@ -88,13 +105,13 @@ In other words, the model can learn that it needs to boost a connection by 1.1x 
 
 ## the solution: manifold-constrained hyper-connections
 
-![](https://arxiv.org/html/2512.24880v2/x1.png)
+![](/external/arxiv-2512.24880-x1.webp)
 
 Deepseek builds on Bytedance's hyper-connections with **manifold-constrained** hyper-connections.[^3] 
 
 #### _first_: what is a manifold?
 
-![](https://www.quantamagazine.org/wp-content/uploads/2025/11/What-is-a-Manifold-cr-Mark-Belan-Lede-2.webp)
+![](/external/quanta-manifold-lede.webp)
 (Image from Quanta Magazine[^4])
 
 When you think of "mathematical space", you might first think of the euclidean plane, or a number line! This is where the coordinate system allows for trigonometry, calculus, and more.
@@ -103,7 +120,7 @@ But what if that plane took a different shape? What if it were curved? How does 
 
 **Enter, the manifold:**
 
-![](https://www.quantamagazine.org/wp-content/uploads/2025/11/What_Is_A_Manifold-crMarkBelan-Desktopv2.svg)
+![](/external/quanta-manifold-diagram.svg)
 (Image from Quanta Magazine[^4])
 
 A manifold is a space that might be curved or twisted globally, but **looks flat if you zoom in far enough**. This property is called being _locally Euclidean._
@@ -154,7 +171,7 @@ Without having a model trained with hyper-connections to play around with, we're
 
 Classically, mechanistic interpretability methods focus on the output of the residual stream at a given layer. However, MHC introduces even more complexity to the process by splitting the residual stream into parallel streams! This introduces a new challenge one might (in a cliche fashion) call stream superposition: one concept can be split across mulitple residual streams at the same time!
 
-![](https://rkathuria.com/stream_superposition_diagram.svg)
+![](/stream_superposition_diagram.svg)
 (_Thank you Claude for the wonderful diagram!_)
 
 However, similarly to how Anthropic (somewhat) "resolved" the problem of cross-layer superposition[^5] (assuming faithfulness), we may find fruit in applying the same methodology to the split residual stream and _**reading from/writing to** all streams at once_.
@@ -163,31 +180,53 @@ We might call this approach a **cross-stream transcoder**:
 
 Consider a model with $n$ parallel residual streams at each layer. Let $\mathbf{x}_l^{(i)} \in \mathbb{R}^d$ denote the activation of stream $i$ at layer $l$, where $d$ is the model dimension. We concatenate all streams into a single tensor:
 
-$$
-\mathbf{X}_l = \begin{bmatrix} \mathbf{x}_l^{(1)} \\ \mathbf{x}_l^{(2)} \\ \vdots \\ \mathbf{x}_l^{(n)} \end{bmatrix} \in \mathbb{R}^{nd}
-$$
+```equation
+\eqterm{X}{\mathbf{X}_l} = \eqterm{stack}{\begin{bmatrix} \mathbf{x}_l^{(1)} \\ \mathbf{x}_l^{(2)} \\ \vdots \\ \mathbf{x}_l^{(n)} \end{bmatrix}} \in \eqterm{dim}{\mathbb{R}^{nd}}
+
+@X: The concatenation of all $n$ residual streams at layer $l$ into a single vector.
+@stack: The $n$ individual stream activations $\mathbf{x}_l^{(i)}$, each living in $\mathbb{R}^d$, stacked on top of one another.
+@dim: The combined space — $n$ streams times the model dimension $d$.
+```
 
 A **cross-stream transcoder** (CST) consists of an encoder $\mathcal{E}$ and per-stream decoders $\mathcal{D}^{(i)}$. The encoder maps the concatenated streams to a sparse latent representation:
 
-$$
-\mathbf{a}_l = \text{JumpReLU}\left( \mathbf{W}_{\text{enc}} \mathbf{X}_l + \mathbf{b}_{\text{enc}} \right) \in \mathbb{R}^m
-$$
+```equation
+\eqterm{a}{\mathbf{a}_l} = \eqterm{jr}{\text{JumpReLU}}\left( \eqterm{Wenc}{\mathbf{W}_{\text{enc}}} \eqterm{X}{\mathbf{X}_l} + \eqterm{benc}{\mathbf{b}_{\text{enc}}} \right) \in \eqterm{dim}{\mathbb{R}^m}
+
+@a: The sparse latent activations — the CST's learned features at layer $l$.
+@jr: The JumpReLU nonlinearity, which zeroes out small activations to enforce sparsity.
+@Wenc: The encoder weight matrix, mapping the $nd$-dim concatenated streams into $m$ features.
+@X: The concatenated residual streams that feed the encoder.
+@benc: The encoder bias vector.
+@dim: The latent space, of overcomplete dictionary size $m$.
+```
 
 where $\mathbf{W}_{\text{enc}} \in \mathbb{R}^{m \times nd}$ is the encoder weight matrix, $\mathbf{b}_{\text{enc}} \in \mathbb{R}^m$ is the encoder bias, and $m$ is the (overcomplete) dictionary size. The JumpReLU nonlinearity enforces sparsity in the latent activations.[^6]
 
 For MLP replacement, each stream's output is reconstructed via stream-specific decoders:
 
-$$
-\hat{\mathbf{y}}_l^{(i)} = \mathbf{W}_{\text{dec}}^{(i)} \mathbf{a}_l + \mathbf{b}_{\text{dec}}^{(i)}, \quad i \in \{1, \ldots, n\}
-$$
+```equation
+\eqterm{yhat}{\hat{\mathbf{y}}_l^{(i)}} = \eqterm{Wdec}{\mathbf{W}_{\text{dec}}^{(i)}} \eqterm{a}{\mathbf{a}_l} + \eqterm{bdec}{\mathbf{b}_{\text{dec}}^{(i)}}, \quad \eqterm{range}{i \in \{1, \ldots, n\}}
+
+@yhat: The reconstructed MLP output for stream $i$ at layer $l$.
+@Wdec: The decoder weight matrix for stream $i$ — turns the shared latents back into that stream's contribution.
+@a: The shared sparse latents feeding every stream's decoder.
+@bdec: The decoder bias for stream $i$.
+@range: One decoder per stream, for all $n$ streams.
+```
 
 where $\mathbf{W}_{\text{dec}}^{(i)} \in \mathbb{R}^{d \times m}$ reconstructs the MLP contribution to stream $i$.
 
 The training objective combines reconstruction fidelity across all streams with a sparsity penalty:
 
-$$
-\mathcal{L} = \sum_{i=1}^{n} \left\| \hat{\mathbf{y}}_l^{(i)} - \mathbf{y}_l^{(i)} \right\|_2^2 + \lambda \sum_{j=1}^{m} \tanh\left( c \cdot \left\| \mathbf{W}_{\text{dec}, j} \right\| \cdot a_{l,j} \right)
-$$
+```equation
+\eqterm{L}{\mathcal{L}} = \eqterm{recon}{\sum_{i=1}^{n} \left\| \hat{\mathbf{y}}_l^{(i)} - \mathbf{y}_l^{(i)} \right\|_2^2} + \eqterm{lam}{\lambda} \eqterm{sparse}{\sum_{j=1}^{m} \tanh\left( c \cdot \left\| \mathbf{W}_{\text{dec}, j} \right\| \cdot a_{l,j} \right)}
+
+@L: The full training objective for the cross-stream transcoder.
+@recon: The reconstruction term — squared error between predicted and true MLP outputs, summed over all $n$ streams.
+@lam: The sparsity coefficient $\lambda$, trading off reconstruction against feature sparsity.
+@sparse: The sparsity penalty — a $\tanh$ of each feature's activation weighted by its decoder norm, summed over all $m$ features (the constant $c$ sets its sharpness).
+```
 
 where $\mathbf{y}_l^{(i)}$ is the true MLP output for stream $i$, $\mathbf{W}_{\text{dec}, j}$ denotes the $j$-th column across all decoder matrices, and $\lambda, c$ are hyperparameters controlling sparsity.
 
@@ -203,17 +242,27 @@ The formulation above treats the residual streams as static highways. However, H
 
 To account for this, we define the **effective transmitted activation** for feature $j$:
 
-$$
-\tilde{a}_{l,j}^{(i \to i')} = a_{l,j} \cdot \left( \mathbf{W}_{\text{dec},j}^{(i)} \right)^\top \mathcal{H}_l^{\text{res}}[i, i']
-$$
+```equation
+\eqterm{atil}{\tilde{a}_{l,j}^{(i \to i')}} = \eqterm{a}{a_{l,j}} \cdot \eqterm{wcol}{\left( \mathbf{W}_{\text{dec},j}^{(i)} \right)^\top} \eqterm{route}{\mathcal{H}_l^{\text{res}}[i, i']}
+
+@atil: The effective activation of feature $j$ as it travels from stream $i$ to stream $i'$ — how much actually gets through.
+@a: The raw activation of feature $j$ at layer $l$, before any routing.
+@wcol: Feature $j$'s decoder weights writing into source stream $i$.
+@route: The routing weight from stream $i$ to stream $i'$ — the gate that can dampen or kill the pathway.
+```
 
 where $\mathcal{H}_l^{\text{res}}[i, i']$ is the routing weight from stream $i$ to stream $i'$ at layer $l$. This captures how much of feature $j$'s contribution to stream $i$ actually reaches stream $i'$ in the next layer.
 
 The **total effective activation** of feature $j$ arriving at stream $i'$ in layer $l+1$ is then:
 
-$$
-\tilde{a}_{l \to l+1, j}^{(i')} = \sum_{i=1}^{n} \tilde{a}_{l,j}^{(i \to i')} = a_{l,j} \sum_{i=1}^{n} \left( \mathbf{W}_{\text{dec},j}^{(i)} \right)^\top \mathcal{H}_l^{\text{res}}[i, i']
-$$
+```equation
+\eqterm{tot}{\tilde{a}_{l \to l+1, j}^{(i')}} = \eqterm{sum}{\sum_{i=1}^{n} \tilde{a}_{l,j}^{(i \to i')}} = \eqterm{a}{a_{l,j}} \eqterm{sum}{\sum_{i=1}^{n}} \left( \mathbf{W}_{\text{dec},j}^{(i)} \right)^\top \eqterm{route}{\mathcal{H}_l^{\text{res}}[i, i']}
+
+@tot: The total amount of feature $j$ that reaches stream $i'$ in the next layer, summed over every source stream.
+@sum: A sum over all source streams $i$ of their individual transmitted contributions.
+@a: The feature's raw activation, factored out of the sum.
+@route: The routing weight from each source stream $i$ into the target stream $i'$.
+```
 
 This means interpreting CST latents requires examining them *jointly* with the instantaneous routing state. A feature might be "active" in the CST sense ($a_{l,j} > 0$), but **functionally silent** if the routing matrix blocks its transmission pathways.
 

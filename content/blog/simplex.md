@@ -16,7 +16,7 @@ Paul Riechers and Adam Shai ([Simplex](https://www.simplexaisafety.com/)) set of
 
 These belief vectors trace out a fractal geometry on the simplex that's entirely determined by the HMM's parameters. Riechers and Shai showed that transformers trained on such data linearly encode this belief geometry in their residual stream activations. The model doesn't just predict the next token well; it internally reconstructs the geometric structure of the data-generating process.
 
-![Belief state geometry emerging in the residual stream over training. From Shai et al., NeurIPS 2024.](/simplex/mess3/overview.png)
+![Belief state geometry emerging in the residual stream over training. From Shai et al., NeurIPS 2024.](/simplex/mess3/overview.webp)
 
 I was lucky enough to perform a worktest for Simplex’s MATS stream! Their assignment pushes this even further: what happens when the data comes from a ***mixture* of HMMs**? Now the model has to do two things at once: figure out which process generated the sequence, **and** track the belief state within that process.
 
@@ -31,11 +31,11 @@ I set up 3 Mess3 processes for the training dataset.
 | Mess3 B | 0.75 | 0.10 |
 | Mess3 C | 0.85 | 0.05 |
 
-![Belief state geometry for each Mess3 process on the 2-simplex.](/simplex/mess3/belief_geometry.png)
+![Belief state geometry for each Mess3 process on the 2-simplex.](/simplex/mess3/belief_geometry.webp)
 
 I then train a 2 layer Transformer model ($d_{\text{model}} = 64$, 4 heads, $d_{\text{mlp}} = 256$, context length 12) for 50k steps with batch size 2048 and Adam ($\text{lr} = 3 \times 10^{-4}$, no weight decay).
 
-![Training loss over 50k steps (probably trained for too long here). Dashed line indicates the entropy of a uniform distribution over 3 tokens ($\log 3 \approx 1.099$).](/simplex/training/loss.png)
+![Training loss over 50k steps (probably trained for too long here). Dashed line indicates the entropy of a uniform distribution over 3 tokens ($\log 3 \approx 1.099$).](/simplex/training/loss.webp)
 
 ### How is this type of structure relevant to language models?
 
@@ -51,21 +51,38 @@ Our 3-Mess3 mixture works the same way. All three processes emit from the same v
 
 We can write the non-ergodic mixture as a single block-diagonal GHMM with 9 latent states (3 per Mess3 component). Before seeing any tokens, the predictive vector is uniform over all 9 states.
 
-$$
-\beta^{\emptyset} = \frac{1}{9} [\underbrace{1, 1, 1}_{\text{Mess3A}}, \underbrace{1, 1, 1}_{\text{Mess3B}}, \underbrace{1, 1, 1}_{\text{Mess3C}}]
-$$
+```equation
+\eqterm{beta}{\beta^{\emptyset}} = \eqterm{norm}{\frac{1}{9}} [\eqterm{mA}{\underbrace{1, 1, 1}_{\text{Mess3A}}}, \eqterm{mB}{\underbrace{1, 1, 1}_{\text{Mess3B}}}, \eqterm{mC}{\underbrace{1, 1, 1}_{\text{Mess3C}}}]
+
+@beta: The prior belief vector before any tokens are seen — uniform over all 9 latent states.
+@norm: The normalization $1/9$ that makes the nine entries sum to 1, so it is a valid probability distribution.
+@mA: The three latent states belonging to Mess3 A.
+@mB: The three latent states belonging to Mess3 B.
+@mC: The three latent states belonging to Mess3 C.
+```
 
 Because $T^{x}_{\text{big}}$ is block-diagonal, the three components' latent states never interact. The predictive vector decomposes as:
 
-$$
-\beta^{x_{1:\ell}} = [w_A \cdot \beta_A^{x_{1:\ell}}, \quad w_B \cdot \beta_B^{x_{1:\ell}}, \quad w_C \cdot \beta_C^{x_{1:\ell}}]
-$$
+```equation
+\eqterm{beta}{\beta^{x_{1:\ell}}} = [\eqterm{wA}{w_A} \cdot \eqterm{bA}{\beta_A^{x_{1:\ell}}}, \quad \eqterm{wB}{w_B} \cdot \beta_B^{x_{1:\ell}}, \quad \eqterm{wC}{w_C} \cdot \beta_C^{x_{1:\ell}}]
+
+@beta: The full belief vector after observing the tokens $x_{1:\ell}$, split across the three components.
+@wA: The posterior weight on component A — how likely Mess3 A generated the sequence so far.
+@bA: The within-component belief for A: where we sit inside A's own 2-simplex.
+@wB: The posterior weight on component B.
+@wC: The posterior weight on component C. The three weights sum to 1.
+```
 
 where $w_A, w_B, w_C$ are posterior component weights (they sum to 1) and each $\beta_n^{x_{1:\ell}}$ is the within-component belief. The weights update via Bayes' rule:
 
-$$
-w_n^{(\ell)} = \frac{w_n^{(\ell-1)} \cdot P(x_\ell \mid \text{component } n, \beta_n^{(\ell-1)})}{\sum_m w_m^{(\ell-1)} \cdot P(x_\ell \mid \text{component } m, \beta_m^{(\ell-1)})}
-$$
+```equation
+\eqterm{wn}{w_n^{(\ell)}} = \frac{\eqterm{prior}{w_n^{(\ell-1)}} \cdot \eqterm{like}{P(x_\ell \mid \text{component } n, \beta_n^{(\ell-1)})}}{\eqterm{evidence}{\sum_m w_m^{(\ell-1)} \cdot P(x_\ell \mid \text{component } m, \beta_m^{(\ell-1)})}}
+
+@wn: The updated posterior weight on component $n$ after seeing token $x_\ell$.
+@prior: The previous step's weight on component $n$ — the prior before this token arrives.
+@like: The likelihood that component $n$ emits token $x_\ell$, given its current belief.
+@evidence: The normalizing sum over all components, keeping the updated weights summing to 1.
+```
 
 and each within-component belief updates independently with its own transition matrix.
 
@@ -73,15 +90,26 @@ and each within-component belief updates independently with its own transition m
 
 Why? The GHMM's latent space is a direct sum by construction:
 
-$$
-S = S_A \oplus S_B \oplus S_C = \mathbb{R}^3 \oplus \mathbb{R}^3 \oplus \mathbb{R}^3
-$$
+```equation
+\eqterm{S}{S} = \eqterm{SA}{S_A} \eqterm{ds}{\oplus} \eqterm{SB}{S_B} \eqterm{ds}{\oplus} \eqterm{SC}{S_C} = \eqterm{r3}{\mathbb{R}^3} \eqterm{ds}{\oplus} \eqterm{r3}{\mathbb{R}^3} \eqterm{ds}{\oplus} \eqterm{r3}{\mathbb{R}^3}
+
+@S: The full 9-dimensional latent space of the mixture.
+@SA: Component A's 3-dimensional latent subspace.
+@ds: A direct sum — the subspaces are stacked without overlap, so they stay independent.
+@SB: Component B's latent subspace.
+@SC: Component C's latent subspace.
+@r3: Each component lives in its own copy of $\mathbb{R}^3$.
+```
 
 The block-diagonal transitions keep these subspaces from ever interacting:
 
-$$
-T^{x}_{\text{big}} \begin{pmatrix} v_A \\ v_B \\ v_C \end{pmatrix} = \begin{pmatrix} T^{x}_A v_A \\ T^{x}_B v_B \\ T^{x}_C v_C \end{pmatrix}
-$$
+```equation
+\eqterm{Tbig}{T^{x}_{\text{big}}} \eqterm{vin}{\begin{pmatrix} v_A \\ v_B \\ v_C \end{pmatrix}} = \eqterm{vout}{\begin{pmatrix} T^{x}_A v_A \\ T^{x}_B v_B \\ T^{x}_C v_C \end{pmatrix}}
+
+@Tbig: The full transition matrix for token $x$ — block-diagonal across the three components.
+@vin: A stacked state vector with one block per component.
+@vout: Each component's transition $T^x_n$ acts only on its own block — the components never mix.
+```
 
 So the ground truth vectors already sit in three orthogonal subspaces of $\mathbb{R}^9$. If the transformer learns a linear map of these predictive vectors, that orthogonal structure should show up in the residual stream: three separate 2D subspaces (one per component's 2-simplex), each encoding that component's belief.
 
@@ -111,15 +139,15 @@ My guess is that earlier layers handle component identification (separating acti
 
 I trained a linear probe on the residual stream, and found that it recovered each Mess3's belief geometry separately.
 
-![Within-component belief recovery via linear regression from residual stream activations.](/simplex/belief/recovery_by_state.png)
+![Within-component belief recovery via linear regression from residual stream activations.](/simplex/belief/recovery_by_state.webp)
 
 The model also encoded the geometry representing *which* Mess3 generated the sequence. I regressed from activations to the full 9D joint belief vector and marginalized over within-component states, which gave me the component posterior $w = (w_A, w_B, w_C)$ on the 2-simplex.
 
-![Component posterior on the 2-simplex.](/simplex/belief/component_posterior.png)
+![Component posterior on the 2-simplex.](/simplex/belief/component_posterior.webp)
 
 I ran PCA on the residual stream activations, coloring each point by process identity (hue) and within-state belief (shade). At the embedding layer, you can only see the three discrete token identities. After layer 0, fractal simplex-like structure started showing up, but the three processes still overlapped in PC space. By the final layer at later positions, the three clusters fully separated, and each one contained its own internal belief simplex. The residual stream geometry pointed towards three copies of the 2-simplex sitting in $\mathbb{R}^{64}$.
 
-![](/simplex/pca/combined_geometry.png)
+![](/simplex/pca/combined_geometry.webp)
 
 ---
 
@@ -129,7 +157,7 @@ I originally predicted **three mutually orthogonal subspaces** (one per componen
 
 Looking across all layers concatenated, A's subspace *was* orthogonal to B and C (cosines $< 0.003$). B and C, on the other hand, heavily overlapped (cosines up to 0.97). That tracked: Mess3B & Mess3C have similar parameters!
 
-![Probe weight cosine similarity (all layers concatenated). A is orthogonal to B and C (blank off-diagonal blocks), but B and C share directions (cosines up to 0.97).](/simplex/belief/concat/probe_cosine_similarity.png)
+![Probe weight cosine similarity (all layers concatenated). A is orthogonal to B and C (blank off-diagonal blocks), but B and C share directions (cosines up to 0.97).](/simplex/belief/concat/probe_cosine_similarity.webp)
 
 So, in the end, my block-diagonal prediction was half right! A got its own subspace. B and C shared directions instead of maintaining separate ones.
 

@@ -37,25 +37,46 @@ The authors use K-FAC to efficiently approximate this curvature by collecting ac
 
 Specifically, they accumulate the covariance of activations **entering** each weight matrix and the covariance of gradients **exiting** it. They then take the Kronecker product (multiplying every value) of these two covariance matrices to approximate what's called the Fisher Information Matrix. This gives us a matrix of information equivalent to the Hessian, or second derivative $\text{w.r.t.}$ the loss (showing us curvature).
 
-![](https://arxiv.org/html/2510.24256v2/x1.png)
+![](/external/arxiv-2510.24256-x1.webp)
 
 Eigendecomposing these covariances lets them rank weight components by curvature. The eigenvalue of each component is the product of the corresponding activation and gradient eigenvalues. The authors remove components below a curvature threshold, suppressing memorization while preserving general capabilities.
 
-$$
-A = \mathbb{E}[aa^\top], \quad G = \mathbb{E}[gg^\top]
-$$
+```equation
+\eqterm{A}{A} = \eqterm{Ea}{\mathbb{E}[aa^\top]}, \quad \eqterm{G}{G} = \eqterm{Eg}{\mathbb{E}[gg^\top]}
 
-$$
-F_W \approx G \otimes A
-$$
+@A: The activation covariance — the input-side K-FAC factor, capturing how the activations $a$ entering this weight matrix co-vary across the dataset.
+@Ea: The expected outer product $\mathbb{E}[aa^\top]$ of the input activations.
+@G: The gradient covariance — the output-side K-FAC factor, capturing how the gradients $g$ leaving this weight matrix co-vary.
+@Eg: The expected outer product $\mathbb{E}[gg^\top]$ of the gradients.
+```
 
-$$
-G = U_G \, \text{diag}(\lambda) \, U_G^\top, \quad A = U_A \, \text{diag}(\mu) \, U_A^\top
-$$
+```equation
+\eqterm{F}{F_W} \approx \eqterm{G}{G} \eqterm{kron}{\otimes} \eqterm{A}{A}
 
-$$
-\Pi_{ij} = \lambda_i \mu_j \quad \text{(curvature mass of component } i,j \text{)}
-$$
+@F: The Fisher information matrix for weight $W$ — a tractable stand-in for the Hessian, so it measures the loss curvature.
+@G: The gradient covariance (output-side factor).
+@kron: The Kronecker product — multiplies $G$ against the whole matrix $A$, rebuilding the full curvature matrix from the two small factors.
+@A: The activation covariance (input-side factor).
+```
+
+```equation
+\eqterm{G}{G} = \eqterm{UG}{U_G} \, \eqterm{lam}{\text{diag}(\lambda)} \, \eqterm{UG}{U_G^\top}, \quad \eqterm{A}{A} = \eqterm{UA}{U_A} \, \eqterm{mu}{\text{diag}(\mu)} \, \eqterm{UA}{U_A^\top}
+
+@G: The gradient covariance being eigendecomposed.
+@UG: The eigenvectors of $G$ — the gradient-side principal directions.
+@lam: The gradient-side eigenvalues $\lambda$, ranking each direction by curvature.
+@A: The activation covariance being eigendecomposed.
+@UA: The eigenvectors of $A$ — the activation-side principal directions.
+@mu: The activation-side eigenvalues $\mu$.
+```
+
+```equation
+\eqterm{Pi}{\Pi_{ij}} = \eqterm{li}{\lambda_i} \eqterm{mj}{\mu_j} \quad \text{(curvature mass of component } i,j \text{)}
+
+@Pi: The curvature mass of component $(i,j)$ — how much this weight direction matters across the whole dataset.
+@li: The $i$-th gradient eigenvalue.
+@mj: The $j$-th activation eigenvalue. Their product is the component's curvature mass.
+```
 
 #### Intuition
 
@@ -68,7 +89,7 @@ The problem is that any concept represented as a minority in the training data c
 
 For example, the following screenshot from Goodfire's blogpost shows how removing top-$k$ eigenvectors from OLMo-2-7B affects performance across a spectrum of tasks — with math benchmarks like GSM8K taking the biggest hit:
 
-![](https://research-posts.s3.amazonaws.com/kfac/task-spectrum.png)
+![](/external/kfac-task-spectrum.webp)
 
 So I hypothesized a way to fix it by "zooming in" our dataset context to look at eigenvectors specifically related to a topic!
 
@@ -76,38 +97,75 @@ So I hypothesized a way to fix it by "zooming in" our dataset context to look at
 
 My idea to improve math performance is to compute additional, domain-specific Hessians by running the same procedure on domain-specific data. The idea is that within a more focused distribution, domain-specific circuits appear high-curvature because they're used/seen more frequently rather than being diluted across diverse text.
 
-$$
-A_{\text{general}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[aa^\top], \quad G_{\text{general}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[gg^\top]
-$$
+```equation
+\eqterm{Ag}{A_{\text{general}}} = \eqterm{Eag}{\mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[aa^\top]}, \quad \eqterm{Gg}{G_{\text{general}}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{general}}}[gg^\top]
 
-$$
-A_{\text{math}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[aa^\top], \quad G_{\text{math}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[gg^\top]
-$$
+@Ag: The activation covariance computed over the broad, general-text distribution.
+@Eag: An expectation over examples $x$ drawn from the general data distribution $\mathcal{D}_{\text{general}}$.
+@Gg: The gradient covariance over the same general distribution. Together these form the general Hessian.
+```
+
+```equation
+\eqterm{Am}{A_{\text{math}}} = \eqterm{Eam}{\mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[aa^\top]}, \quad \eqterm{Gm}{G_{\text{math}}} = \mathbb{E}_{x \sim \mathcal{D}_{\text{math}}}[gg^\top]
+
+@Am: The activation covariance computed over a focused math distribution.
+@Eam: An expectation over examples $x$ drawn from the math distribution $\mathcal{D}_{\text{math}}$ — here math circuits look high-curvature because they fire often.
+@Gm: The gradient covariance over the math distribution, forming the domain-specific Hessian.
+```
 
 
 To apply this, we preserve the top-$k$% of eigenvector pairs from the union of high-curvature directions from both Hessians.
 
-$$
-\mathcal{S}_{\text{general}} = \left\{ (i,j) : \sum_{(i,j) \in \mathcal{S}} \Pi_{ij}^{\text{general}} \geq \rho \cdot M_{\text{tot}}^{\text{general}} \right\}
-$$
+```equation
+\eqterm{Sg}{\mathcal{S}_{\text{general}}} = \left\{ \eqterm{ij}{(i,j)} : \eqterm{sum}{\sum_{(i,j) \in \mathcal{S}}} \eqterm{Pig}{\Pi_{ij}^{\text{general}}} \geq \eqterm{rho}{\rho} \cdot \eqterm{Mtot}{M_{\text{tot}}^{\text{general}}} \right\}
 
-$$
-\mathcal{S}_{\text{math}} = \left\{ (i,j) : \sum_{(i,j) \in \mathcal{S}} \Pi_{ij}^{\text{math}} \geq \rho \cdot M_{\text{tot}}^{\text{math}} \right\}
-$$
+@Sg: The set of component indices kept from the general Hessian.
+@ij: A single eigenvector pair (a component), indexed by gradient direction $i$ and activation direction $j$.
+@sum: The running sum of curvature mass over the components in the kept set.
+@Pig: The curvature mass of component $(i,j)$ in the general Hessian.
+@rho: The retention fraction — how much of the total curvature mass we choose to keep.
+@Mtot: The total curvature mass across all components of the general Hessian.
+```
 
-$$
-\mathcal{S}_{\text{final}} = \mathcal{S}_{\text{general}} \cup \mathcal{S}_{\text{math}}
-$$
+```equation
+\eqterm{Sm}{\mathcal{S}_{\text{math}}} = \left\{ \eqterm{ij}{(i,j)} : \sum_{(i,j) \in \mathcal{S}} \eqterm{Pim}{\Pi_{ij}^{\text{math}}} \geq \eqterm{rho}{\rho} \cdot \eqterm{Mtotm}{M_{\text{tot}}^{\text{math}}} \right\}
 
-$$
-W_{\text{edited}} = \sum_{(i,j) \in \mathcal{S}_{\text{final}}} C_{ij} \, u_i v_j^\top, \quad \text{where } C_{ij} = u_i^\top W v_j
-$$
+@Sm: The set of component indices kept from the math Hessian.
+@ij: A single eigenvector pair (a component), indexed $i,j$.
+@Pim: The curvature mass of component $(i,j)$ in the math Hessian.
+@rho: The retention fraction applied to the math Hessian's curvature mass.
+@Mtotm: The total curvature mass across all components of the math Hessian.
+```
+
+```equation
+\eqterm{Sf}{\mathcal{S}_{\text{final}}} = \eqterm{Sg}{\mathcal{S}_{\text{general}}} \eqterm{cup}{\cup} \eqterm{Sm}{\mathcal{S}_{\text{math}}}
+
+@Sf: The final kept set — the components preserved when we edit the weights.
+@Sg: The components kept from the general Hessian.
+@cup: A set union — keep a component if either Hessian considers it high-curvature.
+@Sm: The components kept from the math Hessian.
+```
+
+```equation
+\eqterm{We}{W_{\text{edited}}} = \eqterm{sum}{\sum_{(i,j) \in \mathcal{S}_{\text{final}}}} \eqterm{C}{C_{ij}} \, \eqterm{uv}{u_i v_j^\top}, \quad \text{where } \eqterm{C}{C_{ij}} = \eqterm{proj}{u_i^\top W v_j}
+
+@We: The edited weight matrix — rebuilt from only the components in the kept set.
+@sum: A sum over every component $(i,j)$ that survived in $\mathcal{S}_{\text{final}}$.
+@C: The coefficient (strength) of component $(i,j)$ within the original weight matrix.
+@uv: The rank-one component built from the eigenvectors $u_i$ and $v_j$.
+@proj: The coefficient is the original weight $W$ projected onto the component: $u_i^\top W v_j$.
+```
 
 I also use an $\alpha$ value control how much you weight domain-specific knowledge.($\alpha = 0$ means we don't use the math Hessian whatsoever, $\alpha = 1$ means they're equally weighted, $\alpha > 1$ means that the math Hessian dominates). So, concretely:
 
-$$
-S_{\text{final}} = S_{\text{general}} + \alpha \cdot S_{\text{math}}
-$$
+```equation
+\eqterm{Sf}{S_{\text{final}}} = \eqterm{Sg}{S_{\text{general}}} + \eqterm{alpha}{\alpha} \cdot \eqterm{Sm}{S_{\text{math}}}
+
+@Sf: The combined importance scores used to decide what to keep.
+@Sg: The importance scores from the general Hessian.
+@alpha: A weight on domain-specific knowledge. $\alpha = 0$ ignores the math Hessian; $\alpha = 1$ weights them equally; $\alpha > 1$ lets the math Hessian dominate.
+@Sm: The importance scores from the math Hessian.
+```
 
 ## Results
 

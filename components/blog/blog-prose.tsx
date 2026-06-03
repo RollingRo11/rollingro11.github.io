@@ -13,6 +13,7 @@ import "katex/dist/katex.min.css";
 import CodeBlock from "@/components/srcl/CodeBlock";
 import Divider from "@/components/srcl/Divider";
 import { simpleTableClasses } from "@/components/srcl/SimpleTable";
+import { AnnotatedEquation } from "@/components/blog/annotated-equation";
 
 // Flatten a react-markdown code node's children into the raw source string.
 function nodeText(node: React.ReactNode): string {
@@ -36,8 +37,18 @@ export function BlogProse({ content }: { content: string }) {
               <table className={simpleTableClasses.root}>{children}</table>
             </div>
           ),
-          // Fenced code blocks render through the SRCL CodeBlock.
-          pre: ({ children }) => <CodeBlock>{nodeText(children)}</CodeBlock>,
+          // Fenced code blocks render through the SRCL CodeBlock, except the
+          // ```equation language, which becomes an interactive AnnotatedEquation.
+          pre: ({ children }) => {
+            const child = Array.isArray(children) ? children[0] : children;
+            const className = React.isValidElement(child)
+              ? String((child.props as { className?: string }).className ?? "")
+              : "";
+            if (className.includes("language-equation")) {
+              return <AnnotatedEquation source={nodeText(children)} />;
+            }
+            return <CodeBlock>{nodeText(children)}</CodeBlock>;
+          },
           // Horizontal rules use the SRCL Divider.
           hr: () => <Divider style={{ margin: "1.5rem 0" }} />,
           img: ({ src, alt }) => {

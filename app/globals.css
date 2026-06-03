@@ -190,17 +190,16 @@
     p, ul, h1, h2, h3, h4, h5, h6 { margin-bottom: 0; }
     li { margin-bottom: 0; }
 
-    /* Responsive LaTeX block equations */
+    /* Responsive LaTeX block equations — never scrollable. */
     .katex-display {
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow: visible;
         max-width: 100%;
         padding: 0.5rem 0;
     }
 
     .katex {
         max-width: 100%;
-        overflow-x: auto;
+        overflow: visible;
     }
 }
 
@@ -722,6 +721,92 @@
 
 .blog-prose .katex {
     font-size: 1.05em;
+}
+
+/* ===== Annotated equations (interactive term definitions) ===== */
+
+.annotated-equation {
+    margin: 1.5em 0;
+}
+
+.annotated-equation__row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The equation drops the default block-equation vertical margins (the wrapper
+   owns spacing) and renders a touch smaller than a plain display equation. */
+.annotated-equation__katex .katex-display {
+    margin: 0;
+    font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+}
+
+.annotated-equation__number {
+    position: absolute;
+    right: 0;
+    color: var(--theme-text-subdued);
+    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    pointer-events: none;
+}
+
+/* Interactive terms: a faint dotted underline hints they're clickable. Inert
+   \eqterm spans (no matching definition) are left untouched. */
+.blog-prose [data-term].eq-term {
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-decoration-color: var(--theme-text-subdued);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.28em;
+    transition: color 0.12s ease;
+}
+
+/* Active term: rather than a background fill (which looks ragged over KaTeX's
+   nested spans), we dim the whole equation hard toward the background and keep
+   the focused term at full text color. --theme-border-subdued is much closer
+   to the background than --theme-text-subdued, so the contrast actually reads. */
+.annotated-equation__katex--focused {
+    color: var(--theme-border-subdued);
+}
+
+.annotated-equation__katex--focused [data-term].eq-term {
+    text-decoration-color: transparent;
+}
+
+.annotated-equation__katex--focused [data-term].eq-term--active {
+    color: var(--theme-text);
+}
+
+/* Reserved space under the equation for the definition (matches the
+   Goodfire-style box). Fixed min-height so swapping definitions never shifts
+   the page. */
+.annotated-equation__def {
+    margin: 0.85rem auto 0;
+    /* Fixed at three lines tall, full width — definitions of different lengths
+       swap in place without reflowing the surrounding text. */
+    height: calc(3 * 1.6em);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1.1rem;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--theme-text);
+}
+
+.annotated-equation__def .katex {
+    font-size: 1em;
+}
+
+.annotated-equation__hint {
+    color: var(--theme-text-subdued);
+    font-style: italic;
+}
+
+.annotated-equation__hint em {
+    font-style: italic;
 }
 
 /* ===== Footnotes (bottom) ===== */
