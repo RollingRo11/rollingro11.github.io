@@ -1,103 +1,103 @@
-"use client";
-
 import Link from "next/link";
-import { BlogHeader } from "@/components/blog/blog-header";
-import { Card, ActionListItem, Divider, RowSpaceBetween } from "@/components/srcl";
+import { SiteHeader } from "@/components/site/header";
+
+const elsewhere = [
+  { href: "https://aisst.ai/", title: "AISST" },
+  { href: "https://generatenu.com/", title: "Generate" },
+  { href: "https://www.ktpneu.org/", title: "Kappa Theta Pi" },
+  { href: "https://rev.school/", title: "REV" },
+];
 
 export default function Home() {
-  const link = "srcl-link";
-
   return (
-    <div className="srcl-page">
-      <BlogHeader />
+    <div className="page">
+      <SiteHeader />
 
-      <main className="srcl-main">
-        <Card>
-          <p>
-            Howdy! I&apos;m a Computer Science student at Northeastern University concentrated in
-            Artificial Intelligence. I work on{" "}
-            <Link href="/interpretability" className={link}>
+      <main className="site-main shell">
+        <div className="stack" data-rise style={{ "--rise-i": 1 } as React.CSSProperties}>
+          <p className="lede">
+            Howdy — I&apos;m a computer science student at Northeastern University, concentrated in
+            artificial intelligence. I work on{" "}
+            <Link href="/interpretability/" className="link">
               mechanistic interpretability
             </Link>
             .
           </p>
 
           <p>
-            I&apos;m currently working with the{" "}
-            <a href="https://baulab.info/" className={link} target="_blank" rel="noopener noreferrer">
+            Right now I&apos;m a research fellow with the{" "}
+            <a href="https://baulab.info/" className="link" target="_blank" rel="noopener noreferrer">
               Bau Lab
-            </a>{" "}
-            as a research fellow for the{" "}
+            </a>
+            , through the{" "}
             <a
               href="https://www.cbai.ai/summer-research-fellowship-26"
-              className={link}
+              className="link"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Cambridge-Boston Alignment Initiative
+              Cambridge&ndash;Boston Alignment Initiative
             </a>
             .
           </p>
 
           <p>
-            I&apos;ve previously worked with{" "}
+            Before that I worked with{" "}
             <a
               href="https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/"
-              className={link}
+              className="link"
               target="_blank"
               rel="noopener noreferrer"
             >
               Northeastern&apos;s Research in AI Lab
             </a>{" "}
-            on understanding cross-layer superposition, and with{" "}
-            <a href="https://www.goodfire.ai/" className={link} target="_blank" rel="noopener noreferrer">
+            on cross-layer superposition, and with{" "}
+            <a href="https://www.goodfire.ai/" className="link" target="_blank" rel="noopener noreferrer">
               Goodfire
             </a>{" "}
-            on understanding LLM Evaluation Awareness.
+            on understanding evaluation awareness in language models.
           </p>
+        </div>
 
-          <Divider style={{ margin: "0.5rem 0" }} />
+        <section data-rise style={{ "--rise-i": 2 } as React.CSSProperties}>
+          <p className="section-label">Elsewhere</p>
+          <ul className="link-list link-list--bullets focus-group">
+            {elsewhere.map((item) => (
+              <li key={item.href} className="focus-item">
+                <a href={item.href} className="link-row" target="_blank" rel="noopener noreferrer">
+                  <span className="link-row__title">{item.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-          <p className="srcl-section-label">Other things</p>
-          <ActionListItem href="https://aisst.ai/">
-            <span className="srcl-ul">AISST</span>
-          </ActionListItem>
-          <ActionListItem href="https://generatenu.com/">
-            Design @ <span className="srcl-ul">Generate</span>
-          </ActionListItem>
-          <ActionListItem href="https://www.ktpneu.org/">
-            <span className="srcl-ul">Kappa Theta Pi @ Northeastern</span> · Tech Lead
-          </ActionListItem>
-          <ActionListItem href="https://rev.school/">
-            <span className="srcl-ul">REV</span> · Cohort 4
-          </ActionListItem>
-
-          <Divider style={{ margin: "0.5rem 0" }} />
-
-          <p className="srcl-section-label">Contact</p>
-          <RowSpaceBetween>
-            <span>kathuria.r@northeastern.edu</span>
-            <span>
+        <section data-rise style={{ "--rise-i": 3 } as React.CSSProperties}>
+          <p className="section-label">Contact</p>
+          <div className="contact">
+            <a href="mailto:kathuria.r@northeastern.edu" className="link">
+              kathuria.r@northeastern.edu
+            </a>
+            <span className="contact__links">
               <a
                 href="https://linkedin.com/in/rohanekathuria"
-                className={link}
+                className="link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                linkedin
+                LinkedIn
               </a>
-              {" / "}
               <a
                 href="https://github.com/RollingRo11"
-                className={link}
+                className="link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                github
+                GitHub
               </a>
             </span>
-          </RowSpaceBetween>
-        </Card>
+          </div>
+        </section>
       </main>
     </div>
   );

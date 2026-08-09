@@ -1,31 +1,10 @@
 import type { Config } from "tailwindcss";
 
+// The design system lives in app/globals.css as plain CSS custom properties.
+// Tailwind stays wired up for its base reset only.
 const config: Config = {
-  darkMode: ["class"],
-  content: [
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      fontSize: {
-        sm: "0.7rem",
-        base: "0.775rem",
-        lg: "0.85rem",
-        xl: "0.95rem",
-        "2xl": "1.15rem",
-        "3xl": "1.4rem",
-        "4xl": "1.7rem",
-        "5xl": "2.25rem",
-        "6xl": "2.8rem",
-      },
-      colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        border: "hsl(var(--border))",
-      },
-    },
-  },
+  content: ["./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
+  theme: { extend: {} },
   plugins: [],
 };
 export default config;

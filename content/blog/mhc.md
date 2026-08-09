@@ -11,12 +11,12 @@ Deepseek's new (viral) mHC paper kickstarted 2026 and brought attention to one o
 
 Large language models are made up of a sequence of transformer blocks that continuously "build" the output!
 
-![](/resid.avif)
+![](/resid.webp)
 (Image from Anthropic)[^1]
 
 Each block, and each component of each block, reads and writes from the __residual stream__. This is the communication highway that allows every part of the model to learn (with little-to-no penalty for increasing model lengths).
 
-![](/subspaces.avif)
+![](/subspaces.webp)
 (Image from Anthropic)[^1]
 
 
@@ -111,7 +111,7 @@ Deepseek builds on Bytedance's hyper-connections with **manifold-constrained** h
 
 #### _first_: what is a manifold?
 
-![](/external/quanta-manifold-lede.webp)
+![](/external/quanta-manifold-lede.webp "keep-colors")
 (Image from Quanta Magazine[^4])
 
 When you think of "mathematical space", you might first think of the euclidean plane, or a number line! This is where the coordinate system allows for trigonometry, calculus, and more.

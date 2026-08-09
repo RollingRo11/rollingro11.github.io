@@ -35,10 +35,7 @@ interface Parsed {
 const MACROS = { "\\eqterm": "\\htmlData{term=#1}{#2}" };
 
 function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 // Render a definition string that may contain inline `$...$` math to HTML.
@@ -106,7 +103,7 @@ function parse(source: string): Parsed {
   return { latex, number, terms };
 }
 
-export function AnnotatedEquation({ source }: { source: string }) {
+export function Equation({ source }: { source: string }) {
   const { latex, number, terms } = useMemo(() => parse(source), [source]);
 
   const html = useMemo(() => {
@@ -177,8 +174,8 @@ export function AnnotatedEquation({ source }: { source: string }) {
   }, [defMap, html]);
 
   // Keep both the pinned term (clicked) and the hovered term at full strength
-  // while the rest of the equation dims to gray — so a clicked term stays black
-  // even as you hover others. The definition box still follows the hover.
+  // while the rest of the equation recedes — so a clicked term stays lit even
+  // as you hover others. The definition still follows the hover.
   useEffect(() => {
     const root = containerRef.current;
     if (!root) return;
@@ -190,23 +187,21 @@ export function AnnotatedEquation({ source }: { source: string }) {
   }, [hovered, pinned, html]);
 
   return (
-    <div className="annotated-equation">
-      <div className="annotated-equation__row">
+    <div className="equation">
+      <div className="equation__row">
         <div
           ref={containerRef}
-          className={`annotated-equation__katex${active ? " annotated-equation__katex--focused" : ""}`}
+          className={`equation__katex${active ? " equation__katex--focused" : ""}`}
           dangerouslySetInnerHTML={{ __html: html }}
         />
-        {number && <span className="annotated-equation__number">({number})</span>}
+        {number && <span className="equation__number">({number})</span>}
       </div>
       {terms.length > 0 && (
-        <div className="annotated-equation__def" aria-live="polite">
+        <div className="equation__def" aria-live="polite">
           {active ? (
             <span key={active} dangerouslySetInnerHTML={{ __html: defMap[active] }} />
           ) : (
-            <span className="annotated-equation__hint">
-              <em>Click</em> or hover any term for its definition
-            </span>
+            <span className="equation__hint">Hover or click any term for its definition</span>
           )}
         </div>
       )}

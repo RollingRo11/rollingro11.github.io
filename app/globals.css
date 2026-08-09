@@ -3,999 +3,997 @@
 @tailwind utilities;
 
 /* =================================================================
-   SRCL theme system — ported from internet-development/www-sacred.
-   Colors driven by `body.theme-light` / `body.theme-dark` classes
-   set in the CustomThemeProvider. Components reference --theme-*
-   variables so the whole interface re-tints on toggle.
+   Linen & walnut — a reading-room identity for a research site.
+
+   Two faces do all the work: Crimson Pro (display, set light and
+   large) and Crimson Text (body, set at a real reading size). Lilex
+   survives for code only, where a monospace is load-bearing.
+
+   The signature interaction is attribution dimming: hovering one item
+   in a `.focus-group` recedes its siblings. It's the grammar of
+   feature attribution — the subject of the site — applied to its
+   navigation.
    ================================================================= */
 
 :root {
-    --font-family-mono: var(--font-lilex), ui-monospace, SFMono-Regular, Menlo, monospace;
-    --theme-line-height-base: 1.5;
-    --font-size: 14px;
+    --font-display: var(--font-crimson-pro), Georgia, "Times New Roman", serif;
+    --font-text: var(--font-crimson-text), Georgia, "Times New Roman", serif;
+    --font-mono: var(--font-lilex), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    /* ANSI-inspired neutral ramp (light → dark). */
-    --color-white: #ffffff;
-    --color-gray-93: #eeeeee;
-    --color-gray-89: #e4e4e4;
-    --color-gray-78: #c6c6c6;
-    --color-gray-66: #a8a8a8;
-    --color-gray-54: #8a8a8a;
-    --color-gray-42: #6c6c6c;
-    --color-gray-35: #585858;
-    --color-gray-23: #3a3a3a;
-    --color-gray-15: #262626;
-    --color-gray-3: #080808;
-    --color-black: #000000;
-    --color-focus: #39ff44;
-    --color-focus-dim: rgba(57, 255, 68, 0.28);
+    --text-base: 1.1875rem; /* 19px */
+    --leading: 1.68;
+
+    /* One measure for prose, one wider for posts carrying equations. */
+    --measure: 38rem;
+    --measure-wide: 43rem;
+
+    --gutter: 1.75rem;
+    --radius: 3px;
+
+    /* Vertical rhythm — every gap is drawn from this ramp. */
+    --space-1: 0.375rem;
+    --space-2: 0.75rem;
+    --space-3: 1.25rem;
+    --space-4: 2rem;
+    --space-5: 3.25rem;
+    --space-6: 5rem;
+    --space-7: 7.5rem;
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* Selectors match either <html> (set by inline boot script, no FOUC) or
-   <body> (set by the React CustomThemeProvider). */
 .theme-light {
-    --theme-background: #ffffff;
-    --theme-text: var(--color-gray-3);
-    --theme-text-subdued: var(--color-gray-42);
-    --theme-border: var(--color-gray-23);
-    --theme-border-subdued: var(--color-gray-78);
-    --theme-panel: var(--color-gray-93);
-    --theme-panel-subdued: var(--color-gray-89);
-    --theme-button: var(--color-gray-3);
-    --theme-button-text: #ffffff;
-    --theme-button-foreground: var(--color-gray-89);
-    --theme-button-background: var(--color-gray-93);
-    --theme-focused-foreground: var(--color-focus);
-    --theme-link: var(--color-gray-3);
-    --theme-selection-bg: var(--color-gray-3);
-    --theme-selection-text: #ffffff;
-    --theme-window-background: var(--color-gray-93);
-    --theme-window-shadow: var(--color-gray-66);
+    --paper: #faf7f2;
+    --paper-raised: #f3efe7;
+    --ink: #26201a;
+    --ink-muted: #756b5f;
+    --ink-faint: #a89f92;
+    --rule: #e8e1d6;
+    --accent: #6b7a62;
+    --accent-soft: rgba(107, 122, 98, 0.14);
+    --shadow: rgba(38, 32, 26, 0.07);
+    color-scheme: light;
 }
 
 .theme-dark {
-    --theme-background: var(--color-gray-3);
-    --theme-text: #ffffff;
-    --theme-text-subdued: var(--color-gray-66);
-    --theme-border: #ffffff;
-    --theme-border-subdued: var(--color-gray-35);
-    --theme-panel: var(--color-gray-15);
-    --theme-panel-subdued: var(--color-gray-23);
-    --theme-button: #ffffff;
-    --theme-button-text: var(--color-gray-3);
-    --theme-button-foreground: var(--color-gray-23);
-    --theme-button-background: var(--color-gray-15);
-    --theme-focused-foreground: var(--color-focus);
-    --theme-link: #ffffff;
-    --theme-selection-bg: #ffffff;
-    --theme-selection-text: var(--color-gray-3);
-    --theme-window-background: var(--color-gray-23);
-    --theme-window-shadow: var(--color-gray-15);
-}
-
-/* ===== Tint themes (ported from SRCL global.css) =====
-   Each tint sets only --tint; the .theme-light.tint-X and .theme-dark.tint-X
-   selectors derive every --theme-* token from that tint via OKLCH math so
-   the saturation/lightness ramp stays in the same perceptual band as the
-   ANSI grayscale.  */
-
-.tint-green   { --tint: #39ff44; }
-.tint-blue    { --tint: #0047ff; }
-.tint-red     { --tint: #ff0000; }
-.tint-yellow  { --tint: #e4f221; }
-.tint-purple  { --tint: #8000ff; }
-.tint-orange  { --tint: #ffac1c; }
-.tint-pink    { --tint: #ff00ff; }
-
-.theme-light.tint-green,
-.theme-light.tint-blue,
-.theme-light.tint-red,
-.theme-light.tint-yellow,
-.theme-light.tint-purple,
-.theme-light.tint-orange,
-.theme-light.tint-pink {
-    --theme-background: oklch(from var(--tint) 0.97 calc(c * 0.1) h);
-    --theme-text: oklch(from var(--tint) 0.18 calc(c * 0.4) h);
-    --theme-text-subdued: oklch(from var(--tint) 0.45 calc(c * 0.35) h);
-    --theme-border: oklch(from var(--tint) 0.84 calc(c * 0.28) h);
-    --theme-border-subdued: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-button: oklch(from var(--tint) 0.18 calc(c * 0.4) h);
-    --theme-button-text: oklch(from var(--tint) 0.97 calc(c * 0.1) h);
-    --theme-button-foreground: oklch(from var(--tint) 0.86 calc(c * 0.22) h);
-    --theme-button-background: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-focused-foreground: oklch(from var(--tint) 0.62 c h);
-    --theme-link: oklch(from var(--tint) 0.18 calc(c * 0.4) h);
-    --theme-selection-bg: oklch(from var(--tint) 0.62 c h);
-    --theme-selection-text: oklch(from var(--tint) 0.97 calc(c * 0.1) h);
-    --theme-window-background: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-window-shadow: oklch(from var(--tint) 0.7 calc(c * 0.28) h);
-}
-
-.theme-dark.tint-green,
-.theme-dark.tint-blue,
-.theme-dark.tint-red,
-.theme-dark.tint-yellow,
-.theme-dark.tint-purple,
-.theme-dark.tint-orange,
-.theme-dark.tint-pink {
-    --theme-background: oklch(from var(--tint) 0.14 calc(c * 0.18) h);
-    --theme-text: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-text-subdued: oklch(from var(--tint) 0.6 calc(c * 0.22) h);
-    --theme-border: oklch(from var(--tint) 0.4 calc(c * 0.28) h);
-    --theme-border-subdued: oklch(from var(--tint) 0.3 calc(c * 0.22) h);
-    --theme-button: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-button-text: oklch(from var(--tint) 0.14 calc(c * 0.18) h);
-    --theme-button-foreground: oklch(from var(--tint) 0.28 calc(c * 0.2) h);
-    --theme-button-background: oklch(from var(--tint) 0.24 calc(c * 0.22) h);
-    --theme-focused-foreground: oklch(from var(--tint) 0.55 c h);
-    --theme-link: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-selection-bg: oklch(from var(--tint) 0.92 calc(c * 0.18) h);
-    --theme-selection-text: oklch(from var(--tint) 0.14 calc(c * 0.18) h);
-    --theme-window-background: oklch(from var(--tint) 0.24 calc(c * 0.22) h);
-    --theme-window-shadow: oklch(from var(--tint) 0.18 calc(c * 0.22) h);
+    --paper: #17140f;
+    --paper-raised: #211d17;
+    --ink: #efe9e0;
+    --ink-muted: #9a9086;
+    --ink-faint: #6b6359;
+    --rule: #302a22;
+    --accent: #9baa90;
+    --accent-soft: rgba(155, 170, 144, 0.16);
+    --shadow: rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
 }
 
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3%;
-        --border: 0 0% 89.8%;
-    }
-
-    .dark {
-        --background: 0 0% 3%;
-        --foreground: 0 0% 100%;
-        --border: 0 0% 14.9%;
-    }
-
     * {
-        @apply border-border;
+        box-sizing: border-box;
     }
 
     html {
         min-height: 100dvh;
         margin: 0;
-        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar {
-        display: none;
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+            env(safe-area-inset-left);
+        -webkit-text-size-adjust: 100%;
     }
 
     body {
-        background: var(--theme-background, #fff);
-        color: var(--theme-text, #080808);
         margin: 0;
         min-height: 100dvh;
-        font-family: var(--font-family-mono);
-        font-size: var(--font-size);
-        line-height: calc(var(--theme-line-height-base) * 1rem);
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-text);
+        font-size: var(--text-base);
+        line-height: var(--leading);
         font-weight: 400;
-        font-variant-numeric: tabular-nums lining-nums;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-rendering: geometricPrecision;
-        font-optical-sizing: auto;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+        font-variant-ligatures: common-ligatures;
+        transition: background 400ms var(--ease), color 400ms var(--ease);
     }
 
     ::selection {
-        background-color: var(--theme-selection-bg, #080808);
-        color: var(--theme-selection-text, #fff);
+        background: var(--accent-soft);
+        color: var(--ink);
     }
 
-    /* Tighter vertical rhythm */
-    p, ul, h1, h2, h3, h4, h5, h6 { margin-bottom: 0; }
-    li { margin-bottom: 0; }
-
-    /* Responsive LaTeX block equations — never scrollable. */
-    .katex-display {
-        overflow: visible;
-        max-width: 100%;
-        padding: 0.5rem 0;
-    }
-
-    .katex {
-        max-width: 100%;
-        overflow: visible;
-    }
-}
-
-@layer utilities {
-    .text-balance {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        margin: 0;
         text-wrap: balance;
     }
-}
 
-/* ===== SRCL page chrome =====
-   Container + link styling shared across pages. Header sits inside the same
-   column as main content (no full-width nav bar). */
+    p {
+        margin: 0;
+    }
 
-.srcl-page {
-    min-height: 100dvh;
-    background: var(--theme-background);
-    color: var(--theme-text);
-}
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 1px;
+    }
 
-.srcl-header {
-    max-width: 72ch;
-    margin: 0 auto;
-    padding: calc(var(--theme-line-height-base) * 1.5rem) 2ch 0 2ch;
-}
-
-@media (min-width: 720px) {
-    .srcl-header {
-        max-width: 78ch;
-        padding-left: 4ch;
-        padding-right: 4ch;
+    img {
+        max-width: 100%;
+        height: auto;
     }
 }
 
-.srcl-header-row {
+/* ===== Shell =============================================== */
+
+.page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.shell {
+    width: 100%;
+    max-width: calc(var(--measure) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+}
+
+.shell--wide {
+    max-width: calc(var(--measure-wide) + var(--gutter) * 2);
+}
+
+/* ===== Header ============================================== */
+
+.site-header {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-2);
+}
+
+.site-header__row {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 2ch;
-    margin-bottom: calc(var(--theme-line-height-base) * 0.5rem);
+    gap: var(--space-3);
+    flex-wrap: wrap;
 }
 
-.srcl-header-title {
+.site-header__rule {
+    height: 1px;
+    background: var(--rule);
+    margin-top: var(--space-2);
+}
+
+.wordmark {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
     margin: 0;
-    font-size: var(--font-size);
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
-.srcl-header-link {
-    color: inherit;
-    text-decoration: none;
-    background: transparent;
-}
-
-.srcl-header-link:hover {
-    background: transparent;
-}
-
-/* Just the name renders in Crimson Pro (serif) — everything else in the
-   header (crumb, nav, picker) stays monospace. */
-.srcl-name {
-    font-family: var(--font-crimson-pro), Georgia, serif;
-    text-transform: none;
-    letter-spacing: 0.01em;
-    font-size: 1.4em;
-    line-height: 1;
-}
-
-/* Middle name reveals on hover — only on hover-capable devices, so a tap on
-   mobile (which triggers sticky :hover) never shows it. */
-.srcl-name-mid {
-    display: none;
-}
-
-@media (hover: hover) {
-    .srcl-name:hover .srcl-name-mid {
-        display: inline;
-    }
-}
-
-.srcl-header-crumb-sep {
-    margin: 0 0.75ch;
-    opacity: 0.35;
-}
-
-.srcl-header-crumb {
-    opacity: 0.7;
-}
-
-.srcl-header-nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5ch;
-}
-
-.srcl-header-navlink {
-    color: inherit;
-    text-decoration: none;
-    background: transparent;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.7;
-    transition: opacity 150ms ease-out, background 150ms ease-out;
-    padding: 0 1ch;
-}
-
-.srcl-header-navlink:hover,
-.srcl-header-navlink:focus {
-    background: var(--theme-button-foreground);
-    opacity: 1;
-}
-
-.srcl-header-hairline {
-    border-top: 2px solid var(--theme-text);
-}
-
-.srcl-main {
-    max-width: 72ch;
-    margin: 0 auto;
-    /* Extra right-padding leaves room for the Card's 1ch right drop-shadow
-       so it never gets clipped by the viewport edge. */
-    padding: calc(var(--theme-line-height-base) * 2rem) 2ch calc(var(--theme-line-height-base) * 4rem) 2ch;
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--theme-line-height-base) * 1.5rem);
-}
-
-@media (min-width: 720px) {
-    .srcl-main {
-        max-width: 78ch;
-        padding-left: 4ch;
-        padding-right: calc(4ch + 1ch);
-    }
-}
-
-/* Blog post pages get a wider column so prose has room to breathe. */
-.srcl-main--wide,
-.srcl-header--wide {
-    max-width: 88ch;
-}
-
-/* Blog post pages render their content directly on the page background (no
-   Card window): pure white in light mode (even under an active tint), the
-   darker outer background in dark mode. */
-.theme-light .srcl-page--blog {
-    --theme-background: #ffffff;
-}
-
-/* The uppercase date sits above the title like the old Card title did. */
-.srcl-post-date {
-    font-size: var(--font-size);
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    opacity: 0.7;
-    margin: 0;
-}
-
-@media (min-width: 720px) {
-    .srcl-main--wide,
-    .srcl-header--wide {
-        max-width: 92ch;
-    }
-}
-
-/* Links: always underlined, highlight hugs the exact text extent (no side
-   padding) so the highlight ends at the last pixel of the text — matches the
-   sacred.computer highlight behavior and keeps everything aligned. */
-.srcl-link {
-    color: var(--theme-link);
-    background: var(--theme-button-foreground);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-    padding: 0;
-    transition: background 150ms ease-out;
-}
-
-.srcl-link:hover,
-.srcl-link:focus {
-    background: var(--theme-focused-foreground);
-    outline: 0;
-    color: var(--theme-text);
-}
-
-/* Tighten paragraph rhythm inside SRCL Cards */
-.srcl-page p + p {
-    margin-top: calc(var(--theme-line-height-base) * 0.5rem);
-}
-
-/* Permanent underline for the meaningful link text inside an ActionListItem
-   label (so only the link phrase is underlined, not the whole row). */
-.srcl-ul {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-}
-
-/* Uppercase section label inside a Card (e.g. "Other things", "Contact"). */
-.srcl-section-label {
-    /* inline-block so the selection / line box hugs the text instead of
-       stretching the highlight across the whole block width. */
-    display: inline-block;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    opacity: 0.55;
-    margin-bottom: calc(var(--theme-line-height-base) * 0.25rem);
-}
-
-/* Blog index post-list rows — date column + title. */
-.srcl-post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-indent: 0;
-}
-
-.srcl-post-list li + li {
-    margin-top: calc(var(--theme-line-height-base) * 0.5rem);
-}
-
-.srcl-post-row {
     display: flex;
     align-items: baseline;
-    gap: 2ch;
-    color: var(--theme-text);
+    flex-wrap: wrap;
+    gap: 0.05em;
+}
+
+.wordmark__link {
+    color: inherit;
     text-decoration: none;
 }
 
-.srcl-post-row time {
-    flex-shrink: 0;
-    width: 9ch;
-    opacity: 0.55;
+.wordmark__crumb {
+    font-size: 0.72em;
+    color: var(--ink-muted);
+    text-transform: lowercase;
 }
 
-/* The flex item is just a container; the highlight lives on an inline child
-   so it hugs the text per line (ends at the last pixel) instead of filling
-   the whole flex column as a rectangle. */
-.srcl-post-title {
+.wordmark__sep {
+    color: var(--ink-faint);
+    margin-inline: 0.45em;
+    font-size: 0.72em;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.site-nav__link {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+}
+
+/* Mode toggle — a half-filled disc that rotates through the change. */
+.mode-toggle {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink-muted);
+    display: inline-flex;
+    align-items: center;
+    transition: color 200ms var(--ease);
+}
+
+.mode-toggle:hover {
+    color: var(--ink);
+}
+
+.mode-toggle svg {
+    display: block;
+    transition: transform 600ms var(--ease);
+}
+
+.theme-dark .mode-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* ===== Main ================================================ */
+
+.site-main {
+    flex: 1;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-7);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.site-main > * {
     min-width: 0;
 }
 
-.srcl-post-title-ink {
-    background: var(--theme-button-foreground);
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    transition: background 150ms ease-out;
-}
-
-.srcl-post-row:hover .srcl-post-title-ink {
-    background: var(--theme-focused-foreground);
-}
-
-.srcl-post-summary {
-    opacity: 0.7;
-    margin-top: 0;
-    margin-left: 11ch;
-}
-
-.srcl-post-h1 {
-    font-size: calc(var(--font-size) * 1.3);
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: calc(var(--theme-line-height-base) * 1rem);
-}
-
-/* Design page styles */
-.srcl-design-images {
+.stack {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--theme-line-height-base) * 0.75rem);
-    margin-bottom: calc(var(--theme-line-height-base) * 1rem);
+    gap: var(--space-3);
 }
 
-.srcl-design-images figure {
-    margin: 0;
+/* Opening paragraph runs a shade larger — a standfirst, not a heading. */
+.lede {
+    font-size: 1.3125rem;
+    line-height: 1.6;
 }
 
-.srcl-design-image {
-    width: 100%;
-    height: auto;
-    border: 2px solid var(--theme-text);
-    cursor: pointer;
-    transition: opacity 150ms ease-out;
-}
-
-.srcl-design-image:hover {
-    opacity: 0.9;
-}
-
-.srcl-design-images figcaption {
-    text-align: center;
-    opacity: 0.6;
+.section-label {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: calc(var(--font-size) * 0.9);
-    margin-top: 0.25rem;
+    color: var(--ink-faint);
+    margin-bottom: var(--space-2);
 }
 
-.srcl-design-meta {
-    margin-bottom: calc(var(--theme-line-height-base) * 0.5rem);
+.page-title {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
 }
 
-.srcl-design-label {
-    opacity: 0.55;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+.page-subtitle {
+    color: var(--ink-muted);
+    font-style: italic;
 }
 
-.srcl-design-palette {
+/* Date, title, standfirst sit tighter together than the body rhythm. */
+.post-header {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-2);
 }
 
-.srcl-design-swatches {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(7ch, 1fr));
-    gap: 0.5ch 1ch;
-}
-
-.srcl-design-swatch {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: calc(var(--font-size) * 0.85);
-    opacity: 0.7;
-}
-
-.srcl-design-swatch-block {
-    width: 100%;
-    aspect-ratio: 1;
-    border: 2px solid var(--theme-text);
-}
-
-/* Modal */
-.srcl-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.85);
-    cursor: pointer;
-}
-
-.srcl-modal-inner {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-}
-
-.srcl-modal-inner img {
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
-    border: 2px solid white;
-}
-
-.srcl-modal-close {
-    position: absolute;
-    top: -2rem;
-    right: 0;
-    background: transparent;
-    border: 0;
-    color: white;
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size);
+.meta {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
+    color: var(--ink-faint);
+    font-variant-numeric: lining-nums;
 }
 
-.srcl-modal-close:hover {
-    color: var(--color-focus);
+/* ===== Links =============================================== */
+
+.link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: var(--accent);
+    transition: text-decoration-thickness 160ms var(--ease), color 160ms var(--ease),
+        background 160ms var(--ease);
 }
 
-/* ===== Lume (dark mode hover glow, aged tritium) ===== */
+.link:hover,
+.link:focus-visible {
+    text-decoration-thickness: 2px;
+    background: var(--accent-soft);
+}
+
+/* ===== Attribution dimming =================================
+   The signature. Hovering any row inside a focus group recedes the
+   others, the way an attribution view mutes everything but the term
+   under inspection. Hover-capable pointers only. */
 
 @media (hover: hover) {
-    /* Subtle hover lift on the active line number — pi.website-style restraint. */
-    .lume-target {
-        transition: color 0.15s ease-out;
+    .focus-group:hover .focus-item {
+        color: var(--ink-faint);
+    }
+
+    /* These carry their own color, so they need dimming named explicitly. */
+    .focus-group:hover .focus-item .meta,
+    .focus-group:hover .focus-item .link-row__note,
+    .focus-group:hover .focus-item .link-row__summary {
+        color: var(--ink-faint);
+    }
+
+    .focus-group .focus-item:hover,
+    .focus-group .focus-item:focus-within {
+        color: var(--ink);
+    }
+
+    /* The inspected row's own secondary text comes back with it. */
+    .focus-group .focus-item:hover .link-row__note,
+    .focus-group .focus-item:focus-within .link-row__note,
+    .focus-group .focus-item:hover .link-row__summary,
+    .focus-group .focus-item:focus-within .link-row__summary {
+        color: var(--ink-muted);
     }
 }
 
-/* ===== Blog Prose (Markdown content) =====
-   Mono throughout to match the pi-style aesthetic; headings differ from body
-   only by case + tracking, not by family. */
+.focus-item {
+    transition: color 260ms var(--ease), opacity 260ms var(--ease);
+}
 
-.blog-prose {
-    font-family: inherit;
-    font-size: 13px;
-    line-height: 1.75;
+/* ===== Link rows =========================================== */
+
+.link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link-list > li + li {
+    margin-top: var(--space-2);
+}
+
+/* Writing entries carry a date and a summary, so they need more air between
+   them than a bare list of names does. */
+.link-list--entries > li + li {
+    margin-top: var(--space-4);
+}
+
+/* Bulleted variant — `circle` is the hollow marker, matching the open circles
+   the prose lists draw. */
+.link-list--bullets {
+    list-style: circle;
+    padding-left: 1.1em;
+}
+
+.link-list--bullets > li::marker {
+    color: var(--ink-faint);
+}
+
+/* Bulleted rows stack tight — the markers do the separating, so the row
+   padding and inter-item margin both come off. */
+.link-list--bullets > li + li {
+    margin-top: 0;
+}
+
+.link-list--bullets .link-row {
+    padding: 0;
+}
+
+/* No rules and no markers — the rows are separated by space alone, and the
+   only hover feedback is the group dimming. */
+.link-row {
+    display: block;
     color: inherit;
+    text-decoration: none;
+    padding: var(--space-1) 0;
 }
 
-.blog-prose h1,
-.blog-prose h2,
-.blog-prose h3,
-.blog-prose h4,
-.blog-prose h5,
-.blog-prose h6 {
-    font-family: inherit;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+.link-row__main {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.link-row__title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.1875rem;
     font-weight: 400;
-}
-
-.blog-prose h1 {
-    font-size: 18px;
-    margin-top: 2.5em;
-    margin-bottom: 0.8em;
     line-height: 1.3;
 }
 
-.blog-prose h2 {
-    font-size: 15px;
-    margin-top: 2em;
-    margin-bottom: 0.7em;
-    line-height: 1.35;
-    letter-spacing: 0.08em;
+.link-row__note {
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+    font-style: italic;
+    flex-shrink: 0;
+    transition: color 260ms var(--ease);
 }
 
-.blog-prose h3 {
-    font-size: 13px;
-    margin-top: 1.6em;
-    margin-bottom: 0.6em;
-    line-height: 1.4;
-    letter-spacing: 0.12em;
-    opacity: 0.7;
+.link-row__summary {
+    display: block;
+    color: var(--ink-muted);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    margin-top: var(--space-1);
 }
 
-.blog-prose p {
-    margin-bottom: 1.2em;
+/* Writing index rows lead with a date in the same baseline as the title. */
+.entry-row__date {
+    display: block;
+    margin-bottom: var(--space-1);
 }
 
-.blog-prose a {
+/* ===== Contact ============================================= */
+
+.contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-3);
+}
+
+.contact__links {
+    display: flex;
+    gap: var(--space-3);
+}
+
+/* ===== Entrance ============================================
+   A short staggered rise on load. Nothing scroll-triggered — the page
+   settles once and then stays still. */
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+[data-rise] {
+    animation: rise 700ms var(--ease) both;
+    animation-delay: calc(var(--rise-i, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===== Prose =============================================== */
+
+.prose {
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    line-height: var(--leading);
+}
+
+.prose > * + * {
+    margin-top: var(--space-3);
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+}
+
+.prose h2 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1.22;
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-2);
+}
+
+.prose h3 {
+    font-size: 1.3125rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+}
+
+.prose h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-style: italic;
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-1);
+}
+
+.prose a {
     color: inherit;
     text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(0, 0, 0, 0.4);
-    transition: text-decoration-color 0.15s ease-out;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: var(--accent);
+    transition: text-decoration-thickness 160ms var(--ease), background 160ms var(--ease);
 }
 
-.blog-prose a:hover {
-    text-decoration-color: currentColor;
+.prose a:hover {
+    text-decoration-thickness: 2px;
+    background: var(--accent-soft);
 }
 
-.dark .blog-prose a {
-    text-decoration-color: rgba(255, 255, 255, 0.4);
-}
-
-.blog-prose strong {
+.prose strong {
     font-weight: 700;
 }
 
-.blog-prose em {
+.prose em {
     font-style: italic;
 }
 
-.blog-prose ul {
-    margin-bottom: 1.2em;
-    padding-left: 1.6em;
-    list-style-type: disc;
+.prose ul,
+.prose ol {
+    padding-left: 1.35em;
+    margin-top: var(--space-3);
 }
 
-.blog-prose ol {
-    margin-bottom: 1.2em;
-    padding-left: 1.6em;
-    list-style-type: decimal;
+.prose ul {
+    list-style: none;
 }
 
-.blog-prose li::marker {
-    color: #374151;
+/* Open circles rather than filled discs — quieter against a serif column. */
+.prose ul > li::before {
+    content: "";
+    position: absolute;
+    left: -1.15em;
+    top: 0.62em;
+    width: 0.36em;
+    height: 0.36em;
+    border: 1px solid var(--ink-faint);
+    border-radius: 50%;
 }
 
-.dark .blog-prose li::marker {
-    color: #d1d5db;
+.prose ul > li {
+    position: relative;
 }
 
-.blog-prose li {
-    margin-bottom: 0.4em;
+.prose ol {
+    list-style: decimal;
 }
 
-.blog-prose blockquote {
-    border-left: 1px solid currentColor;
-    padding-left: 1em;
-    margin: 1.5em 0;
-    opacity: 0.65;
+.prose ol > li::marker {
+    color: var(--ink-faint);
+    font-family: var(--font-display);
 }
 
-/* Inline code only — fenced code blocks render through the SRCL CodeBlock
-   component, and tables / hr through SimpleTable + Divider. */
-.blog-prose code {
-    font-family: inherit;
-    font-size: 1em;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 0.05em 0.35em;
-    border-radius: 0;
+.prose li + li {
+    margin-top: var(--space-1);
 }
 
-.dark .blog-prose code {
-    background: rgba(255, 255, 255, 0.06);
+.prose li > ul,
+.prose li > ol {
+    margin-top: var(--space-1);
 }
 
-/* KaTeX overrides for blog */
-.blog-prose .katex-display {
-    margin: 1.5em 0;
-    /* Big block equations on desktop, scaling down with the viewport on
-       smaller screens so they don't overflow the column (overflow-x: auto
-       in the @layer base rule is the final safety net). */
-    font-size: clamp(1.05rem, 3vw, 1.7rem);
+/* Asides set as an indented block with a sage hairline — no quote marks,
+   no italic wholesale. */
+.prose blockquote {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-3);
+    border-left: 1px solid var(--accent);
+    color: var(--ink-muted);
 }
 
-.blog-prose .katex {
-    font-size: 1.05em;
+.prose blockquote > * + * {
+    margin-top: var(--space-2);
 }
 
-/* ===== Annotated equations (interactive term definitions) ===== */
-
-.annotated-equation {
-    margin: 1.5em 0;
+.prose blockquote h4 {
+    margin-top: 0;
+    color: var(--ink);
 }
 
-.annotated-equation__row {
+.prose img {
+    display: block;
+    width: 100%;
+    margin: var(--space-4) 0;
+}
+
+/* Dark-mode figure inversion.
+   The figures carry no background of their own any more, so there's no white
+   card to fight — only the ink needs flipping. invert() alone would also flip
+   every hue (a red curve would come back cyan), so hue-rotate(180deg) turns
+   them back: the pair inverts lightness while leaving hue roughly where the
+   author put it. Alpha is untouched by filters, so the transparent background
+   stays transparent and the paper shows through in both themes. */
+.theme-dark .prose img[data-invert] {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.prose hr {
+    border: 0;
+    height: 1px;
+    background: var(--rule);
+    margin: var(--space-5) 0;
+}
+
+/* ===== Code ================================================ */
+
+.prose code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--paper-raised);
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius);
+}
+
+.code-block {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    background: var(--paper-raised);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--ink);
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+}
+
+/* ===== Tables ============================================== */
+
+.table-wrap {
+    overflow-x: auto;
+    margin: var(--space-4) 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    font-variant-numeric: lining-nums tabular-nums;
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: var(--space-2) var(--space-3) var(--space-2) 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+}
+
+.table thead th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom-color: var(--ink-faint);
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* ===== Math ================================================ */
+
+.katex {
+    font-size: 1.02em;
+}
+
+.katex-display {
+    margin: var(--space-4) 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25rem 0;
+}
+
+.prose .katex-display {
+    font-size: clamp(1rem, 2.6vw, 1.3rem);
+}
+
+/* ===== Annotated equations =================================
+   The equation dims to muted and the inspected term stays at full ink —
+   the same attribution grammar as the link groups above. */
+
+.equation {
+    margin: var(--space-5) 0;
+}
+
+.equation__row {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* The equation drops the default block-equation vertical margins (the wrapper
-   owns spacing) and renders a touch smaller than a plain display equation. */
-.annotated-equation__katex .katex-display {
+.equation__katex .katex-display {
     margin: 0;
-    font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
 }
 
-.annotated-equation__number {
+.equation__number {
     position: absolute;
     right: 0;
-    color: var(--theme-text-subdued);
-    font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+    color: var(--ink-faint);
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
     pointer-events: none;
 }
 
-/* Interactive terms: a faint dotted underline hints they're clickable. Inert
-   \eqterm spans (no matching definition) are left untouched. */
-.blog-prose [data-term].eq-term {
+.prose [data-term].eq-term {
     cursor: pointer;
-    text-decoration: underline dotted;
-    text-decoration-color: var(--theme-text-subdued);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.28em;
-    transition: color 0.12s ease;
+    border-bottom: 1px dotted var(--ink-faint);
+    transition: color 180ms var(--ease), border-color 180ms var(--ease);
 }
 
-/* Active term: rather than a background fill (which looks ragged over KaTeX's
-   nested spans), we dim the whole equation hard toward the background and keep
-   the focused term at full text color. --theme-border-subdued is much closer
-   to the background than --theme-text-subdued, so the contrast actually reads. */
-.annotated-equation__katex--focused {
-    color: var(--theme-border-subdued);
+.equation__katex--focused {
+    color: var(--ink-faint);
 }
 
-.annotated-equation__katex--focused [data-term].eq-term {
-    text-decoration-color: transparent;
+.equation__katex--focused [data-term].eq-term {
+    border-bottom-color: transparent;
 }
 
-.annotated-equation__katex--focused [data-term].eq-term--active {
-    color: var(--theme-text);
+.equation__katex--focused [data-term].eq-term--active {
+    color: var(--ink);
 }
 
-/* Reserved space under the equation for the definition (matches the
-   Goodfire-style box). Fixed min-height so swapping definitions never shifts
-   the page. */
-.annotated-equation__def {
-    margin: 0.85rem auto 0;
-    /* Fixed at three lines tall, full width — definitions of different lengths
-       swap in place without reflowing the surrounding text. */
-    height: calc(3 * 1.6em);
+.equation__def {
+    margin: var(--space-3) auto 0;
+    min-height: calc(3 * 1.6em);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 1.1rem;
-    font-size: 13px;
+    padding: 0 var(--space-3);
+    font-size: 1rem;
     line-height: 1.6;
-    color: var(--theme-text);
+    color: var(--ink);
 }
 
-.annotated-equation__def .katex {
+.equation__def .katex {
     font-size: 1em;
 }
 
-.annotated-equation__hint {
-    color: var(--theme-text-subdued);
+.equation__hint {
+    color: var(--ink-faint);
     font-style: italic;
 }
 
-.annotated-equation__hint em {
-    font-style: italic;
+/* ===== Footnotes =========================================== */
+
+.prose [data-footnotes] {
+    margin-top: var(--space-6);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--rule);
+    font-size: 1rem;
+    color: var(--ink-muted);
 }
 
-/* ===== Footnotes (bottom) ===== */
-
-.blog-prose [data-footnotes] {
-    margin-top: 1.5em;
-    font-size: 14px;
-    line-height: 1.6;
-    opacity: 0.8;
-}
-
-.blog-prose [data-footnotes] hr {
+.prose [data-footnotes] hr {
     display: none;
 }
 
-.blog-prose [data-footnotes] h2 {
+.prose [data-footnotes] h2 {
     position: absolute;
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
 }
 
-.blog-prose [data-footnotes] ol {
-    padding-left: 1.4em;
-    margin-bottom: 0;
-    list-style: decimal;
+.prose [data-footnotes] ol {
+    padding-left: 1.3em;
+    margin-top: 0;
 }
 
-.blog-prose [data-footnotes] li {
-    margin-bottom: 0.6em;
+.prose [data-footnotes] li + li {
+    margin-top: var(--space-2);
 }
 
-.blog-prose [data-footnotes] li p {
-    margin-bottom: 0.3em;
-}
-
-.blog-prose [data-footnote-ref] {
-    font-size: 0.75em;
-    color: inherit;
-    text-decoration: none;
+.prose [data-footnote-ref] {
+    font-family: var(--font-display);
+    font-size: 0.7em;
     vertical-align: super;
     line-height: 0;
-    padding: 0 1px;
-    opacity: 0.6;
-    transition: opacity 0.15s;
+    text-decoration: none;
+    color: var(--accent);
+    padding: 0 0.1em;
 }
 
-.blog-prose [data-footnote-ref]:hover {
-    opacity: 1;
-    text-decoration: underline;
-    text-underline-offset: 2px;
+.prose [data-footnote-ref]:hover {
+    background: var(--accent-soft);
 }
 
-.blog-prose [data-footnote-backref] {
+.prose [data-footnote-backref] {
     font-size: 0.85em;
     text-decoration: none;
-    margin-left: 4px;
+    margin-left: 0.35em;
+    color: var(--ink-faint);
 }
 
-/* ===== Footnote windows (floating, outside the main Card) =====
-   Portaled to <body> and positioned in document coordinates to the right of
-   the Card. Styled as small SRCL window panels with the same drop shadow. */
+/* ===== Margin notes ========================================
+   Footnotes float beside the column on wide screens. No panel, no
+   border — just muted text on the paper, hanging in the margin. */
 
-.margin-notes-layer {
+.margin-notes {
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
-    z-index: 30;
 }
 
-.margin-note-window {
+.margin-note {
     position: absolute;
-    font-family: var(--font-family-mono);
-    font-size: calc(var(--font-size) * 0.85);
-    line-height: 1.55;
-    color: var(--theme-text);
-    background: var(--theme-window-background);
-    border: 2px solid var(--theme-text);
-    box-shadow: 1ch calc(var(--theme-line-height-base) * 0.5rem) 0 0 var(--theme-window-shadow);
-    padding: calc(var(--theme-line-height-base) * 0.25rem) 1ch;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    font-family: var(--font-text);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+    padding-left: var(--space-2);
+    border-left: 1px solid var(--rule);
+    transition: color 260ms var(--ease), border-color 260ms var(--ease);
 }
 
-.margin-note-window--active {
-    opacity: 1;
+.margin-note--active {
+    color: var(--ink-muted);
+    border-left-color: var(--accent);
 }
 
-.margin-note-number {
-    font-weight: 400;
-    text-decoration: underline;
-    text-underline-offset: 2px;
+.margin-note__number {
+    font-family: var(--font-display);
+    color: var(--accent);
 }
 
-.margin-note-window p {
+.margin-note p {
     margin: 0;
     display: inline;
 }
 
-.margin-note-window a {
+.margin-note a {
     color: inherit;
     text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
 }
 
-/* ===== Blog table-of-contents sidebar ===== */
-/* Always visible, no panel/overlay/animation — sits in the empty space to the
-   left of the centered post, on the page background. */
+/* ===== Table of contents ===================================
+   Sits in the empty margin left of the post. Reading position is shown
+   by a sage tick, not a filled state. */
 
-.blog-toc {
+.toc {
     position: fixed;
-    top: calc(var(--theme-line-height-base) * 3rem);
-    left: 2ch;
-    z-index: 45;
-    width: min(32ch, 26vw);
-    max-height: calc(100dvh - var(--theme-line-height-base) * 4rem);
+    top: var(--space-5);
+    left: var(--space-4);
+    z-index: 20;
+    width: min(15rem, 20vw);
+    max-height: calc(100dvh - var(--space-6));
     overflow-y: auto;
-    background: transparent;
     scrollbar-width: none;
 }
 
-.blog-toc::-webkit-scrollbar {
+.toc::-webkit-scrollbar {
     display: none;
 }
 
-.blog-toc-label {
-    margin: 0 0 calc(var(--theme-line-height-base) * 0.5rem) 1ch;
-    font-family: var(--font-family-mono);
-    font-size: calc(var(--font-size) * 0.85);
+.toc__label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    opacity: 0.4;
+    color: var(--ink-faint);
+    margin-bottom: var(--space-2);
 }
 
-.blog-toc-list {
+.toc__list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.blog-toc-item {
+.toc__item {
     display: block;
     width: 100%;
     text-align: left;
-    background: transparent;
+    background: none;
     border: 0;
-    outline: 0;
+    border-left: 1px solid var(--rule);
     cursor: pointer;
-    color: var(--theme-text);
-    font-family: var(--font-family-mono);
-    font-size: calc(var(--font-size) * 0.92);
-    line-height: 1.5;
-    padding: 0;
-    white-space: normal;
-    opacity: 0.55;
-    transition: opacity 120ms ease-out, background 120ms ease-out;
+    color: var(--ink-faint);
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    padding: 0.3rem 0 0.3rem var(--space-2);
+    transition: color 220ms var(--ease), border-color 220ms var(--ease);
 }
 
-.blog-toc-item:hover,
-.blog-toc-item:focus {
-    opacity: 1;
-    background: var(--theme-focused-foreground);
+.toc__item:hover {
+    color: var(--ink-muted);
+    border-left-color: var(--ink-faint);
 }
 
-.blog-toc-item--active {
-    opacity: 1;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+.toc__item--active {
+    color: var(--ink);
+    border-left-color: var(--accent);
 }
 
-/* Hide the TOC where there isn't room to the left of the post column. */
-@media (max-width: 1199px) {
-    .blog-toc {
+@media (max-width: 1279px) {
+    .toc {
         display: none;
     }
 }
 
-@media (max-width: 768px) {
-    .blog-prose {
-        width: 100%;
-        max-width: 100%;
-        font-size: 13px;
+/* ===== Responsive ========================================== */
+
+@media (max-width: 640px) {
+    :root {
+        --text-base: 1.125rem;
+        --gutter: 1.25rem;
+        --space-5: 2.5rem;
+        --space-6: 3.5rem;
+        --space-7: 4.5rem;
     }
 
-    .blog-prose .katex {
-        font-size: 0.9em;
+    .site-header {
+        padding-top: var(--space-4);
+    }
+
+    .lede {
+        font-size: 1.1875rem;
+    }
+
+    .prose h2 {
+        font-size: 1.5rem;
+    }
+
+    .link-row__main {
+        flex-direction: column;
+        gap: var(--space-1);
     }
 }

@@ -1,7 +1,6 @@
-// Server component — renders the post markdown to static HTML at build time.
-// No "use client": react-markdown / remark / rehype / KaTeX run during
-// prerender and are NOT shipped to or re-run in the browser, which is what
-// removes the on-open hydration lag.
+// Server component — the post markdown is rendered to static HTML at build
+// time. No "use client": remark / rehype / KaTeX run during prerender and are
+// never shipped to the browser, so opening a post stays instant.
 
 import * as React from "react";
 import ReactMarkdown from "react-markdown";
@@ -10,12 +9,9 @@ import remarkGfm from "remark-gfm";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import "katex/dist/katex.min.css";
-import CodeBlock from "@/components/srcl/CodeBlock";
-import Divider from "@/components/srcl/Divider";
-import { simpleTableClasses } from "@/components/srcl/SimpleTable";
-import { AnnotatedEquation } from "@/components/blog/annotated-equation";
+import { Equation } from "@/components/blog/equation";
 
-// Flatten a react-markdown code node's children into the raw source string.
+// Flatten a react-markdown code node's children back into its source string.
 function nodeText(node: React.ReactNode): string {
   if (node == null || node === false) return "";
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -24,35 +20,42 @@ function nodeText(node: React.ReactNode): string {
   return "";
 }
 
-export function BlogProse({ content }: { content: string }) {
+export function Prose({ content }: { content: string }) {
   return (
-    <div className="blog-prose">
+    <div className="prose">
       <ReactMarkdown
         remarkPlugins={[remarkMath, remarkGfm]}
         rehypePlugins={[rehypeKatex, rehypeSlug]}
         components={{
-          // Tables use the SRCL SimpleTable styling.
           table: ({ children }) => (
-            <div className={simpleTableClasses.scrollWrapper}>
-              <table className={simpleTableClasses.root}>{children}</table>
+            <div className="table-wrap">
+              <table className="table">{children}</table>
             </div>
           ),
-          // Fenced code blocks render through the SRCL CodeBlock, except the
-          // ```equation language, which becomes an interactive AnnotatedEquation.
+          // ```equation blocks become interactive annotated equations;
+          // everything else falls through to a plain code block.
           pre: ({ children }) => {
             const child = Array.isArray(children) ? children[0] : children;
             const className = React.isValidElement(child)
               ? String((child.props as { className?: string }).className ?? "")
               : "";
             if (className.includes("language-equation")) {
-              return <AnnotatedEquation source={nodeText(children)} />;
+              return <Equation source={nodeText(children)} />;
             }
-            return <CodeBlock>{nodeText(children)}</CodeBlock>;
+            return (
+              <pre className="code-block">
+                <code>{nodeText(children)}</code>
+              </pre>
+            );
           },
-          // Horizontal rules use the SRCL Divider.
-          hr: () => <Divider style={{ margin: "1.5rem 0" }} />,
-          img: ({ src, alt }) => {
+          // Figures have transparent backgrounds, so in dark mode their ink is
+          // flipped to read against the dark ground. Full-colour artwork opts
+          // out with the markdown title slot: ![alt](/art.webp "keep-colors").
+          // The title is consumed as a directive, never forwarded to the DOM,
+          // so it can't surface as a tooltip.
+          img: ({ src, alt, title }) => {
             if (!src) return null;
+            const keepColors = title === "keep-colors";
             return (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -60,7 +63,7 @@ export function BlogProse({ content }: { content: string }) {
                 alt={alt ?? ""}
                 loading="lazy"
                 decoding="async"
-                style={{ maxWidth: "100%", height: "auto" }}
+                data-invert={keepColors ? undefined : ""}
               />
             );
           },

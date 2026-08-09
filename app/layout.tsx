@@ -1,30 +1,27 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Crimson_Pro } from "next/font/google";
+import { Crimson_Pro, Crimson_Text } from "next/font/google";
 import "./globals.css";
-import { CustomThemeProvider } from "@/components/custom-theme-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
-
-const codeNewRoman = localFont({
-  src: "./fonts/cnr.otf",
-  variable: "--font-code-new-roman",
+// Crimson Pro (variable) sets display: the wordmark, headings, and the small
+// letterspaced labels. Crimson Text sets running prose at reading size.
+const crimsonPro = Crimson_Pro({
+  subsets: ["latin"],
+  variable: "--font-crimson-pro",
   display: "swap",
 });
 
-const departureMono = localFont({
-  src: "./fonts/DepartureMono-Regular.woff2",
-  variable: "--font-departure-mono",
+const crimsonText = Crimson_Text({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-crimson-text",
   display: "swap",
 });
 
-const paperMono = localFont({
-  src: "./fonts/PaperMono-Regular.woff2",
-  variable: "--font-paper-mono",
-  display: "swap",
-});
-
-// Lilex — Zed editor's monospace font (self-hosted). The primary site font.
+// Monospace survives for code only, where the grid is load-bearing.
 const lilex = localFont({
   src: [
     { path: "./fonts/Lilex-Regular.ttf", weight: "400", style: "normal" },
@@ -36,20 +33,13 @@ const lilex = localFont({
   display: "swap",
 });
 
-const crimsonPro = Crimson_Pro({
-  subsets: ["latin"],
-  variable: "--font-crimson-pro",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://rkathuria.com"),
   title: "Rohan Kathuria",
-  description: "Portfolio of Rohan Kathuria",
+  description: "Mechanistic interpretability research and writing by Rohan Kathuria.",
   icons: {
     icon: "/favicon.svg",
   },
-  generator: "v0.dev",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -60,7 +50,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Rohan Kathuria",
-    description: "Portfolio",
+    description: "Mechanistic interpretability research and writing.",
     url: "https://rkathuria.com",
     siteName: "Rohan Kathuria",
     images: [
@@ -68,7 +58,7 @@ export const metadata: Metadata = {
         url: "https://rkathuria.com/title.png?v=1",
         width: 1200,
         height: 630,
-        alt: "Rohan.",
+        alt: "Rohan Kathuria",
       },
     ],
     locale: "en_US",
@@ -77,7 +67,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Rohan Kathuria",
-    description: "Portfolio",
+    description: "Mechanistic interpretability research and writing.",
     images: ["https://rkathuria.com/title.png?v=1"],
   },
 };
@@ -86,56 +76,40 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#ffffff",
+  // Kept as a single value so the provider can follow a manual toggle.
+  themeColor: "#faf7f2",
 };
+
+// Resolves the theme before first paint so there's no flash. Light is the
+// default until the reader picks otherwise; the system preference is ignored.
+const BOOT_SCRIPT = `
+(function () {
+  try {
+    var saved = localStorage.getItem('theme');
+    var mode = saved === 'dark' ? 'dark' : 'light';
+    var root = document.documentElement;
+    root.classList.add('theme-' + mode);
+    root.style.backgroundColor = mode === 'dark' ? '#17140f' : '#faf7f2';
+  } catch (e) {
+    document.documentElement.classList.add('theme-light');
+  }
+})();
+`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${codeNewRoman.variable} ${departureMono.variable} ${crimsonPro.variable} ${paperMono.variable} ${lilex.variable}`}
+      className={`${crimsonPro.variable} ${crimsonText.variable} ${lilex.variable}`}
     >
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function() {
-              const savedColorMode = localStorage.getItem('colorMode');
-              let colorMode = savedColorMode;
-              if (!colorMode) {
-                const oldDarkMode = localStorage.getItem('darkMode');
-                colorMode = oldDarkMode !== null ? (oldDarkMode === 'true' ? 'dark' : 'light') : 'dark';
-              }
-              const savedTint = localStorage.getItem('tint') || 'orange';
-              const allowedTints = ['green','blue','red','yellow','purple','orange','pink'];
-
-              // SRCL theme + tint classes on <html> (the inline script runs
-              // before <body> exists, so we attach to documentElement to
-              // avoid a FOUC. CSS selectors match either <html> or <body>.)
-              const themeClass = colorMode === 'dark' ? 'theme-dark' : 'theme-light';
-              document.documentElement.classList.add(themeClass);
-              if (allowedTints.indexOf(savedTint) !== -1) {
-                document.documentElement.classList.add('tint-' + savedTint);
-              }
-
-              if (colorMode === 'dark') {
-                document.documentElement.classList.add('dark');
-                if (savedTint === 'none') document.documentElement.style.backgroundColor = '#080808';
-              } else {
-                if (savedTint === 'none') document.documentElement.style.backgroundColor = '#ffffff';
-              }
-            })();
-          `,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="theme-color" content="#ffffff" />
       </head>
-      <body style={{ fontFamily: "var(--font-family-mono)" }}>
-        <CustomThemeProvider>{children}</CustomThemeProvider>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -1,52 +1,85 @@
-import { BlogHeader } from "@/components/blog/blog-header";
-import { Card, ActionListItem, Divider } from "@/components/srcl";
+import { SiteHeader } from "@/components/site/header";
+
+export const metadata = {
+  title: "Interpretability — Rohan Kathuria",
+  description: "Why mechanistic interpretability is worth working on.",
+};
+
+const reading = [
+  {
+    href: "https://www.darioamodei.com/post/the-urgency-of-interpretability#the-utility-of-interpretability",
+    title: "The Urgency of Interpretability",
+    note: "Dario Amodei",
+  },
+  {
+    href: "https://www.alignmentforum.org/posts/Hy6PX43HGgmfiTaKu/an-ambitious-vision-for-interpretability",
+    title: "An Ambitious Vision for Interpretability",
+    note: "AI Alignment Forum",
+  },
+  {
+    href: "https://web.stanford.edu/~cgpotts/blog/interp/",
+    title: "Assessing Skeptical Views of Interpretability Research",
+    note: "Chris Potts",
+  },
+  {
+    href: "https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J",
+    title: "Mechanistic Interpretability Resources",
+    note: "Neel Nanda",
+  },
+  {
+    href: "https://www.alignmentforum.org/posts/jP9KDyMkchuv6tHwm/how-to-become-a-mechanistic-interpretability-researcher",
+    title: "How to Become a Mechanistic Interpretability Researcher",
+    note: "Neel Nanda",
+  },
+];
 
 export default function Interpretability() {
   return (
-    <div className="srcl-page">
-      <BlogHeader crumb="Interpretability?" />
+    <div className="page">
+      <SiteHeader crumb="Interpretability" />
 
-      <main className="srcl-main">
-        <Card title="Why Mechanistic Interpretability?">
-          <p>
+      <main className="site-main shell">
+        <div className="stack" data-rise style={{ "--rise-i": 1 } as React.CSSProperties}>
+          <h1 className="page-title">Why mechanistic interpretability?</h1>
+
+          <p className="lede">
             AI models are grown, not built. We build the environments, algorithms, and data pipelines
-            to train models, but they &ldquo;learn&rdquo; their own way.
+            that train them, but they learn their own way.
           </p>
+
           <p>
-            Mechanistic Interpretability is the science of breaking down an AI model into
+            Mechanistic interpretability is the science of breaking a model down into
             human-interpretable mechanisms in order to decipher those learnings. It&apos;s an attempt
-            to understand the connections the model is making so we can further grasp how Artificial
-            Intelligence thinks. For large language models, this research can yield findings that
-            improve model architecture, post-training decisions, and navigating limitations and
-            safety risks on certain tasks.
+            to understand the connections a model is making, so we can grasp how artificial
+            intelligence thinks. For large language models, this research yields findings that
+            improve architecture, inform post-training decisions, and surface limitations and safety
+            risks on specific tasks.
           </p>
+
           <p>
-            I fully believe in (and am probably more interested in) long-horizon, ambitious
-            interpretability goals. Fundamentally understanding what is happening inside these models
-            will yield incredible byproducts of science for safety, alignment, and other fields of AI
-            research. Just because this task sounds Sisyphean doesn&apos;t mean we can&apos;t push
-            the needle &mdash; or the boulder &mdash; in a meaningful direction.
+            I fully believe in — and am probably more interested in — the long-horizon, ambitious
+            interpretability goals. Fundamentally understanding what happens inside these models will
+            yield incredible byproducts for safety, alignment, and the rest of AI research. Just
+            because the task sounds Sisyphean doesn&apos;t mean we can&apos;t push the needle, or the
+            boulder, in a meaningful direction.
           </p>
+        </div>
 
-          <Divider type="double" style={{ margin: "0.75rem 0" }} />
-
-          <p className="srcl-section-label">Read more</p>
-          <ActionListItem href="https://www.darioamodei.com/post/the-urgency-of-interpretability#the-utility-of-interpretability">
-            <span className="srcl-ul">The Urgency of Interpretability</span> &nbsp;·&nbsp; Dario Amodei
-          </ActionListItem>
-          <ActionListItem href="https://www.alignmentforum.org/posts/Hy6PX43HGgmfiTaKu/an-ambitious-vision-for-interpretability">
-            <span className="srcl-ul">An Ambitious Vision for Interpretability</span> &nbsp;·&nbsp; AI Alignment Forum
-          </ActionListItem>
-          <ActionListItem href="https://web.stanford.edu/~cgpotts/blog/interp/">
-            <span className="srcl-ul">Assessing Skeptical Views of Interpretability Research</span> &nbsp;·&nbsp; Chris Potts
-          </ActionListItem>
-          <ActionListItem href="https://dynalist.io/d/n2ZWtnoYHrU1s4vnFSAQ519J">
-            <span className="srcl-ul">Mechanistic Interpretability Resources</span> &nbsp;·&nbsp; Neel Nanda
-          </ActionListItem>
-          <ActionListItem href="https://www.alignmentforum.org/posts/jP9KDyMkchuv6tHwm/how-to-become-a-mechanistic-interpretability-researcher">
-            <span className="srcl-ul">How to Become a Mechanistic Interpretability Researcher</span> &nbsp;·&nbsp; Neel Nanda
-          </ActionListItem>
-        </Card>
+        <section data-rise style={{ "--rise-i": 2 } as React.CSSProperties}>
+          <p className="section-label">Read more</p>
+          <ul className="link-list focus-group">
+            {reading.map((item) => (
+              <li key={item.href} className="focus-item">
+                <a href={item.href} className="link-row" target="_blank" rel="noopener noreferrer">
+                  <span className="link-row__main">
+                    <span className="link-row__title">{item.title}</span>
+                    <span className="link-row__note">{item.note}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </div>
   );

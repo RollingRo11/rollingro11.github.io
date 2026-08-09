@@ -8,19 +8,16 @@ interface Heading {
   level: number;
 }
 
-// Always-visible table of contents for blog posts — sits in the empty space
-// to the left of the centered post, on the page background. Active section is
-// underlined via scroll-spy.
-export function BlogSidebar() {
+// Reading position for a post, in the empty margin to its left. Shown only
+// where there's room; the active section is marked with a sage rule.
+export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useLayoutEffect(() => {
     const scan = () => {
       const els = Array.from(
-        document.querySelectorAll<HTMLElement>(
-          ".blog-prose h1[id], .blog-prose h2[id], .blog-prose h3[id]",
-        ),
+        document.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]"),
       ).filter((el) => !el.closest("[data-footnotes]"));
 
       setHeadings(
@@ -42,7 +39,7 @@ export function BlogSidebar() {
     };
   }, []);
 
-  // Scroll spy: the active heading is the last one whose top is above the fold.
+  // The active heading is the last one whose top has passed the fold.
   useEffect(() => {
     if (headings.length === 0) return;
     let raf = 0;
@@ -77,15 +74,15 @@ export function BlogSidebar() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="blog-toc" aria-label="Table of contents">
-      <p className="blog-toc-label">Contents</p>
-      <ul className="blog-toc-list">
+    <nav className="toc" aria-label="Table of contents">
+      <p className="toc__label">Contents</p>
+      <ul className="toc__list">
         {headings.map((h) => (
           <li key={h.id}>
             <button
               type="button"
-              className={`blog-toc-item ${activeId === h.id ? "blog-toc-item--active" : ""}`}
-              style={{ paddingLeft: `${(h.level - 1) * 2 + 1}ch` }}
+              className={`toc__item${activeId === h.id ? " toc__item--active" : ""}`}
+              style={{ paddingLeft: h.level === 3 ? "1.5rem" : undefined }}
               onClick={() => scrollTo(h.id)}
             >
               {h.text}
