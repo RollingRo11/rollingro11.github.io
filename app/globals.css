@@ -278,6 +278,18 @@
     line-height: 1.6;
 }
 
+/* The home page carries that larger size across the whole column rather than
+   just the opening paragraph. Set on the container so everything inherits;
+   the small uppercase labels hold their own size and are unaffected. */
+.site-main--large {
+    font-size: 1.3125rem;
+    line-height: 1.6;
+}
+
+.site-main--large .link-row__title {
+    font-size: inherit;
+}
+
 .section-label {
     font-family: var(--font-display);
     font-size: 0.8125rem;
@@ -984,7 +996,8 @@
         padding-top: var(--space-4);
     }
 
-    .lede {
+    .lede,
+    .site-main--large {
         font-size: 1.1875rem;
     }
 

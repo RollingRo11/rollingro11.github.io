@@ -13,11 +13,11 @@ export default function Home() {
     <div className="page">
       <SiteHeader />
 
-      <main className="site-main shell">
+      <main className="site-main site-main--large shell">
         <div className="stack" data-rise style={{ "--rise-i": 1 } as React.CSSProperties}>
-          <p className="lede">
-            Howdy — I&apos;m a computer science student at Northeastern University, concentrated in
-            artificial intelligence. I work on{" "}
+          <p>
+            Howdy! I&apos;m Rohan. I&apos;m a computer science student at Northeastern University,
+            concentrated in artificial intelligence. I work on{" "}
             <Link href="/interpretability/" className="link">
               mechanistic interpretability
             </Link>
@@ -25,7 +25,7 @@ export default function Home() {
           </p>
 
           <p>
-            Right now I&apos;m a research fellow with the{" "}
+            I&apos;m currently a research fellow with the{" "}
             <a href="https://baulab.info/" className="link" target="_blank" rel="noopener noreferrer">
               Bau Lab
             </a>
@@ -42,7 +42,7 @@ export default function Home() {
           </p>
 
           <p>
-            Before that I worked with{" "}
+            I&apos;ve previously worked with{" "}
             <a
               href="https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/"
               className="link"
