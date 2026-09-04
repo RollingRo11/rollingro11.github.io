@@ -172,27 +172,66 @@ export function Watercolor({ className }: { className?: string }) {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Paint, then dry in: the new picture fades up and sharpens.
-    //
-    // The paint blocks for ~100ms, so the browser never renders the blurred
-    // starting state — which is exactly what a CSS transition needs to run
-    // from, and why the load (fresh canvas, no prior style) animated while a
-    // click did not. Web Animations takes the start value as a keyframe
-    // instead, so both paths animate identically.
+    // A background tab never fires a frame callback, so every step is also
+    // backed by a timer and the guard keeps whichever lands first.
+    const nextFrame = (fn: () => void) => {
+      let done = false;
+      const once = () => {
+        if (done || cancelled) return;
+        done = true;
+        fn();
+      };
+      requestAnimationFrame(once);
+      setTimeout(once, 80);
+    };
+
+    const stopAnimations = () => {
+      host.getAnimations().forEach((a) => a.cancel());
+      canvas?.getAnimations().forEach((a) => a.cancel());
+    };
+
     const dryIn = () => {
       host.classList.add("plate__specimen--shown");
       if (reduced || !canvas) return;
       const timing = { duration: 700, easing: "cubic-bezier(0.22, 0.61, 0.36, 1)" };
-      // Cancel first so rapid clicks restart the dry-in rather than stack.
-      canvas.getAnimations().forEach((a) => a.cancel());
-      host.getAnimations().forEach((a) => a.cancel());
+      stopAnimations();
       canvas.animate([{ opacity: 0 }, { opacity: 1 }], timing);
       host.animate([{ filter: "blur(8px)" }, { filter: "blur(0px)" }], timing);
     };
 
+    // Clear the plate, paint, then dry in — each step on its own frame.
+    //
+    // Both waits are for the same reason: an animation is anchored to the
+    // document timeline, which only advances when a frame is rendered. The
+    // paint blocks the thread, so animating straight after one starts it
+    // already part-elapsed, and on a slow paint wholly elapsed — which is
+    // why the dry-in played only sometimes, and only on some browsers.
+    // Yielding first also means the click is acknowledged (the plate goes
+    // blank) before the thread locks up.
+    let busy = false;
     const paintAndDry = () => {
-      if (!brush) return;
-      if (render()) dryIn();
+      if (!brush || busy) return;
+      busy = true;
+      stopAnimations();
+
+      // Nobody is watching, or nobody wants motion: paint straight away
+      // rather than yielding frames a background tab throttles to a second
+      // apiece.
+      if (reduced || document.hidden) {
+        render();
+        host.classList.add("plate__specimen--shown");
+        busy = false;
+        return;
+      }
+
+      host.classList.remove("plate__specimen--shown");
+      nextFrame(() => {
+        const painted = render();
+        nextFrame(() => {
+          if (painted) dryIn();
+          busy = false;
+        });
+      });
     };
 
     const onClick = () => {
