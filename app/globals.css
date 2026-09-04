@@ -3,34 +3,27 @@
 @tailwind utilities;
 
 /* =================================================================
-   Linen & walnut — a reading-room identity for a research site.
+   Studio rig — a personal site set like a piece of equipment.
 
-   Two faces do all the work: Crimson Pro (display, set light and
-   large) and Crimson Text (body, set at a real reading size). Lilex
-   survives for code only, where a monospace is load-bearing.
+   Ground: white in light, charcoal in dark; the plate keeps
+   the cyclorama grey. Ink: near-black, like powder-coated steel. One
+   accent: anodised orange, spent only on the tracked token in the
+   specimen, the mode switch, and focus rings. Links underline in grey.
 
-   The signature interaction is attribution dimming: hovering one item
-   in a `.focus-group` recedes its siblings. It's the grammar of
-   feature attribution — the subject of the site — applied to its
-   navigation.
+   Two faces: DM Sans for everything you read, Lilex for data. One reading column; hairline rows.
    ================================================================= */
 
 :root {
-    --font-display: var(--font-crimson-pro), Georgia, "Times New Roman", serif;
-    --font-text: var(--font-crimson-text), Georgia, "Times New Roman", serif;
+    --font-ui: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
+    --font-display: var(--font-ui);
     --font-mono: var(--font-lilex), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-    --text-base: 1.1875rem; /* 19px */
-    --leading: 1.68;
+    --text-base: 1.125rem;
+    --leading: 1.6;
+    --measure: 40rem;
 
-    /* One measure for prose, one wider for posts carrying equations. */
-    --measure: 38rem;
-    --measure-wide: 43rem;
+    --gutter: clamp(1.25rem, 4vw, 3.5rem);
 
-    --gutter: 1.75rem;
-    --radius: 3px;
-
-    /* Vertical rhythm — every gap is drawn from this ramp. */
     --space-1: 0.375rem;
     --space-2: 0.75rem;
     --space-3: 1.25rem;
@@ -43,28 +36,34 @@
 }
 
 .theme-light {
-    --paper: #faf7f2;
-    --paper-raised: #f3efe7;
-    --ink: #26201a;
-    --ink-muted: #756b5f;
-    --ink-faint: #a89f92;
-    --rule: #e8e1d6;
-    --accent: #6b7a62;
-    --accent-soft: rgba(107, 122, 98, 0.14);
-    --shadow: rgba(38, 32, 26, 0.07);
+    --ground: #ffffff;
+    --ground-deep: #e9eae8;
+    --ground-lift: #f6f6f5;
+    --ink: #131413;
+    --ink-2: #454845;
+    --ink-3: #7b7f7a;
+    --paper: #f2f1ee;
+    --rule: #d2d4d0;
+    --rule-strong: #131413;
+    --accent: #ff5a1f;
+    --accent-text: #c2400d;
+    --accent-soft: rgba(255, 90, 31, 0.16);
     color-scheme: light;
 }
 
 .theme-dark {
-    --paper: #17140f;
-    --paper-raised: #211d17;
-    --ink: #efe9e0;
-    --ink-muted: #9a9086;
-    --ink-faint: #6b6359;
-    --rule: #302a22;
-    --accent: #9baa90;
-    --accent-soft: rgba(155, 170, 144, 0.16);
-    --shadow: rgba(0, 0, 0, 0.4);
+    --ground: #131413;
+    --ground-deep: #0a0b0a;
+    --ground-lift: #1d1e1d;
+    --ink: #e9eae7;
+    --ink-2: #b0b3af;
+    --ink-3: #737672;
+    --paper: #11100d;
+    --rule: #2f312f;
+    --rule-strong: #e9eae7;
+    --accent: #ff6a2f;
+    --accent-text: #ff7d4a;
+    --accent-soft: rgba(255, 106, 47, 0.2);
     color-scheme: dark;
 }
 
@@ -84,22 +83,21 @@
     body {
         margin: 0;
         min-height: 100dvh;
-        background: var(--paper);
+        background: var(--ground);
         color: var(--ink);
-        font-family: var(--font-text);
+        font-family: var(--font-ui);
         font-size: var(--text-base);
         line-height: var(--leading);
-        font-weight: 400;
+        font-weight: 450;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
         font-kerning: normal;
-        font-variant-ligatures: common-ligatures;
-        transition: background 400ms var(--ease), color 400ms var(--ease);
+        transition: background 150ms var(--ease), color 150ms var(--ease);
     }
 
     ::selection {
-        background: var(--accent-soft);
+        background: var(--rule);
         color: var(--ink);
     }
 
@@ -109,8 +107,8 @@
     h4,
     h5,
     h6 {
-        font-family: var(--font-display);
-        font-weight: 400;
+        font-family: var(--font-ui);
+        font-weight: 600;
         margin: 0;
         text-wrap: balance;
     }
@@ -122,13 +120,24 @@
     :focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
-        border-radius: 1px;
     }
 
     img {
         max-width: 100%;
         height: auto;
     }
+}
+
+/* ===== Type utilities ====================================== */
+
+.eyebrow,
+.mono {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
 }
 
 /* ===== Shell =============================================== */
@@ -146,120 +155,13 @@
     padding-inline: var(--gutter);
 }
 
-.shell--wide {
-    max-width: calc(var(--measure-wide) + var(--gutter) * 2);
-}
-
-/* ===== Header ============================================== */
-
-.site-header {
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-2);
-}
-
-.site-header__row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-}
-
-.site-header__rule {
-    height: 1px;
-    background: var(--rule);
-    margin-top: var(--space-2);
-}
-
-.wordmark {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.005em;
-    margin: 0;
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.05em;
-}
-
-.wordmark__link {
-    color: inherit;
-    text-decoration: none;
-}
-
-.wordmark__crumb {
-    font-size: 0.72em;
-    color: var(--ink-muted);
-    text-transform: lowercase;
-}
-
-.wordmark__sep {
-    color: var(--ink-faint);
-    margin-inline: 0.45em;
-    font-size: 0.72em;
-}
-
-.site-nav {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-}
-
-.site-nav__link {
-    font-family: var(--font-display);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    text-decoration: none;
-    padding-bottom: 2px;
-    border-bottom: 1px solid transparent;
-    transition: color 200ms var(--ease), border-color 200ms var(--ease);
-}
-
-.site-nav__link:hover,
-.site-nav__link:focus-visible {
-    color: var(--ink);
-    border-bottom-color: var(--accent);
-}
-
-/* Mode toggle — a half-filled disc that rotates through the change. */
-.mode-toggle {
-    background: none;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    color: var(--ink-muted);
-    display: inline-flex;
-    align-items: center;
-    transition: color 200ms var(--ease);
-}
-
-.mode-toggle:hover {
-    color: var(--ink);
-}
-
-.mode-toggle svg {
-    display: block;
-    transition: transform 600ms var(--ease);
-}
-
-.theme-dark .mode-toggle svg {
-    transform: rotate(180deg);
-}
-
-/* ===== Main ================================================ */
-
 .site-main {
     flex: 1;
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-7);
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-7);
 }
 
 .site-main > * {
@@ -272,235 +174,332 @@
     gap: var(--space-3);
 }
 
-/* Opening paragraph runs a shade larger — a standfirst, not a heading. */
-.lede {
-    font-size: 1.3125rem;
+/* Running text is set in the sans at reading size. */
+.stack p {
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
     line-height: 1.6;
 }
 
-/* The home page carries that larger size across the whole column rather than
-   just the opening paragraph. Set on the container so everything inherits;
-   the small uppercase labels hold their own size and are unaffected. */
-.site-main--large {
-    font-size: 1.3125rem;
-    line-height: 1.6;
+.muted {
+    color: var(--ink-3);
 }
 
-.site-main--large .link-row__title {
-    font-size: inherit;
+/* ===== Rail (header) ======================================= */
+
+.rail {
+    padding-top: var(--space-2);
 }
+
+.rail__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+}
+
+.wordmark {
+    font-family: var(--font-ui);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+}
+
+.wordmark__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.wordmark__crumb {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-left: 0.2em;
+}
+
+.rail__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.rail__link {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 160ms var(--ease);
+}
+
+.rail__link:hover,
+.rail__link:focus-visible {
+    color: var(--ink);
+}
+
+/* Mode toggle — a switch plate with a mono readout. */
+.mode-toggle {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mode-toggle__track {
+    width: 26px;
+    height: 12px;
+    border: 1px solid var(--ink-2);
+    display: block;
+    position: relative;
+    transition: border-color 200ms var(--ease);
+}
+
+.mode-toggle__knob {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 10px;
+    height: 8px;
+    background: var(--ink);
+    transition: transform 320ms var(--ease), background 200ms var(--ease);
+}
+
+.theme-dark .mode-toggle__knob {
+    transform: translateX(12px);
+}
+
+.mode-toggle:hover .mode-toggle__knob {
+    background: var(--accent);
+}
+
+.mode-toggle__label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+}
+
+/* ===== Plate ===============================================
+   The watercolor sits on a plate with a hairline edge. */
+
+.plate {
+    position: relative;
+    height: 19rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    overflow: hidden;
+}
+
+.plate__specimen {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    transition: filter 480ms var(--ease);
+}
+
+/* The blurred, hidden state a painting dries in from. */
+.plate__specimen--wet {
+    filter: blur(7px);
+}
+
+/* Jump to that state with no transition, so drying always starts fresh. */
+.plate__specimen--snap,
+.plate__specimen--snap canvas {
+    transition: none;
+}
+
+.plate__specimen canvas {
+    position: relative;
+    display: block;
+    opacity: 0;
+    transition: opacity 320ms var(--ease);
+}
+
+.plate__specimen--shown canvas {
+    opacity: 1;
+    transition: opacity 640ms var(--ease);
+}
+
+/* Dark mode is a flip of the same picture, so toggling never repaints.
+   invert() alone would swap every hue; hue-rotate(180deg) turns them back. */
+.theme-dark .plate__specimen canvas {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* ===== Section labels ====================================== */
 
 .section-label {
-    font-family: var(--font-display);
-    font-size: 0.8125rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--ink-3);
     margin-bottom: var(--space-2);
 }
 
 .page-title {
-    font-size: clamp(2rem, 5vw, 2.75rem);
-    font-weight: 300;
-    line-height: 1.12;
-    letter-spacing: -0.015em;
+    font-family: var(--font-ui);
+    font-size: clamp(1.75rem, 3.6vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
 }
 
-.page-subtitle {
-    color: var(--ink-muted);
-    font-style: italic;
+/* ===== Spec rows ===========================================
+   Hairline rows; the title underlines on hover. */
+
+.spec-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* Date, title, standfirst sit tighter together than the body rhythm. */
-.post-header {
+.spec-row {
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+}
+
+.spec-row__link,
+.entry {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+}
+
+.spec-row__link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 0.7rem 0;
+}
+
+@media (hover: hover) {
+    .spec-row__link:hover .spec-row__title,
+    .entry:hover .entry__title {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+        text-decoration-color: var(--ink-3);
+    }
+}
+
+.spec-row__title {
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    transition: color 120ms var(--ease);
+}
+
+.spec-row__note {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* ===== Bullet list ========================================= */
+
+.bullet-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: 0.3rem;
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
+    line-height: 1.5;
 }
 
-.meta {
-    font-family: var(--font-display);
-    font-size: 0.8125rem;
+.bullet-list > li {
+    position: relative;
+    padding-left: 1.15em;
+}
+
+/* Square marker — the same hardware bullet the prose uses. */
+.bullet-list > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.32em;
+    height: 0.32em;
+    background: var(--ink-3);
+}
+
+/* ===== Writing index ======================================= */
+
+.entry {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) 0;
+}
+
+.entry__date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    font-variant-numeric: lining-nums;
+    color: var(--ink-3);
+    margin-bottom: 0.2rem;
 }
 
-/* ===== Links =============================================== */
+.entry__title {
+    font-family: var(--font-ui);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    transition: color 120ms var(--ease);
+}
+
+.entry__summary {
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-top: 0.2rem;
+}
+
+/* ===== Inline link ========================================= */
 
 .link {
     color: inherit;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
-    text-decoration-color: var(--accent);
-    transition: text-decoration-thickness 160ms var(--ease), color 160ms var(--ease),
-        background 160ms var(--ease);
+    text-decoration-color: var(--ink-3);
+    transition: text-decoration-color 120ms var(--ease);
 }
 
 .link:hover,
 .link:focus-visible {
-    text-decoration-thickness: 2px;
-    background: var(--accent-soft);
+    text-decoration-color: var(--ink);
 }
 
-/* ===== Attribution dimming =================================
-   The signature. Hovering any row inside a focus group recedes the
-   others, the way an attribution view mutes everything but the term
-   under inspection. Hover-capable pointers only. */
-
-@media (hover: hover) {
-    .focus-group:hover .focus-item {
-        color: var(--ink-faint);
-    }
-
-    /* These carry their own color, so they need dimming named explicitly. */
-    .focus-group:hover .focus-item .meta,
-    .focus-group:hover .focus-item .link-row__note,
-    .focus-group:hover .focus-item .link-row__summary {
-        color: var(--ink-faint);
-    }
-
-    .focus-group .focus-item:hover,
-    .focus-group .focus-item:focus-within {
-        color: var(--ink);
-    }
-
-    /* The inspected row's own secondary text comes back with it. */
-    .focus-group .focus-item:hover .link-row__note,
-    .focus-group .focus-item:focus-within .link-row__note,
-    .focus-group .focus-item:hover .link-row__summary,
-    .focus-group .focus-item:focus-within .link-row__summary {
-        color: var(--ink-muted);
-    }
-}
-
-.focus-item {
-    transition: color 260ms var(--ease), opacity 260ms var(--ease);
-}
-
-/* ===== Link rows =========================================== */
-
-.link-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.link-list > li + li {
-    margin-top: var(--space-2);
-}
-
-/* Writing entries carry a date and a summary, so they need more air between
-   them than a bare list of names does. */
-.link-list--entries > li + li {
-    margin-top: var(--space-4);
-}
-
-/* Bulleted variant — `circle` is the hollow marker, matching the open circles
-   the prose lists draw. */
-.link-list--bullets {
-    list-style: circle;
-    padding-left: 1.1em;
-}
-
-.link-list--bullets > li::marker {
-    color: var(--ink-faint);
-}
-
-/* Bulleted rows stack tight — the markers do the separating, so the row
-   padding and inter-item margin both come off. */
-.link-list--bullets > li + li {
-    margin-top: 0;
-}
-
-.link-list--bullets .link-row {
-    padding: 0;
-}
-
-/* No rules and no markers — the rows are separated by space alone, and the
-   only hover feedback is the group dimming. */
-.link-row {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-    padding: var(--space-1) 0;
-}
-
-.link-row__main {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-}
-
-.link-row__title {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.1875rem;
-    font-weight: 400;
-    line-height: 1.3;
-}
-
-.link-row__note {
-    color: var(--ink-muted);
-    font-size: 0.9375rem;
-    font-style: italic;
-    flex-shrink: 0;
-    transition: color 260ms var(--ease);
-}
-
-.link-row__summary {
-    display: block;
-    color: var(--ink-muted);
-    font-size: 1.0625rem;
-    line-height: 1.55;
-    margin-top: var(--space-1);
-}
-
-/* Writing index rows lead with a date in the same baseline as the title. */
-.entry-row__date {
-    display: block;
-    margin-bottom: var(--space-1);
-}
-
-/* ===== Contact ============================================= */
-
-.contact {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-2) var(--space-3);
-}
-
-.contact__links {
-    display: flex;
-    gap: var(--space-3);
-}
-
-/* ===== Entrance ============================================
-   A short staggered rise on load. Nothing scroll-triggered — the page
-   settles once and then stays still. */
-
-@keyframes rise {
-    from {
-        opacity: 0;
-        transform: translateY(0.5rem);
-    }
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-[data-rise] {
-    animation: rise 700ms var(--ease) both;
-    animation-delay: calc(var(--rise-i, 0) * 80ms);
-}
+/* ===== Motion ============================================== */
 
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -513,12 +512,53 @@
     }
 }
 
+/* ===== Post ================================================ */
+
+.post-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+}
+
+.post-head__meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+}
+
+.post-head__sep {
+    color: var(--rule);
+}
+
+.page-title--post {
+    font-size: clamp(1.625rem, 3.2vw, 2rem);
+}
+
+.post-head__summary {
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 34rem;
+}
+
+.post__body {
+    width: 100%;
+}
+
 /* ===== Prose =============================================== */
 
 .prose {
-    font-family: var(--font-text);
-    font-size: var(--text-base);
-    line-height: var(--leading);
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
+    line-height: 1.65;
 }
 
 .prose > * + * {
@@ -528,32 +568,38 @@
 .prose h2,
 .prose h3,
 .prose h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.005em;
+    font-family: var(--font-ui);
+    letter-spacing: -0.01em;
     text-wrap: balance;
 }
 
 .prose h2 {
-    font-size: 1.75rem;
-    font-weight: 400;
-    line-height: 1.22;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--rule);
+}
+
+.prose h3 {
+    font-family: var(--font-ui);
+    font-size: 1.1875rem;
+    font-weight: 600;
+    line-height: 1.3;
     margin-top: var(--space-5);
     margin-bottom: var(--space-2);
 }
 
-.prose h3 {
-    font-size: 1.3125rem;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-2);
-}
-
 .prose h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    font-style: italic;
-    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: var(--space-4);
     margin-bottom: var(--space-1);
 }
 
@@ -562,17 +608,16 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
-    text-decoration-color: var(--accent);
-    transition: text-decoration-thickness 160ms var(--ease), background 160ms var(--ease);
+    text-decoration-color: var(--ink-3);
+    transition: text-decoration-color 120ms var(--ease);
 }
 
 .prose a:hover {
-    text-decoration-thickness: 2px;
-    background: var(--accent-soft);
+    text-decoration-color: var(--ink);
 }
 
 .prose strong {
-    font-weight: 700;
+    font-weight: 650;
 }
 
 .prose em {
@@ -589,16 +634,15 @@
     list-style: none;
 }
 
-/* Open circles rather than filled discs — quieter against a serif column. */
+/* Square markers — a hardware bullet. */
 .prose ul > li::before {
     content: "";
     position: absolute;
     left: -1.15em;
-    top: 0.62em;
-    width: 0.36em;
-    height: 0.36em;
-    border: 1px solid var(--ink-faint);
-    border-radius: 50%;
+    top: 0.68em;
+    width: 0.32em;
+    height: 0.32em;
+    background: var(--ink-3);
 }
 
 .prose ul > li {
@@ -610,8 +654,9 @@
 }
 
 .prose ol > li::marker {
-    color: var(--ink-faint);
-    font-family: var(--font-display);
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.8em;
 }
 
 .prose li + li {
@@ -623,13 +668,11 @@
     margin-top: var(--space-1);
 }
 
-/* Asides set as an indented block with a sage hairline — no quote marks,
-   no italic wholesale. */
 .prose blockquote {
     margin: var(--space-4) 0;
     padding-left: var(--space-3);
-    border-left: 1px solid var(--accent);
-    color: var(--ink-muted);
+    border-left: 2px solid var(--rule);
+    color: var(--ink-2);
 }
 
 .prose blockquote > * + * {
@@ -638,7 +681,6 @@
 
 .prose blockquote h4 {
     margin-top: 0;
-    color: var(--ink);
 }
 
 .prose img {
@@ -647,13 +689,7 @@
     margin: var(--space-4) 0;
 }
 
-/* Dark-mode figure inversion.
-   The figures carry no background of their own any more, so there's no white
-   card to fight — only the ink needs flipping. invert() alone would also flip
-   every hue (a red curve would come back cyan), so hue-rotate(180deg) turns
-   them back: the pair inverts lightness while leaving hue roughly where the
-   author put it. Alpha is untouched by filters, so the transparent background
-   stays transparent and the paper shows through in both themes. */
+/* Dark-mode figure inversion — invert lightness, restore hue. */
 .theme-dark .prose img[data-invert] {
     filter: invert(1) hue-rotate(180deg);
 }
@@ -662,25 +698,24 @@
     border: 0;
     height: 1px;
     background: var(--rule);
-    margin: var(--space-5) 0;
+    margin: var(--space-4) 0;
 }
 
 /* ===== Code ================================================ */
 
 .prose code {
     font-family: var(--font-mono);
-    font-size: 0.82em;
-    background: var(--paper-raised);
+    font-size: 0.8em;
+    background: var(--ground-lift);
     padding: 0.1em 0.35em;
-    border-radius: var(--radius);
 }
 
 .code-block {
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     line-height: 1.7;
-    background: var(--paper-raised);
-    border-radius: var(--radius);
+    background: var(--ground-lift);
+    border: 1px solid var(--rule);
     padding: var(--space-3);
     margin: var(--space-4) 0;
     overflow-x: auto;
@@ -705,7 +740,8 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 1rem;
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
     font-variant-numeric: lining-nums tabular-nums;
 }
 
@@ -718,13 +754,13 @@
 }
 
 .table thead th {
-    font-family: var(--font-display);
+    font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 0.8125rem;
+    font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-muted);
-    border-bottom-color: var(--ink-faint);
+    color: var(--ink-3);
+    border-bottom-color: var(--rule-strong);
 }
 
 .table tbody tr:last-child th,
@@ -750,8 +786,8 @@
 }
 
 /* ===== Annotated equations =================================
-   The equation dims to muted and the inspected term stays at full ink —
-   the same attribution grammar as the link groups above. */
+   The equation dims and the inspected term stays at full ink; the
+   definition reads out below like a HUD label. */
 
 .equation {
     margin: var(--space-5) 0;
@@ -772,20 +808,20 @@
 .equation__number {
     position: absolute;
     right: 0;
-    color: var(--ink-faint);
-    font-family: var(--font-display);
-    font-size: 0.9375rem;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
     pointer-events: none;
 }
 
 .prose [data-term].eq-term {
     cursor: pointer;
-    border-bottom: 1px dotted var(--ink-faint);
+    border-bottom: 1px dotted var(--ink-3);
     transition: color 180ms var(--ease), border-color 180ms var(--ease);
 }
 
 .equation__katex--focused {
-    color: var(--ink-faint);
+    color: var(--ink-3);
 }
 
 .equation__katex--focused [data-term].eq-term {
@@ -804,7 +840,8 @@
     justify-content: center;
     text-align: center;
     padding: 0 var(--space-3);
-    font-size: 1rem;
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
     line-height: 1.6;
     color: var(--ink);
 }
@@ -814,8 +851,11 @@
 }
 
 .equation__hint {
-    color: var(--ink-faint);
-    font-style: italic;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
 }
 
 /* ===== Footnotes =========================================== */
@@ -823,9 +863,10 @@
 .prose [data-footnotes] {
     margin-top: var(--space-6);
     padding-top: var(--space-3);
-    border-top: 1px solid var(--rule);
-    font-size: 1rem;
-    color: var(--ink-muted);
+    border-top: 1px solid var(--rule-strong);
+    font-family: var(--font-ui);
+    font-size: 0.9375rem;
+    color: var(--ink-2);
 }
 
 .prose [data-footnotes] hr {
@@ -850,29 +891,27 @@
 }
 
 .prose [data-footnote-ref] {
-    font-family: var(--font-display);
-    font-size: 0.7em;
+    font-family: var(--font-mono);
+    font-size: 0.65em;
     vertical-align: super;
     line-height: 0;
     text-decoration: none;
-    color: var(--accent);
+    color: var(--ink-2);
     padding: 0 0.1em;
 }
 
 .prose [data-footnote-ref]:hover {
-    background: var(--accent-soft);
+    color: var(--ink);
 }
 
 .prose [data-footnote-backref] {
     font-size: 0.85em;
     text-decoration: none;
     margin-left: 0.35em;
-    color: var(--ink-faint);
+    color: var(--ink-3);
 }
 
-/* ===== Margin notes ========================================
-   Footnotes float beside the column on wide screens. No panel, no
-   border — just muted text on the paper, hanging in the margin. */
+/* ===== Margin notes ======================================== */
 
 .margin-notes {
     position: absolute;
@@ -884,23 +923,24 @@
 
 .margin-note {
     position: absolute;
-    font-family: var(--font-text);
-    font-size: 0.9375rem;
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
     line-height: 1.5;
-    color: var(--ink-faint);
+    color: var(--ink-3);
     padding-left: var(--space-2);
     border-left: 1px solid var(--rule);
     transition: color 260ms var(--ease), border-color 260ms var(--ease);
 }
 
 .margin-note--active {
-    color: var(--ink-muted);
+    color: var(--ink-2);
     border-left-color: var(--accent);
 }
 
 .margin-note__number {
-    font-family: var(--font-display);
-    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-2);
 }
 
 .margin-note p {
@@ -914,17 +954,15 @@
     text-underline-offset: 0.18em;
 }
 
-/* ===== Table of contents ===================================
-   Sits in the empty margin left of the post. Reading position is shown
-   by a sage tick, not a filled state. */
+/* ===== Table of contents =================================== */
 
 .toc {
     position: fixed;
-    top: var(--space-5);
+    top: 6rem;
     left: var(--space-4);
     z-index: 20;
     width: min(15rem, 20vw);
-    max-height: calc(100dvh - var(--space-6));
+    max-height: calc(100dvh - 8rem);
     overflow-y: auto;
     scrollbar-width: none;
 }
@@ -934,12 +972,12 @@
 }
 
 .toc__label {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--ink-3);
     margin-bottom: var(--space-2);
 }
 
@@ -957,17 +995,17 @@
     border: 0;
     border-left: 1px solid var(--rule);
     cursor: pointer;
-    color: var(--ink-faint);
-    font-family: var(--font-display);
-    font-size: 0.9375rem;
+    color: var(--ink-3);
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
     line-height: 1.4;
     padding: 0.3rem 0 0.3rem var(--space-2);
-    transition: color 220ms var(--ease), border-color 220ms var(--ease);
+    transition: color 160ms var(--ease), border-color 160ms var(--ease);
 }
 
 .toc__item:hover {
-    color: var(--ink-muted);
-    border-left-color: var(--ink-faint);
+    color: var(--ink-2);
+    border-left-color: var(--ink-3);
 }
 
 .toc__item--active {
@@ -985,28 +1023,33 @@
 
 @media (max-width: 640px) {
     :root {
-        --text-base: 1.125rem;
-        --gutter: 1.25rem;
+        --text-base: 1.0625rem;
         --space-5: 2.5rem;
         --space-6: 3.5rem;
         --space-7: 4.5rem;
     }
 
-    .site-header {
-        padding-top: var(--space-4);
+    .rail__inner {
+        padding-block: var(--space-2);
     }
 
-    .lede,
-    .site-main--large {
-        font-size: 1.1875rem;
+    .wordmark {
+        white-space: nowrap;
+    }
+
+    .wordmark__crumb {
+        display: none;
+    }
+
+    .mode-toggle__label {
+        display: none;
+    }
+
+    .plate {
+        height: 15rem;
     }
 
     .prose h2 {
         font-size: 1.5rem;
-    }
-
-    .link-row__main {
-        flex-direction: column;
-        gap: var(--space-1);
     }
 }

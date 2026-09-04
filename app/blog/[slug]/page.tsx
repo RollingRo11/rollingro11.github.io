@@ -24,27 +24,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const dateLabel = new Date(post.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const dateLabel = new Date(post.date)
+    .toLocaleDateString("en-US", { year: "numeric", month: "short", day: "2-digit" })
+    .toUpperCase();
 
   return (
     <div className="page">
       <TableOfContents />
-      <SiteHeader wide crumb={post.crumb} />
+      <SiteHeader crumb={post.crumb} />
 
-      <main className="site-main shell shell--wide">
-        <header className="post-header" data-rise style={{ "--rise-i": 1 } as React.CSSProperties}>
-          <time className="meta" dateTime={post.date}>
-            {dateLabel}
-          </time>
-          <h1 className="page-title">{post.title}</h1>
-          {post.summary && <p className="page-subtitle">{post.summary}</p>}
+      <main className="site-main shell">
+        <header className="post-head" data-rise style={{ "--rise-i": 1 } as React.CSSProperties}>
+          <p className="post-head__meta">
+            <time dateTime={post.date}>{dateLabel}</time>
+            {post.crumb && (
+              <>
+                <span className="post-head__sep" aria-hidden="true">
+                  ·
+                </span>
+                <span>{post.crumb.toUpperCase()}</span>
+              </>
+            )}
+          </p>
+          <h1 className="page-title page-title--post">{post.title}</h1>
+          {post.summary && <p className="post-head__summary">{post.summary}</p>}
         </header>
 
-        <div data-rise style={{ "--rise-i": 2 } as React.CSSProperties}>
+        <div className="post__body" data-rise style={{ "--rise-i": 2 } as React.CSSProperties}>
           <Prose content={post.content} />
         </div>
       </main>

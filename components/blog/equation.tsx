@@ -1,5 +1,3 @@
-"use client";
-
 // Interactive display equation. Authored in a ```equation fenced code block:
 //
 //   ```equation
@@ -12,12 +10,12 @@
 //   ```
 //
 // `\eqterm{key}{latex}` marks a hoverable/clickable term; the matching `@key:`
-// line is its definition (inline `$...$` math allowed). The KaTeX string is
-// built in a useMemo so it also renders during SSR — no layout shift, no
-// on-open hydration flash — while the hover/click wiring runs in the browser.
+// line is its definition (inline `$...$` math allowed). KaTeX runs here, at
+// build time, so the browser never downloads it; the rendered HTML goes to a
+// small client component that only wires up hover and click.
 
-import { useMemo, useRef, useState, useEffect } from "react";
 import katex from "katex";
+import { EquationView } from "@/components/blog/equation-view";
 
 interface Term {
   key: string;
@@ -104,107 +102,23 @@ function parse(source: string): Parsed {
 }
 
 export function Equation({ source }: { source: string }) {
-  const { latex, number, terms } = useMemo(() => parse(source), [source]);
+  const { latex, number, terms } = parse(source);
 
-  const html = useMemo(() => {
-    try {
-      return katex.renderToString(latex, {
-        displayMode: true,
-        throwOnError: false,
-        trust: true,
-        strict: false,
-        macros: MACROS,
-      });
-    } catch {
-      return "";
-    }
-  }, [latex]);
-
-  const defMap = useMemo(() => {
-    const m: Record<string, string> = {};
-    for (const t of terms) m[t.key] = t.html;
-    return m;
-  }, [terms]);
-
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [pinned, setPinned] = useState<string | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const active = hovered ?? pinned;
-
-  // Tag the rendered term spans and wire up hover / click (event delegation).
-  useEffect(() => {
-    const root = containerRef.current;
-    if (!root) return;
-
-    root.querySelectorAll<HTMLElement>("[data-term]").forEach((el) => {
-      const key = el.getAttribute("data-term");
-      el.classList.add(key && defMap[key] != null ? "eq-term" : "eq-term--inert");
+  let html = "";
+  try {
+    html = katex.renderToString(latex, {
+      displayMode: true,
+      throwOnError: false,
+      trust: true,
+      strict: false,
+      macros: MACROS,
     });
+  } catch {
+    html = "";
+  }
 
-    const keyFor = (target: EventTarget | null): string | null => {
-      if (!(target instanceof Element)) return null;
-      const el = target.closest("[data-term]");
-      const key = el?.getAttribute("data-term");
-      return key && defMap[key] != null ? key : null;
-    };
+  const defs: Record<string, string> = {};
+  for (const t of terms) defs[t.key] = t.html;
 
-    const onOver = (e: Event) => {
-      const k = keyFor(e.target);
-      if (k) setHovered(k);
-    };
-    const onOut = (e: Event) => {
-      const related = (e as MouseEvent).relatedTarget;
-      if (related instanceof Element && related.closest("[data-term]")) return;
-      setHovered(null);
-    };
-    const onClick = (e: Event) => {
-      const k = keyFor(e.target);
-      if (k) setPinned((p) => (p === k ? null : k));
-    };
-
-    root.addEventListener("mouseover", onOver);
-    root.addEventListener("mouseout", onOut);
-    root.addEventListener("click", onClick);
-    return () => {
-      root.removeEventListener("mouseover", onOver);
-      root.removeEventListener("mouseout", onOut);
-      root.removeEventListener("click", onClick);
-    };
-  }, [defMap, html]);
-
-  // Keep both the pinned term (clicked) and the hovered term at full strength
-  // while the rest of the equation recedes — so a clicked term stays lit even
-  // as you hover others. The definition still follows the hover.
-  useEffect(() => {
-    const root = containerRef.current;
-    if (!root) return;
-    root.querySelectorAll("[data-term]").forEach((el) => {
-      const key = el.getAttribute("data-term");
-      const lit = key != null && (key === hovered || key === pinned);
-      el.classList.toggle("eq-term--active", lit);
-    });
-  }, [hovered, pinned, html]);
-
-  return (
-    <div className="equation">
-      <div className="equation__row">
-        <div
-          ref={containerRef}
-          className={`equation__katex${active ? " equation__katex--focused" : ""}`}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-        {number && <span className="equation__number">({number})</span>}
-      </div>
-      {terms.length > 0 && (
-        <div className="equation__def" aria-live="polite">
-          {active ? (
-            <span key={active} dangerouslySetInnerHTML={{ __html: defMap[active] }} />
-          ) : (
-            <span className="equation__hint">Hover or click any term for its definition</span>
-          )}
-        </div>
-      )}
-    </div>
-  );
+  return <EquationView html={html} number={number} defs={defs} />;
 }

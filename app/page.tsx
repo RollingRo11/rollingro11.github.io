@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/header";
+import { Watercolor } from "@/components/home/watercolor";
 
 const elsewhere = [
   { href: "https://aisst.ai/", title: "AISST" },
@@ -13,15 +14,16 @@ export default function Home() {
     <div className="page">
       <SiteHeader />
 
-      <main className="site-main site-main--large shell">
-        <div className="stack" data-rise style={{ "--rise-i": 1 } as React.CSSProperties}>
+      <main className="site-main shell">
+        <div className="plate">
+          <Watercolor className="plate__specimen" />
+        </div>
+
+        <div className="stack intro">
           <p>
             Howdy! I&apos;m Rohan. I&apos;m a computer science student at Northeastern University,
-            concentrated in artificial intelligence. I work on{" "}
-            <Link href="/interpretability/" className="link">
-              mechanistic interpretability
-            </Link>
-            .
+            concentrated in artificial intelligence. I work on mechanistic interpretability: the
+            field of research dedicated to understanding the internal computations of AI models.
           </p>
 
           <p>
@@ -31,18 +33,14 @@ export default function Home() {
             </a>
             , through the{" "}
             <a
-              href="https://www.cbai.ai/summer-research-fellowship-26"
+              href="https://www.cbai.ai/"
               className="link"
               target="_blank"
               rel="noopener noreferrer"
             >
               Cambridge&ndash;Boston Alignment Initiative
             </a>
-            .
-          </p>
-
-          <p>
-            I&apos;ve previously worked with{" "}
+            . I&apos;ve previously worked with{" "}
             <a
               href="https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/"
               className="link"
@@ -57,47 +55,51 @@ export default function Home() {
             </a>{" "}
             on understanding evaluation awareness in language models.
           </p>
+
+          <p>
+            My email is{" "}
+            <a href="mailto:kathuria.r@northeastern.edu" className="link">
+              kathuria.r@northeastern.edu
+            </a>
+            . All of my code can be found on my{" "}
+            <a
+              href="https://github.com/RollingRo11"
+              className="link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            . You can also find me on Twitter{" "}
+            <a href="https://x.com/rollingro11" className="link" target="_blank" rel="noopener noreferrer">
+              @rollingro11
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://linkedin.com/in/rohanekathuria"
+              className="link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            .
+          </p>
         </div>
 
-        <section data-rise style={{ "--rise-i": 2 } as React.CSSProperties}>
+        <section>
           <p className="section-label">Elsewhere</p>
-          <ul className="link-list link-list--bullets focus-group">
+          <ul className="bullet-list">
             {elsewhere.map((item) => (
-              <li key={item.href} className="focus-item">
-                <a href={item.href} className="link-row" target="_blank" rel="noopener noreferrer">
-                  <span className="link-row__title">{item.title}</span>
+              <li key={item.href}>
+                <a href={item.href} className="link" target="_blank" rel="noopener noreferrer">
+                  {item.title}
                 </a>
               </li>
             ))}
           </ul>
         </section>
 
-        <section data-rise style={{ "--rise-i": 3 } as React.CSSProperties}>
-          <p className="section-label">Contact</p>
-          <div className="contact">
-            <a href="mailto:kathuria.r@northeastern.edu" className="link">
-              kathuria.r@northeastern.edu
-            </a>
-            <span className="contact__links">
-              <a
-                href="https://linkedin.com/in/rohanekathuria"
-                className="link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/RollingRo11"
-                className="link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </span>
-          </div>
-        </section>
       </main>
     </div>
   );

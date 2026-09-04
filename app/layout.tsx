@@ -1,34 +1,24 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Crimson_Pro, Crimson_Text } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-// Crimson Pro (variable) sets display: the wordmark, headings, and the small
-// letterspaced labels. Crimson Text sets running prose at reading size.
-const crimsonPro = Crimson_Pro({
+// DM Sans is the site face: wordmark, titles, and all reading text.
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-crimson-pro",
-  display: "swap",
-});
-
-const crimsonText = Crimson_Text({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  axes: ["opsz"],
   style: ["normal", "italic"],
-  variable: "--font-crimson-text",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
-// Monospace survives for code only, where the grid is load-bearing.
+// Lilex is the data face: HUD readouts, spec labels, code.
 const lilex = localFont({
-  src: [
-    { path: "./fonts/Lilex-Regular.ttf", weight: "400", style: "normal" },
-    { path: "./fonts/Lilex-Italic.ttf", weight: "400", style: "italic" },
-    { path: "./fonts/Lilex-Bold.ttf", weight: "700", style: "normal" },
-    { path: "./fonts/Lilex-BoldItalic.ttf", weight: "700", style: "italic" },
-  ],
+  // One face only: the italic and bold cuts were preloaded on every page and
+  // never used. woff2 is a quarter the size of the ttf.
+  src: [{ path: "./fonts/Lilex-Regular.woff2", weight: "400", style: "normal" }],
   variable: "--font-lilex",
   display: "swap",
 });
@@ -38,7 +28,12 @@ export const metadata: Metadata = {
   title: "Rohan Kathuria",
   description: "Mechanistic interpretability research and writing by Rohan Kathuria.",
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      // New file names on purpose: browsers cache /favicon.svg hard.
+      { url: "/bloom.svg", type: "image/svg+xml" },
+      { url: "/bloom-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   appleWebApp: {
     capable: true,
@@ -55,7 +50,7 @@ export const metadata: Metadata = {
     siteName: "Rohan Kathuria",
     images: [
       {
-        url: "https://rkathuria.com/title.png?v=1",
+        url: "https://rkathuria.com/title.png?v=2",
         width: 1200,
         height: 630,
         alt: "Rohan Kathuria",
@@ -68,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rohan Kathuria",
     description: "Mechanistic interpretability research and writing.",
-    images: ["https://rkathuria.com/title.png?v=1"],
+    images: ["https://rkathuria.com/title.png?v=2"],
   },
 };
 
@@ -77,7 +72,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   // Kept as a single value so the provider can follow a manual toggle.
-  themeColor: "#faf7f2",
+  themeColor: "#ffffff",
 };
 
 // Resolves the theme before first paint so there's no flash. Light is the
@@ -89,7 +84,7 @@ const BOOT_SCRIPT = `
     var mode = saved === 'dark' ? 'dark' : 'light';
     var root = document.documentElement;
     root.classList.add('theme-' + mode);
-    root.style.backgroundColor = mode === 'dark' ? '#17140f' : '#faf7f2';
+    root.style.backgroundColor = mode === 'dark' ? '#131413' : '#ffffff';
   } catch (e) {
     document.documentElement.classList.add('theme-light');
   }
@@ -101,7 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${crimsonPro.variable} ${crimsonText.variable} ${lilex.variable}`}
+      className={`${dmSans.variable} ${lilex.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />

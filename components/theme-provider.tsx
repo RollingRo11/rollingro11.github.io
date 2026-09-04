@@ -5,8 +5,8 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 export type Theme = "light" | "dark";
 
 const PAPER: Record<Theme, string> = {
-  light: "#faf7f2",
-  dark: "#17140f",
+  light: "#ffffff",
+  dark: "#131413",
 };
 
 interface ThemeContextValue {

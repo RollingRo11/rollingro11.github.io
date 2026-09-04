@@ -1,30 +1,25 @@
 import Link from "next/link";
 import { ModeToggle } from "@/components/site/mode-toggle";
 
-export function SiteHeader({ crumb, wide }: { crumb?: string; wide?: boolean } = {}) {
+// The rail: one hairline bar across the top, contents aligned to the column.
+export function SiteHeader({ crumb }: { crumb?: string } = {}) {
   return (
-    <header className={`site-header shell${wide ? " shell--wide" : ""}`} data-rise>
-      <div className="site-header__row">
+    <header className="rail" data-rise>
+      <div className="rail__inner shell">
         <p className="wordmark">
           <Link href="/" className="wordmark__link">
             Rohan Kathuria
           </Link>
-          {crumb && (
-            <span>
-              <span className="wordmark__sep">/</span>
-              <span className="wordmark__crumb">{crumb}</span>
-            </span>
-          )}
+          {crumb && <span className="wordmark__crumb">/ {crumb}</span>}
         </p>
 
-        <nav className="site-nav">
-          <Link href="/blog/" className="site-nav__link">
+        <nav className="rail__nav" aria-label="Site">
+          <Link href="/blog/" className="rail__link">
             Writing
           </Link>
           <ModeToggle />
         </nav>
       </div>
-      <div className="site-header__rule" />
     </header>
   );
 }
