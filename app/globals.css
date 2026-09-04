@@ -309,30 +309,19 @@
     position: absolute;
     inset: 0;
     cursor: pointer;
-    transition: filter 480ms var(--ease);
 }
 
-/* The blurred, hidden state a painting dries in from. */
-.plate__specimen--wet {
-    filter: blur(7px);
-}
-
-/* Jump to that state with no transition, so drying always starts fresh. */
-.plate__specimen--snap,
-.plate__specimen--snap canvas {
-    transition: none;
-}
-
+/* The canvas is blank until the first painting lands. The dry-in itself is
+   run from the sketch with Web Animations, not from here — see the note in
+   components/home/watercolor.tsx. */
 .plate__specimen canvas {
     position: relative;
     display: block;
     opacity: 0;
-    transition: opacity 320ms var(--ease);
 }
 
 .plate__specimen--shown canvas {
     opacity: 1;
-    transition: opacity 640ms var(--ease);
 }
 
 /* Dark mode is a flip of the same picture, so toggling never repaints.

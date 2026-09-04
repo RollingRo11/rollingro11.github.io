@@ -170,32 +170,29 @@ export function Watercolor({ className }: { className?: string }) {
       }
     };
 
-    const show = () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Paint, then dry in: the new picture fades up and sharpens.
+    //
+    // The paint blocks for ~100ms, so the browser never renders the blurred
+    // starting state — which is exactly what a CSS transition needs to run
+    // from, and why the load (fresh canvas, no prior style) animated while a
+    // click did not. Web Animations takes the start value as a keyframe
+    // instead, so both paths animate identically.
+    const dryIn = () => {
       host.classList.add("plate__specimen--shown");
-      host.classList.remove("plate__specimen--wet");
+      if (reduced || !canvas) return;
+      const timing = { duration: 700, easing: "cubic-bezier(0.22, 0.61, 0.36, 1)" };
+      // Cancel first so rapid clicks restart the dry-in rather than stack.
+      canvas.getAnimations().forEach((a) => a.cancel());
+      host.getAnimations().forEach((a) => a.cancel());
+      canvas.animate([{ opacity: 0 }, { opacity: 1 }], timing);
+      host.animate([{ filter: "blur(8px)" }, { filter: "blur(0px)" }], timing);
     };
 
-    // Paint and dry in: snap to the blurred, hidden state with no
-    // transition, paint, commit that state, then reveal on the next frame
-    // so the drying transition runs from it. Load and click share this.
-    let busy = false;
     const paintAndDry = () => {
-      if (!brush || busy) return;
-      busy = true;
-      host.classList.add("plate__specimen--snap", "plate__specimen--wet");
-      host.classList.remove("plate__specimen--shown");
-      void host.offsetWidth;
-      host.classList.remove("plate__specimen--snap");
-      render();
-      void host.offsetWidth;
-      // A frame callback never fires in a hidden tab, so a timer backs it
-      // up; show() is idempotent, so both may run.
-      const reveal = () => {
-        if (!cancelled) show();
-        busy = false;
-      };
-      requestAnimationFrame(reveal);
-      setTimeout(reveal, 120);
+      if (!brush) return;
+      if (render()) dryIn();
     };
 
     const onClick = () => {
