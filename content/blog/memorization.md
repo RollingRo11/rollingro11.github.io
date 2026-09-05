@@ -22,7 +22,7 @@ BalancedSubnet fixes this by adding a second term to the mask optimization objec
 
 ---
 
-## What Goodfire found
+## Using curvature to identify memorization
 
 Merullo et al.[^4] finds a different way of reasoning about how models memorize: claiming the **curvature** of the loss function might reveal what a model has memorized vs. what it "knows".
 

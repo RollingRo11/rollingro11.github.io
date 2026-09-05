@@ -562,14 +562,14 @@
     text-wrap: balance;
 }
 
+/* No rule of its own: posts write `---` where they want one, and a border
+   here drew a second line right under it. */
 .prose h2 {
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 1.2;
-    margin-top: var(--space-4);
+    margin-top: var(--space-5);
     margin-bottom: var(--space-3);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--rule);
 }
 
 .prose h3 {
@@ -657,11 +657,28 @@
     margin-top: var(--space-1);
 }
 
+/* Callouts — a panel rather than a bare margin rule: a tinted ground, a
+   hairline, and a heavier left edge. A `#### title` inside becomes its
+   label, so an aside reads as one block set apart from the column. */
 .prose blockquote {
-    margin: var(--space-4) 0;
-    padding-left: var(--space-3);
-    border-left: 2px solid var(--rule);
+    position: relative;
+    margin: var(--space-4) 0 var(--space-4) var(--space-3);
+    padding: var(--space-3);
+    background: var(--ground-lift);
+    border: 1px solid var(--rule);
     color: var(--ink-2);
+}
+
+/* A rule standing clear to the left of the panel, on the same line the body
+   text starts from, so the callout reads as stepped in from the column. */
+.prose blockquote::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(-1 * var(--space-3));
+    width: 2px;
+    background: var(--ink-3);
 }
 
 .prose blockquote > * + * {
@@ -670,6 +687,13 @@
 
 .prose blockquote h4 {
     margin-top: 0;
+    margin-bottom: var(--space-2);
+    color: var(--ink);
+}
+
+/* Quotes are usually a single italic line; the panel padding is enough. */
+.prose blockquote > :last-child {
+    margin-bottom: 0;
 }
 
 .prose img {
