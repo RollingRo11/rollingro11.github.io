@@ -27,7 +27,11 @@ export default function Home() {
           </p>
 
           <p>
-            I&apos;m currently a research fellow with the{" "}
+            I&apos;m currently a research fellow at{" "}
+            <a href="https://parallx.ai/" className="link" target="_blank" rel="noopener noreferrer">
+              Parallax
+            </a>
+            . I&apos;ve previously worked with the{" "}
             <a href="https://baulab.info/" className="link" target="_blank" rel="noopener noreferrer">
               Bau Lab
             </a>
@@ -40,7 +44,7 @@ export default function Home() {
             >
               Cambridge&ndash;Boston Alignment Initiative
             </a>
-            . I&apos;ve previously worked with{" "}
+            ,{" "}
             <a
               href="https://neurai.sites.northeastern.edu/our-team/rohan-kathuria/"
               className="link"
