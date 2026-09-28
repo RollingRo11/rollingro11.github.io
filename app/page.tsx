@@ -21,9 +21,17 @@ export default function Home() {
 
         <div className="stack intro">
           <p>
-            Howdy! I&apos;m Rohan. I&apos;m a computer science student at Northeastern University,
-            concentrated in artificial intelligence. I work on mechanistic interpretability: the
-            field of research dedicated to understanding the internal computations of AI models.
+            Hey! I&apos;m Rohan. I&apos;m a computer science student at Northeastern concentrated in
+            artificial intelligence. I work on{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Mechanistic_interpretability"
+              className="link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              mechanistic interpretability
+            </a>
+            .
           </p>
 
           <p>
