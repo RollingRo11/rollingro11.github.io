@@ -35,7 +35,7 @@ export default function Home() {
           </p>
 
           <p>
-            I&apos;m currently a research fellow at{" "}
+            I&apos;m currently a researcher at{" "}
             <a href="https://parallx.ai/" className="link" target="_blank" rel="noopener noreferrer">
               Parallax
             </a>
