@@ -7,31 +7,26 @@
     "build": "next build",
     "build:check": "NEXT_DIST_DIR=.next-verify next build",
     "start": "npx serve@latest out",
-    "lint": "next lint",
-    "export": "next build",
     "optimize-images": "node scripts/optimize-images.mjs",
     "clean-dead-images": "node scripts/clean-dead-images.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "katex": "^0.16.22",
-    "next": "^16.0.8",
-    "p5.brush": "^2.2.2",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "katex": "^0.16.47",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "react-markdown": "^10.1.0",
     "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
-    "@types/node": "^22",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "postcss": "^8",
-    "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
   }
 }

@@ -1,143 +1,118 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* =================================================================
-   Studio rig — a personal site set like a piece of equipment.
+   One stylesheet for the whole site, set after distill.pub: the system
+   sans for everything (no webfonts to download), ink at 80% for reading
+   text, hairline rules, and one accent — orange — spent only on the
+   circuit in the front-page plate.
 
-   Ground: white in light, charcoal in dark; the plate keeps
-   the cyclorama grey. Ink: near-black, like powder-coated steel. One
-   accent: anodised orange, spent only on the tracked token in the
-   specimen, the mode switch, and focus rings. Links underline in grey.
-
-   Two faces: DM Sans for everything you read, Lilex for data. One reading column; hairline rows.
+   Ink is a single colour per theme; every grey is that ink at a lower
+   opacity, so both themes share one set of rules.
    ================================================================= */
 
 :root {
-    --font-ui: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
-    --font-display: var(--font-ui);
-    --font-mono: var(--font-lilex), ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-    --text-base: 1.125rem;
-    --leading: 1.6;
-    --measure: 40rem;
-
-    --gutter: clamp(1.25rem, 4vw, 3.5rem);
-
-    --space-1: 0.375rem;
-    --space-2: 0.75rem;
-    --space-3: 1.25rem;
-    --space-4: 2rem;
-    --space-5: 3.25rem;
-    --space-6: 5rem;
-    --space-7: 7.5rem;
-
+    --measure: 43rem;
+    --gutter: clamp(1.25rem, 4vw, 2rem);
     --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-}
 
-.theme-light {
     --ground: #ffffff;
-    --ground-deep: #e9eae8;
-    --ground-lift: #f6f6f5;
-    --ink: #131413;
-    --ink-2: #454845;
-    --ink-3: #7b7f7a;
     --paper: #f2f1ee;
-    --rule: #d2d4d0;
-    --rule-strong: #131413;
-    --accent: #ff5a1f;
-    --accent-text: #c2400d;
-    --accent-soft: rgba(255, 90, 31, 0.16);
+    --ink: #111111;
     color-scheme: light;
 }
 
+/* Kept in step with GROUND in components/site/mode-toggle.tsx and the
+   theme-color tags in app/layout.tsx. */
 .theme-dark {
-    --ground: #131413;
-    --ground-deep: #0a0b0a;
-    --ground-lift: #1d1e1d;
-    --ink: #e9eae7;
-    --ink-2: #b0b3af;
-    --ink-3: #737672;
-    --paper: #11100d;
-    --rule: #2f312f;
-    --rule-strong: #e9eae7;
-    --accent: #ff6a2f;
-    --accent-text: #ff7d4a;
-    --accent-soft: rgba(255, 106, 47, 0.2);
+    --ground: #0b0b0b;
+    /* The plate's paper after the dark-mode inversion below. */
+    --paper: #0e0e10;
+    --ink: #ececec;
     color-scheme: dark;
 }
 
-@layer base {
-    * {
-        box-sizing: border-box;
-    }
-
-    html {
-        min-height: 100dvh;
-        margin: 0;
-        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
-            env(safe-area-inset-left);
-        -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-        margin: 0;
-        min-height: 100dvh;
-        background: var(--ground);
-        color: var(--ink);
-        font-family: var(--font-ui);
-        font-size: var(--text-base);
-        line-height: var(--leading);
-        font-weight: 450;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-        font-kerning: normal;
-        transition: background 150ms var(--ease), color 150ms var(--ease);
-    }
-
-    ::selection {
-        background: var(--rule);
-        color: var(--ink);
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-family: var(--font-ui);
-        font-weight: 600;
-        margin: 0;
-        text-wrap: balance;
-    }
-
-    p {
-        margin: 0;
-    }
-
-    :focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
-    }
+:root {
+    --ink-2: color-mix(in srgb, var(--ink) 80%, transparent);
+    --ink-3: color-mix(in srgb, var(--ink) 60%, transparent);
+    --ink-4: color-mix(in srgb, var(--ink) 45%, transparent);
+    --rule: color-mix(in srgb, var(--ink) 12%, transparent);
+    --rule-2: color-mix(in srgb, var(--ink) 22%, transparent);
+    --tint: color-mix(in srgb, var(--ink) 5%, transparent);
 }
 
-/* ===== Type utilities ====================================== */
+/* ===== Reset =============================================== */
 
-.eyebrow,
-.mono {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    background: var(--ground);
+}
+
+body {
+    margin: 0;
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+    background: var(--ground);
+    color: var(--ink-2);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+dl,
+dd,
+ul,
+ol,
+figure,
+blockquote {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+::selection {
+    background: var(--rule-2);
+}
+
+:focus-visible {
+    outline: 2px solid var(--ink-3);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ===== Shell =============================================== */
@@ -151,555 +126,389 @@
 .shell {
     width: 100%;
     max-width: calc(var(--measure) + var(--gutter) * 2);
-    margin: 0 auto;
+    margin-inline: auto;
     padding-inline: var(--gutter);
 }
 
-.site-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-7);
-}
-
-.site-main > * {
-    min-width: 0;
-}
-
-.stack {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-}
-
-/* Running text is set in the sans at reading size. */
-.stack p {
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-}
-
-.muted {
-    color: var(--ink-3);
+/* Small uppercase caption type: nav, byline labels, section labels. */
+.label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-4);
 }
 
 /* ===== Rail (header) ======================================= */
 
 .rail {
-    padding-top: var(--space-2);
-}
-
-.rail__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-3);
-    padding-block: var(--space-3);
+    gap: 1.25rem;
+    padding-block: 1.5rem;
 }
 
 .wordmark {
-    font-family: var(--font-ui);
-    font-size: 1.125rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    font-size: 1.0625rem;
     font-weight: 600;
     line-height: 1;
-    letter-spacing: -0.01em;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.6em;
+    white-space: nowrap;
+    color: var(--ink);
 }
 
-.wordmark__link {
-    color: inherit;
+.wordmark a {
     text-decoration: none;
-}
-
-.wordmark__crumb {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-left: 0.2em;
 }
 
 .rail__nav {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: 1.5rem;
 }
 
 .rail__link {
-    font-family: var(--font-ui);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-2);
     text-decoration: none;
-    transition: color 160ms var(--ease);
+    color: var(--ink-3);
+    transition: color 150ms var(--ease);
 }
 
-.rail__link:hover,
-.rail__link:focus-visible {
+.rail__link:hover {
     color: var(--ink);
 }
 
-/* Mode toggle — a switch plate with a mono readout. */
+/* Mode toggle — a three-position switch: Light, Auto, Dark. */
 .mode-toggle {
-    background: none;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    color: var(--ink-3);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
 }
 
 .mode-toggle__track {
-    width: 26px;
-    height: 12px;
-    border: 1px solid var(--ink-2);
-    display: block;
     position: relative;
-    transition: border-color 200ms var(--ease);
+    display: block;
+    width: 30px;
+    height: 12px;
+    border: 1px solid var(--ink-3);
 }
 
 .mode-toggle__knob {
     position: absolute;
     top: 1px;
     left: 1px;
-    width: 10px;
+    width: 8px;
     height: 8px;
     background: var(--ink);
-    transition: transform 320ms var(--ease), background 200ms var(--ease);
+    transition: transform 250ms var(--ease);
 }
 
-.theme-dark .mode-toggle__knob {
-    transform: translateX(12px);
+.mode-toggle[data-pref="system"] .mode-toggle__knob {
+    transform: translateX(9px);
 }
 
-.mode-toggle:hover .mode-toggle__knob {
-    background: var(--accent);
+.mode-toggle[data-pref="dark"] .mode-toggle__knob {
+    transform: translateX(18px);
 }
 
 .mode-toggle__label {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
+    min-width: 2.6em;
+    text-align: left;
 }
 
-/* ===== Plate ===============================================
-   The watercolor sits on a plate with a hairline edge. */
+.mode-toggle:hover .mode-toggle__label {
+    color: var(--ink);
+}
+
+/* ===== Home ================================================ */
+
+.home {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-top: 1rem;
+    padding-bottom: 5rem;
+}
 
 .plate {
-    position: relative;
-    height: 19rem;
     border: 1px solid var(--rule);
     background: var(--paper);
     overflow: hidden;
 }
 
-.plate__specimen {
-    position: absolute;
-    inset: 0;
-    cursor: pointer;
-}
-
-/* The canvas is blank until the first painting lands. The dry-in itself is
-   run from the sketch with Web Animations, not from here — see the note in
-   components/home/watercolor.tsx. */
-.plate__specimen canvas {
-    position: relative;
+/* Dries in once loaded: fades up out of a blur. Dark mode is a flip of the
+   same picture; invert() alone would swap every hue, so hue-rotate turns
+   them back. Both themes list the same filter functions so they interpolate. */
+.plate__img {
+    --tone: invert(0) hue-rotate(0deg);
     display: block;
+    width: 100%;
     opacity: 0;
+    filter: var(--tone) blur(8px);
+    transition: opacity 700ms var(--ease), filter 700ms var(--ease);
 }
 
-.plate__specimen--shown canvas {
+.theme-dark .plate__img {
+    --tone: invert(1) hue-rotate(180deg);
+}
+
+.plate__img--dry {
     opacity: 1;
+    filter: var(--tone) blur(0);
 }
 
-/* Dark mode is a flip of the same picture, so toggling never repaints.
-   invert() alone would swap every hue; hue-rotate(180deg) turns them back. */
-.theme-dark .plate__specimen canvas {
-    filter: invert(1) hue-rotate(180deg);
+.home .prose section {
+    margin-top: 2rem;
 }
 
-/* ===== Section labels ====================================== */
-
-.section-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: var(--space-2);
+.home .label {
+    margin-bottom: 0.5rem;
 }
 
-.page-title {
-    font-family: var(--font-ui);
-    font-size: clamp(1.75rem, 3.6vw, 2.25rem);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+/* ===== Article (blog) ======================================
+   Title and light dek, a byline between two hairlines that run the full
+   width, then the article column. */
+
+.d-post {
+    flex: 1;
+    padding-bottom: 5rem;
 }
 
-/* ===== Spec rows ===========================================
-   Hairline rows; the title underlines on hover. */
+.d-title {
+    padding-block: 2rem 1.5rem;
+}
 
-.spec-list {
+.d-title h1 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    text-wrap: balance;
+}
+
+.d-title p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.55;
+}
+
+.d-byline {
+    border-top: 1px solid var(--rule);
+    padding-block: 1.5rem;
+    font-size: 0.8rem;
+    line-height: 1.8;
+}
+
+.d-byline__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.d-article {
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .d-title {
+        padding-top: 4rem;
+    }
+
+    .d-title h1 {
+        font-size: 50px;
+    }
+
+    .d-byline__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Index: the date in a narrow column, then title and description. */
+.d-index {
     list-style: none;
-    margin: 0;
+    margin-top: -1.5rem;
     padding: 0;
 }
 
-.spec-row {
-    position: relative;
+.d-index > li {
     border-bottom: 1px solid var(--rule);
 }
 
-.spec-row__link,
-.entry {
-    position: relative;
-    color: inherit;
+.d-index__entry {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 2rem;
+    padding-block: 1.5rem;
     text-decoration: none;
 }
 
-.spec-row__link {
+.d-index__date {
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: var(--ink-4);
+}
+
+.d-index__text {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-    padding: 0.7rem 0;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.d-index__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+}
+
+.d-index__summary {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-3);
 }
 
 @media (hover: hover) {
-    .spec-row__link:hover .spec-row__title,
-    .entry:hover .entry__title {
+    .d-index__entry:hover .d-index__title {
         text-decoration: underline;
         text-decoration-thickness: 1px;
         text-underline-offset: 0.18em;
-        text-decoration-color: var(--ink-3);
+        text-decoration-color: var(--ink-4);
     }
 }
 
-.spec-row__title {
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    line-height: 1.4;
-    transition: color 120ms var(--ease);
+.d-index__empty {
+    color: var(--ink-4);
 }
 
-.spec-row__note {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    text-align: right;
-    flex-shrink: 0;
-}
-
-/* ===== Bullet list ========================================= */
-
-.bullet-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    line-height: 1.5;
-}
-
-.bullet-list > li {
-    position: relative;
-    padding-left: 1.15em;
-}
-
-/* Square marker — the same hardware bullet the prose uses. */
-.bullet-list > li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.62em;
-    width: 0.32em;
-    height: 0.32em;
-    background: var(--ink-3);
-}
-
-/* ===== Writing index ======================================= */
-
-.entry {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-3) 0;
-}
-
-.entry__date {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    color: var(--ink-3);
-    margin-bottom: 0.2rem;
-}
-
-.entry__title {
-    font-family: var(--font-ui);
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    transition: color 120ms var(--ease);
-}
-
-.entry__summary {
-    font-family: var(--font-ui);
-    font-size: 0.875rem;
-    line-height: 1.55;
-    color: var(--ink-2);
-    margin-top: 0.2rem;
-}
-
-/* ===== Inline link ========================================= */
-
-.link {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
-    text-decoration-color: var(--ink-3);
-    transition: text-decoration-color 120ms var(--ease);
-}
-
-.link:hover,
-.link:focus-visible {
-    text-decoration-color: var(--ink);
-}
-
-/* ===== Motion ============================================== */
-
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+@media (max-width: 640px) {
+    .d-index__entry {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
     }
 }
 
-/* ===== Post ================================================ */
-
-.post-head {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--rule);
-}
-
-.post-head__meta {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    color: var(--ink-3);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6em;
-}
-
-.post-head__sep {
-    color: var(--rule);
-}
-
-.page-title--post {
-    font-size: clamp(1.625rem, 3.2vw, 2rem);
-}
-
-.post-head__summary {
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    line-height: 1.55;
-    color: var(--ink-2);
-    max-width: 34rem;
-}
-
-.post__body {
-    width: 100%;
-}
-
-/* ===== Prose =============================================== */
-
-.prose {
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    line-height: 1.65;
-}
+/* ===== Prose ===============================================
+   Reading text on both the home page and posts: ruled h2s, bold h3s,
+   uppercase h4s, links underlined with a grey hairline. */
 
 .prose > * + * {
-    margin-top: var(--space-3);
+    margin-top: 1em;
 }
 
 .prose h2,
 .prose h3,
 .prose h4 {
-    font-family: var(--font-ui);
-    letter-spacing: -0.01em;
+    color: var(--ink);
     text-wrap: balance;
 }
 
-/* No rule of its own: posts write `---` where they want one, and a border
-   here drew a second line right under it. */
 .prose h2 {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: 600;
-    line-height: 1.2;
-    margin-top: var(--space-5);
-    margin-bottom: var(--space-3);
+    line-height: 1.25;
+    margin: 2rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
 }
 
 .prose h3 {
-    font-family: var(--font-ui);
-    font-size: 1.1875rem;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-top: var(--space-5);
-    margin-bottom: var(--space-2);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 2em 0 1em;
 }
 
 .prose h4 {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
     text-transform: uppercase;
-    color: var(--ink-3);
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-1);
+    margin: 2em 0 0.75em;
+}
+
+@media (min-width: 1024px) {
+    .d-article,
+    .home .prose {
+        font-size: 1.06rem;
+    }
+
+    .prose h2 {
+        font-size: 36px;
+    }
+
+    .prose h3 {
+        font-size: 20px;
+    }
 }
 
 .prose a {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
-    text-decoration-color: var(--ink-3);
-    transition: text-decoration-color 120ms var(--ease);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-4);
+    transition: border-color 120ms var(--ease);
 }
 
 .prose a:hover {
-    text-decoration-color: var(--ink);
+    border-bottom-color: var(--ink-2);
 }
 
 .prose strong {
-    font-weight: 650;
-}
-
-.prose em {
-    font-style: italic;
+    font-weight: 600;
+    color: var(--ink);
 }
 
 .prose ul,
 .prose ol {
-    padding-left: 1.35em;
-    margin-top: var(--space-3);
+    padding-left: 24px;
 }
 
-.prose ul {
-    list-style: none;
+.prose li::marker {
+    color: var(--ink-4);
 }
 
-/* Square markers — a hardware bullet. */
-.prose ul > li::before {
-    content: "";
-    position: absolute;
-    left: -1.15em;
-    top: 0.68em;
-    width: 0.32em;
-    height: 0.32em;
-    background: var(--ink-3);
-}
-
-.prose ul > li {
-    position: relative;
-}
-
-.prose ol {
-    list-style: decimal;
-}
-
-.prose ol > li::marker {
-    color: var(--ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.8em;
-}
-
-.prose li + li {
-    margin-top: var(--space-1);
-}
-
+.prose li + li,
 .prose li > ul,
 .prose li > ol {
-    margin-top: var(--space-1);
+    margin-top: 0.5em;
 }
 
-/* Callouts — a panel rather than a bare margin rule: a tinted ground, a
-   hairline, and a heavier left edge. A `#### title` inside becomes its
-   label, so an aside reads as one block set apart from the column. */
+/* Callouts and quotes alike: a grey rule and quieter ink. */
 .prose blockquote {
-    position: relative;
-    margin: var(--space-4) 0 var(--space-4) var(--space-3);
-    padding: var(--space-3);
-    background: var(--ground-lift);
-    border: 1px solid var(--rule);
-    color: var(--ink-2);
-}
-
-/* A rule standing clear to the left of the panel, on the same line the body
-   text starts from, so the callout reads as stepped in from the column. */
-.prose blockquote::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(-1 * var(--space-3));
-    width: 2px;
-    background: var(--ink-3);
+    margin-block: 1.5em;
+    padding-left: 2em;
+    border-left: 2px solid var(--rule-2);
+    color: var(--ink-3);
 }
 
 .prose blockquote > * + * {
-    margin-top: var(--space-2);
+    margin-top: 0.75em;
 }
 
 .prose blockquote h4 {
     margin-top: 0;
-    margin-bottom: var(--space-2);
-    color: var(--ink);
 }
 
-/* Quotes are usually a single italic line; the panel padding is enough. */
-.prose blockquote > :last-child {
-    margin-bottom: 0;
+/* A figure is an image paragraph; the text after the image (posts write
+   "(Image from …)") is its caption. */
+.prose p:has(> img) {
+    margin-block: 1.5em 2.5em;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-3);
 }
 
 .prose img {
     display: block;
     width: 100%;
-    margin: var(--space-4) 0;
+    margin-bottom: 0.75em;
 }
 
 /* Dark-mode figure inversion — invert lightness, restore hue. */
@@ -709,222 +518,148 @@
 
 .prose hr {
     border: 0;
-    height: 1px;
-    background: var(--rule);
-    margin: var(--space-4) 0;
+    border-bottom: 1px solid var(--rule);
+    margin-block: 3.5rem;
 }
-
-/* ===== Code ================================================ */
 
 .prose code {
     font-family: var(--font-mono);
-    font-size: 0.8em;
-    background: var(--ground-lift);
-    padding: 0.1em 0.35em;
+    font-size: 0.85em;
+    background: var(--tint);
+    border-radius: 2px;
+    padding: 0.1em 0.3em;
 }
 
-.code-block {
+.prose pre {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    line-height: 1.7;
-    background: var(--ground-lift);
-    border: 1px solid var(--rule);
-    padding: var(--space-3);
-    margin: var(--space-4) 0;
+    font-size: 14px;
+    line-height: 1.6;
+    background: var(--tint);
+    border-radius: 2px;
+    padding: 1em 1.25em;
     overflow-x: auto;
-    white-space: pre;
     color: var(--ink);
 }
 
-.code-block code {
+.prose pre code {
     background: none;
     padding: 0;
     font-size: inherit;
 }
 
-/* ===== Tables ============================================== */
-
-.table-wrap {
+/* Tables scroll inside the column rather than widening the page. */
+.prose table {
+    display: block;
+    max-width: 100%;
     overflow-x: auto;
-    margin: var(--space-4) 0;
-    -webkit-overflow-scrolling: touch;
-}
-
-.table {
-    width: 100%;
     border-collapse: collapse;
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
+    font-size: 15px;
     font-variant-numeric: lining-nums tabular-nums;
 }
 
-.table th,
-.table td {
+.prose th,
+.prose td {
     text-align: left;
-    padding: var(--space-2) var(--space-3) var(--space-2) 0;
-    border-bottom: 1px solid var(--rule);
+    padding: 4px 8px;
     vertical-align: top;
+    border-bottom: 1px solid var(--tint);
 }
 
-.table thead th {
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    border-bottom-color: var(--rule-strong);
+.prose th {
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom-color: var(--rule-2);
 }
 
-.table tbody tr:last-child th,
-.table tbody tr:last-child td {
-    border-bottom: 0;
+.prose tr:last-of-type td {
+    border-bottom-color: var(--rule-2);
 }
 
 /* ===== Math ================================================ */
 
 .katex {
-    font-size: 1.02em;
+    font-size: 1.05em;
 }
 
 .katex-display {
-    margin: var(--space-4) 0;
+    margin-block: 1.5em;
+    padding-block: 0.25rem;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 0.25rem 0;
 }
 
-.prose .katex-display {
-    font-size: clamp(1rem, 2.6vw, 1.3rem);
-}
-
-/* ===== Annotated equations =================================
-   The equation dims and the inspected term stays at full ink; the
-   definition reads out below like a HUD label. */
-
-.equation {
-    margin: var(--space-5) 0;
-}
-
-.equation__row {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.equation__katex .katex-display {
-    margin: 0;
-    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
-}
-
-.equation__number {
-    position: absolute;
-    right: 0;
-    color: var(--ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    pointer-events: none;
-}
-
-.prose [data-term].eq-term {
-    cursor: pointer;
-    border-bottom: 1px dotted var(--ink-3);
-    transition: color 180ms var(--ease), border-color 180ms var(--ease);
-}
-
-.equation__katex--focused {
-    color: var(--ink-3);
-}
-
-.equation__katex--focused [data-term].eq-term {
-    border-bottom-color: transparent;
-}
-
-.equation__katex--focused [data-term].eq-term--active {
-    color: var(--ink);
-}
-
-.equation__def {
-    margin: var(--space-3) auto 0;
-    min-height: calc(3 * 1.6em);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 var(--space-3);
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--ink);
-}
-
-.equation__def .katex {
-    font-size: 1em;
-}
-
-.equation__hint {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-}
-
-/* ===== Footnotes =========================================== */
+/* ===== Footnotes ===========================================
+   Set as Distill's appendix: a full-width hairline, then small grey
+   type under a "Footnotes" label. */
 
 .prose [data-footnotes] {
-    margin-top: var(--space-6);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--rule-strong);
-    font-family: var(--font-ui);
-    font-size: 0.9375rem;
-    color: var(--ink-2);
+    position: relative;
+    margin-top: 60px;
+    padding-top: 2.5rem;
+    font-size: 0.8em;
+    line-height: 1.7;
+    color: var(--ink-4);
 }
 
-.prose [data-footnotes] hr {
-    display: none;
+/* The hairline runs the width of the screen without widening the page:
+   a 1px bar whose shadow is clipped to its own height. */
+.prose [data-footnotes]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--rule);
+    box-shadow: 0 0 0 100vmax var(--rule);
+    clip-path: inset(0 -100vmax);
 }
 
 .prose [data-footnotes] h2 {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0 0 1em;
+    padding: 0;
+    border: 0;
+    color: var(--ink-3);
 }
 
 .prose [data-footnotes] ol {
-    padding-left: 1.3em;
-    margin-top: 0;
+    padding-left: 1.5em;
 }
 
 .prose [data-footnotes] li + li {
-    margin-top: var(--space-2);
+    margin-top: 1em;
+}
+
+.prose [data-footnotes] a {
+    color: var(--ink-3);
 }
 
 .prose [data-footnote-ref] {
-    font-family: var(--font-mono);
-    font-size: 0.65em;
-    vertical-align: super;
-    line-height: 0;
-    text-decoration: none;
-    color: var(--ink-2);
+    position: relative;
+    top: -0.5em;
     padding: 0 0.1em;
+    font-size: 0.75em;
+    line-height: 1;
+    vertical-align: baseline;
+    border-bottom: 0;
+    color: var(--ink-3);
 }
 
 .prose [data-footnote-ref]:hover {
     color: var(--ink);
 }
 
-.prose [data-footnote-backref] {
-    font-size: 0.85em;
-    text-decoration: none;
-    margin-left: 0.35em;
-    color: var(--ink-3);
+.prose [data-footnotes] [data-footnote-backref] {
+    margin-left: 0.5em;
+    border-bottom: 0;
+    color: var(--ink-4);
 }
 
-/* ===== Margin notes ======================================== */
+/* ===== Margin notes ========================================
+   Footnotes repeated in the right gutter, like Distill's asides. */
 
 .margin-notes {
     position: absolute;
@@ -936,133 +671,39 @@
 
 .margin-note {
     position: absolute;
-    font-family: var(--font-ui);
-    font-size: 0.8125rem;
-    line-height: 1.5;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.6;
     color: var(--ink-3);
-    padding-left: var(--space-2);
-    border-left: 1px solid var(--rule);
-    transition: color 260ms var(--ease), border-color 260ms var(--ease);
+    transition: color 250ms var(--ease);
 }
 
 .margin-note--active {
-    color: var(--ink-2);
-    border-left-color: var(--accent);
+    color: var(--ink);
 }
 
 .margin-note__number {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--ink-2);
+    font-weight: 600;
 }
 
 .margin-note p {
-    margin: 0;
     display: inline;
 }
 
 .margin-note a {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-2);
 }
 
-/* ===== Table of contents =================================== */
-
-.toc {
-    position: fixed;
-    top: 6rem;
-    left: var(--space-4);
-    z-index: 20;
-    width: min(15rem, 20vw);
-    max-height: calc(100dvh - 8rem);
-    overflow-y: auto;
-    scrollbar-width: none;
-}
-
-.toc::-webkit-scrollbar {
-    display: none;
-}
-
-.toc__label {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: var(--space-2);
-}
-
-.toc__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.toc__item {
-    display: block;
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: 0;
-    border-left: 1px solid var(--rule);
-    cursor: pointer;
-    color: var(--ink-3);
-    font-family: var(--font-ui);
-    font-size: 0.8125rem;
-    line-height: 1.4;
-    padding: 0.3rem 0 0.3rem var(--space-2);
-    transition: color 160ms var(--ease), border-color 160ms var(--ease);
-}
-
-.toc__item:hover {
-    color: var(--ink-2);
-    border-left-color: var(--ink-3);
-}
-
-.toc__item--active {
-    color: var(--ink);
-    border-left-color: var(--accent);
-}
-
-@media (max-width: 1279px) {
-    .toc {
-        display: none;
-    }
-}
-
-/* ===== Responsive ========================================== */
+/* ===== Small screens ======================================= */
 
 @media (max-width: 640px) {
-    :root {
-        --text-base: 1.0625rem;
-        --space-5: 2.5rem;
-        --space-6: 3.5rem;
-        --space-7: 4.5rem;
+    .rail {
+        padding-block: 1rem;
     }
 
-    .rail__inner {
-        padding-block: var(--space-2);
-    }
-
-    .wordmark {
-        white-space: nowrap;
-    }
-
-    .wordmark__crumb {
-        display: none;
-    }
-
+    .wordmark__crumb,
     .mode-toggle__label {
         display: none;
-    }
-
-    .plate {
-        height: 15rem;
-    }
-
-    .prose h2 {
-        font-size: 1.5rem;
     }
 }

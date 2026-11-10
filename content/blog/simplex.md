@@ -57,61 +57,38 @@ I predicted that the residual stream would organize into three orthogonal subspa
 
 We can write the non-ergodic mixture as a single block-diagonal GHMM with 9 latent states (3 per Mess3 component). Before seeing any tokens, the predictive vector is uniform over all 9 states.
 
-```equation
-\eqterm{beta}{\beta^{\emptyset}} = \eqterm{norm}{\frac{1}{9}} [\eqterm{mA}{\underbrace{1, 1, 1}_{\text{Mess3A}}}, \eqterm{mB}{\underbrace{1, 1, 1}_{\text{Mess3B}}}, \eqterm{mC}{\underbrace{1, 1, 1}_{\text{Mess3C}}}]
+$$
+\beta^{\emptyset} = \frac{1}{9} [\underbrace{1, 1, 1}_{\text{Mess3A}}, \underbrace{1, 1, 1}_{\text{Mess3B}}, \underbrace{1, 1, 1}_{\text{Mess3C}}]
+$$
 
-@beta: The prior belief vector before any tokens are seen — uniform over all 9 latent states.
-@norm: The normalization $1/9$ that makes the nine entries sum to 1, so it is a valid probability distribution.
-@mA: The three latent states belonging to Mess3 A.
-@mB: The three latent states belonging to Mess3 B.
-@mC: The three latent states belonging to Mess3 C.
-```
 
 Because $T^{x}_{\text{big}}$ is block-diagonal, the three components' latent states never interact. The predictive vector decomposes as:
 
-```equation
-\eqterm{beta}{\beta^{x_{1:\ell}}} = [\eqterm{wA}{w_A} \cdot \eqterm{bA}{\beta_A^{x_{1:\ell}}}, \quad \eqterm{wB}{w_B} \cdot \beta_B^{x_{1:\ell}}, \quad \eqterm{wC}{w_C} \cdot \beta_C^{x_{1:\ell}}]
+$$
+\beta^{x_{1:\ell}} = [w_A \cdot \beta_A^{x_{1:\ell}}, \quad w_B \cdot \beta_B^{x_{1:\ell}}, \quad w_C \cdot \beta_C^{x_{1:\ell}}]
+$$
 
-@beta: The full belief vector after observing the tokens $x_{1:\ell}$, split across the three components.
-@wA: The posterior weight on component A — how likely Mess3 A generated the sequence so far.
-@bA: The within-component belief for A: where we sit inside A's own 2-simplex.
-@wB: The posterior weight on component B.
-@wC: The posterior weight on component C. The three weights sum to 1.
-```
 
 where $w_A, w_B, w_C$ are posterior component weights (they sum to 1) and each $\beta_n^{x_{1:\ell}}$ is the within-component belief. The weights update via Bayes' rule:
 
-```equation
-\eqterm{wn}{w_n^{(\ell)}} = \frac{\eqterm{prior}{w_n^{(\ell-1)}} \cdot \eqterm{like}{P(x_\ell \mid \text{component } n, \beta_n^{(\ell-1)})}}{\eqterm{evidence}{\sum_m w_m^{(\ell-1)} \cdot P(x_\ell \mid \text{component } m, \beta_m^{(\ell-1)})}}
+$$
+w_n^{(\ell)} = \frac{w_n^{(\ell-1)} \cdot P(x_\ell \mid \text{component } n, \beta_n^{(\ell-1)})}{\sum_m w_m^{(\ell-1)} \cdot P(x_\ell \mid \text{component } m, \beta_m^{(\ell-1)})}
+$$
 
-@wn: The updated posterior weight on component $n$ after seeing token $x_\ell$.
-@prior: The previous step's weight on component $n$ — the prior before this token arrives.
-@like: The likelihood that component $n$ emits token $x_\ell$, given its current belief.
-@evidence: The normalizing sum over all components, keeping the updated weights summing to 1.
-```
 
 and each within-component belief updates independently with its own transition matrix.
 
-```equation
-\eqterm{S}{S} = \eqterm{SA}{S_A} \eqterm{ds}{\oplus} \eqterm{SB}{S_B} \eqterm{ds}{\oplus} \eqterm{SC}{S_C} = \eqterm{r3}{\mathbb{R}^3} \eqterm{ds}{\oplus} \eqterm{r3}{\mathbb{R}^3} \eqterm{ds}{\oplus} \eqterm{r3}{\mathbb{R}^3}
+$$
+S = S_A \oplus S_B \oplus S_C = \mathbb{R}^3 \oplus \mathbb{R}^3 \oplus \mathbb{R}^3
+$$
 
-@S: The full 9-dimensional latent space of the mixture.
-@SA: Component A's 3-dimensional latent subspace.
-@ds: A direct sum — the subspaces are stacked without overlap, so they stay independent.
-@SB: Component B's latent subspace.
-@SC: Component C's latent subspace.
-@r3: Each component lives in its own copy of $\mathbb{R}^3$.
-```
 
 The block-diagonal transitions keep these subspaces from ever interacting:
 
-```equation
-\eqterm{Tbig}{T^{x}_{\text{big}}} \eqterm{vin}{\begin{pmatrix} v_A \\ v_B \\ v_C \end{pmatrix}} = \eqterm{vout}{\begin{pmatrix} T^{x}_A v_A \\ T^{x}_B v_B \\ T^{x}_C v_C \end{pmatrix}}
+$$
+T^{x}_{\text{big}} \begin{pmatrix} v_A \\ v_B \\ v_C \end{pmatrix} = \begin{pmatrix} T^{x}_A v_A \\ T^{x}_B v_B \\ T^{x}_C v_C \end{pmatrix}
+$$
 
-@Tbig: The full transition matrix for token $x$ — block-diagonal across the three components.
-@vin: A stacked state vector with one block per component.
-@vout: Each component's transition $T^x_n$ acts only on its own block — the components never mix.
-```
 So the ground truth vectors already sit in three orthogonal subspaces of $\mathbb{R}^9$. We should be able to find each of these individual structures by probing the residual stream, just like [Shai et al., 2024](https://arxiv.org/abs/2405.15943) does for one HMM.
 
 > *This is related to the factored world hypothesis[^1], but there's a key difference. In their paper, simultaneous independent factors live in a tensor-product latent space ($S = S_1 \otimes \cdots \otimes S_N$), and transformers *discover* the factorization, compressing exponential dimensionality down to linear. Our setup is simpler: the latent space is already a direct sum, and the orthogonal structure is baked into the data generator. I was predicting the transformer would *preserve* a factorization that's already there, rather than discovering a hidden one.*

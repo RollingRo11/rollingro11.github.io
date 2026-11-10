@@ -2,68 +2,55 @@
 // time. No "use client": remark / rehype / KaTeX run during prerender and are
 // never shipped to the browser, so opening a post stays instant.
 
-import * as React from "react";
+import path from "node:path";
+import sharp from "sharp";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import "katex/dist/katex.min.css";
-import { Equation } from "@/components/blog/equation";
 
-// Flatten a react-markdown code node's children back into its source string.
-function nodeText(node: React.ReactNode): string {
-  if (node == null || node === false) return "";
-  if (typeof node === "string" || typeof node === "number") return String(node);
-  if (Array.isArray(node)) return node.map(nodeText).join("");
-  if (React.isValidElement(node)) return nodeText((node.props as { children?: React.ReactNode }).children);
-  return "";
+// Figures load lazily as you scroll. Without a size in the HTML each one
+// arrives zero-height and shoves everything below it down, and the margin
+// notes re-measure; reading each file's dimensions at build lets the browser
+// reserve the space up front.
+async function imageSizes(markdown: string) {
+  const srcs = new Set(Array.from(markdown.matchAll(/!\[[^\]]*\]\(\s*(\/[^)\s]+)/g), (m) => m[1]));
+  const sizes = new Map<string, { width?: number; height?: number }>();
+  await Promise.all(
+    Array.from(srcs, async (src) => {
+      const { width, height } = await sharp(path.join(process.cwd(), "public", src)).metadata();
+      sizes.set(src, { width, height });
+    }),
+  );
+  return sizes;
 }
 
-export function Prose({ content }: { content: string }) {
+export async function Prose({ content }: { content: string }) {
+  const sizes = await imageSizes(content);
+
   return (
     <div className="prose">
       <ReactMarkdown
         remarkPlugins={[remarkMath, remarkGfm]}
         rehypePlugins={[rehypeKatex, rehypeSlug]}
         components={{
-          table: ({ children }) => (
-            <div className="table-wrap">
-              <table className="table">{children}</table>
-            </div>
-          ),
-          // ```equation blocks become interactive annotated equations;
-          // everything else falls through to a plain code block.
-          pre: ({ children }) => {
-            const child = Array.isArray(children) ? children[0] : children;
-            const className = React.isValidElement(child)
-              ? String((child.props as { className?: string }).className ?? "")
-              : "";
-            if (className.includes("language-equation")) {
-              return <Equation source={nodeText(children)} />;
-            }
-            return (
-              <pre className="code-block">
-                <code>{nodeText(children)}</code>
-              </pre>
-            );
-          },
           // Figures have transparent backgrounds, so in dark mode their ink is
           // flipped to read against the dark ground. Full-colour artwork opts
           // out with the markdown title slot: ![alt](/art.webp "keep-colors").
           // The title is consumed as a directive, never forwarded to the DOM,
           // so it can't surface as a tooltip.
           img: ({ src, alt, title }) => {
-            if (!src) return null;
-            const keepColors = title === "keep-colors";
+            if (typeof src !== "string") return null;
             return (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={typeof src === "string" ? src : undefined}
+                src={src}
                 alt={alt ?? ""}
+                {...sizes.get(src)}
                 loading="lazy"
                 decoding="async"
-                data-invert={keepColors ? undefined : ""}
+                data-invert={title === "keep-colors" ? undefined : ""}
               />
             );
           },

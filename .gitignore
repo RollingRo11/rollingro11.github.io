@@ -32,3 +32,6 @@ public/shadow-overlays.zip
 
 # original images preserved before optimization (recoverable)
 image-originals/
+
+# macOS
+.DS_Store

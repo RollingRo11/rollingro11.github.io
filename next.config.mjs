@@ -10,6 +10,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   output: 'export',
+  // Don't write an AGENTS.md into the repo on `next dev`.
+  agentRules: false,
   trailingSlash: true,
   images: {
     unoptimized: true,

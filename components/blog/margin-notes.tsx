@@ -17,7 +17,7 @@ interface Note {
 }
 
 const NOTE_WIDTH = 240;
-const NOTE_GAP = 40;
+const NOTE_GAP = 32;
 const STACK_GAP = 24;
 const MIN_VIEWPORT = 1280; // below this there's no margin to hang notes in
 
@@ -45,8 +45,7 @@ export function MarginNotes() {
     }
 
     // Hang off the right edge of the text column.
-    const column = container.closest("main") ?? container;
-    const noteLeft = column.getBoundingClientRect().right + window.scrollX + NOTE_GAP;
+    const noteLeft = container.getBoundingClientRect().right + window.scrollX + NOTE_GAP;
 
     const collected: Note[] = [];
     refs.forEach((ref) => {
@@ -111,12 +110,16 @@ export function MarginNotes() {
 
   useEffect(() => {
     calculate();
-    // Recalc once content settles (fonts / KaTeX / images), and on resize.
-    const t = setTimeout(calculate, 300);
+    // Lazy images and KaTeX's fonts change the column's height
+    // after first paint, moving every footnote below them; a resize can also
+    // move the column sideways without changing its size.
+    const container = document.querySelector(".prose");
+    const observer = new ResizeObserver(() => requestAnimationFrame(calculate));
+    if (container) observer.observe(container);
     const onResize = () => requestAnimationFrame(calculate);
     window.addEventListener("resize", onResize);
     return () => {
-      clearTimeout(t);
+      observer.disconnect();
       window.removeEventListener("resize", onResize);
     };
   }, [calculate]);

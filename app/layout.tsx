@@ -1,27 +1,6 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-
-// DM Sans is the site face: wordmark, titles, and all reading text.
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
-
-// Lilex is the data face: HUD readouts, spec labels, code.
-const lilex = localFont({
-  // One face only: the italic and bold cuts were preloaded on every page and
-  // never used. woff2 is a quarter the size of the ttf.
-  src: [{ path: "./fonts/Lilex-Regular.woff2", weight: "400", style: "normal" }],
-  variable: "--font-lilex",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rkathuria.com"),
@@ -71,40 +50,37 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  // Kept as a single value so the provider can follow a manual toggle.
-  themeColor: "#ffffff",
+  // Matches the OS until the reader picks a theme; mode-toggle.tsx then
+  // rewrites both tags to the chosen ground.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+  ],
 };
 
-// Resolves the theme before first paint so there's no flash. Light is the
-// default until the reader picks otherwise; the system preference is ignored.
+// Resolves the theme before first paint so there's no flash: a saved Light or
+// Dark choice wins, otherwise follow the OS. Mirrored in mode-toggle.tsx.
 const BOOT_SCRIPT = `
 (function () {
+  var dark = false;
   try {
     var saved = localStorage.getItem('theme');
-    var mode = saved === 'dark' ? 'dark' : 'light';
-    var root = document.documentElement;
-    root.classList.add('theme-' + mode);
-    root.style.backgroundColor = mode === 'dark' ? '#131413' : '#ffffff';
-  } catch (e) {
-    document.documentElement.classList.add('theme-light');
-  }
+    dark = saved === 'dark' ||
+      (saved !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+  } catch (e) {}
+  document.documentElement.classList.add(dark ? 'theme-dark' : 'theme-light');
 })();
 `;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${dmSans.variable} ${lilex.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="format-detection" content="telephone=no" />
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
       </body>
     </html>
   );
