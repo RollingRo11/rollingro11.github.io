@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description: "Mechanistic interpretability research and writing by Rohan Kathuria.",
   icons: {
     icon: [
-      // New file names on purpose: browsers cache /favicon.svg hard.
-      { url: "/bloom.svg", type: "image/svg+xml" },
-      { url: "/bloom-32.png", sizes: "32x32", type: "image/png" },
+      // New file names on purpose: browsers cache favicons hard.
+      { url: "/stem.svg", type: "image/svg+xml" },
+      { url: "/stem-32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
   },

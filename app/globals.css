@@ -265,12 +265,15 @@ img {
     filter: var(--tone) blur(0);
 }
 
-.home .prose section {
-    margin-top: 2rem;
-}
-
-.home .label {
-    margin-bottom: 0.5rem;
+/* The sideways stem between the intro and the links. */
+/* The sideways stem between the intro and the links. Mixed into the ground
+   rather than made transparent, so the dots read as one solid colour where
+   they overlap the lines. */
+.prose .stem-rule {
+    display: block;
+    width: 3rem;
+    margin: 2rem auto;
+    color: color-mix(in srgb, var(--ink) 45%, var(--ground));
 }
 
 /* ===== Article (blog) ======================================

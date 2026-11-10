@@ -9,6 +9,30 @@ const elsewhere = [
   { href: "https://rev.school/", title: "REV" },
 ];
 
+// The site's stem mark (public/stem.svg) turned on its side, as the divider
+// between the intro and the links below it. Strokes are heavier than the
+// original so they stay as solid as the dots at this small size.
+function StemRule() {
+  return (
+    <svg className="stem-rule" viewBox="0 27 100 46" aria-hidden="true">
+      <g transform="rotate(90 50 50)" fill="none" stroke="currentColor" strokeLinecap="round">
+        <path d="M50 92V8" strokeWidth="4" />
+        <path
+          d="M50 80C28 80 28 62 50 62M50 58C72 58 72 40 50 40M50 36C28 36 28 18 50 18"
+          strokeWidth="3"
+        />
+        <g fill="currentColor" stroke="none">
+          <circle cx="33.5" cy="71" r="4.4" />
+          <circle cx="66.5" cy="49" r="4.4" />
+          <circle cx="33.5" cy="27" r="4.4" />
+          <circle cx="50" cy="8" r="4.6" />
+          <circle cx="50" cy="92" r="4.6" />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 function Out({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
@@ -54,16 +78,15 @@ export default function Home() {
             and <Out href="https://linkedin.com/in/rohanekathuria">LinkedIn</Out>.
           </p>
 
-          <section>
-            <p className="label">Elsewhere</p>
-            <ul>
-              {elsewhere.map((item) => (
-                <li key={item.href}>
-                  <Out href={item.href}>{item.title}</Out>
-                </li>
-              ))}
-            </ul>
-          </section>
+          <StemRule />
+
+          <ul>
+            {elsewhere.map((item) => (
+              <li key={item.href}>
+                <Out href={item.href}>{item.title}</Out>
+              </li>
+            ))}
+          </ul>
         </div>
       </main>
     </div>
