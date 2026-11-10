@@ -1,8 +1,8 @@
 /* =================================================================
-   One stylesheet for the whole site, set after distill.pub: the system
-   sans for everything (no webfonts to download), ink at 80% for reading
-   text, hairline rules, and one accent — orange — spent only on the
-   circuit in the front-page plate.
+   One stylesheet for the whole site, set after distill.pub: Charter for
+   reading text, the system sans for headings and UI, ink at 80% for
+   reading text, hairline rules, and one accent — orange — spent only on
+   the circuit in the front-page plate.
 
    Ink is a single colour per theme; every grey is that ink at a lower
    opacity, so both themes share one set of rules.
@@ -12,6 +12,8 @@
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
         "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    /* Reading text: prose, deks, summaries and notes. */
+    --font-body: Charter, Georgia, serif;
 
     --measure: 43rem;
     --gutter: clamp(1.25rem, 4vw, 2rem);
@@ -40,6 +42,45 @@
     --rule: color-mix(in srgb, var(--ink) 12%, transparent);
     --rule-2: color-mix(in srgb, var(--ink) 22%, transparent);
     --tint: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+/* Charter is built into macOS and iOS; local() uses that copy, so only other
+   platforms download these (~15 KB a face). Bitstream's free release, via
+   practicaltypography.com/charter.html; licence in public/fonts/charter. */
+@font-face {
+    font-family: Charter;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local("Charter Roman"), local("Charter-Roman"),
+        url("/fonts/charter/charter-regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Charter;
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: local("Charter Italic"), local("Charter-Italic"),
+        url("/fonts/charter/charter-italic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Charter;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local("Charter Bold"), local("Charter-Bold"),
+        url("/fonts/charter/charter-bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Charter;
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: local("Charter Bold Italic"), local("Charter-BoldItalic"),
+        url("/fonts/charter/charter-bold-italic.woff2") format("woff2");
 }
 
 /* ===== Reset =============================================== */
@@ -299,6 +340,7 @@ img {
 }
 
 .d-title p {
+    font-family: var(--font-body);
     font-size: 1.2rem;
     font-weight: 300;
     line-height: 1.55;
@@ -374,6 +416,7 @@ img {
 }
 
 .d-index__summary {
+    font-family: var(--font-body);
     font-size: 0.9375rem;
     line-height: 1.55;
     color: var(--ink-3);
@@ -403,6 +446,10 @@ img {
    Reading text on both the home page and posts: ruled h2s, bold h3s,
    uppercase h4s, links underlined with a grey hairline. */
 
+.prose {
+    font-family: var(--font-body);
+}
+
 .prose > * + * {
     margin-top: 1em;
 }
@@ -410,6 +457,7 @@ img {
 .prose h2,
 .prose h3,
 .prose h4 {
+    font-family: var(--font-sans);
     color: var(--ink);
     text-wrap: balance;
 }
@@ -674,7 +722,7 @@ img {
 
 .margin-note {
     position: absolute;
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: 12px;
     line-height: 1.6;
     color: var(--ink-3);

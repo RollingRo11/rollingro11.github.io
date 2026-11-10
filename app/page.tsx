@@ -3,7 +3,8 @@ import { SiteHeader } from "@/components/site/header";
 import { Plate } from "@/components/home/plate";
 
 const elsewhere = [
-  { href: "https://aisst.ai/", title: "AISST" },
+  { href: "https://nuaisafety.com/", title: "NU AI Safety" },
+  { href: "https://aisafetyteam.org/", title: "AI Safety Team" },
   { href: "https://generatenu.com/", title: "Generate" },
   { href: "https://www.ktpneu.org/", title: "Kappa Theta Pi" },
   { href: "https://rev.school/", title: "REV" },
