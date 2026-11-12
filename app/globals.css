@@ -746,6 +746,140 @@ img {
     border-bottom: 1px solid var(--rule-2);
 }
 
+/* ===== Notes contents =====================================
+   A drawer from the left, opened by the icon before the wordmark; from
+   1024px up, a panel beside the article instead. */
+
+.rail__start {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.notes-nav__toggle {
+    position: relative;
+    z-index: 21;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-left: -5px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink-3);
+    cursor: pointer;
+}
+
+.notes-nav__toggle:hover {
+    color: var(--ink);
+}
+
+.notes-nav__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 19;
+    background: rgb(0 0 0 / 0.25);
+}
+
+.notes-nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    width: min(18rem, 85vw);
+    padding: calc(env(safe-area-inset-top) + 4.5rem) 1.5rem 2rem
+        calc(env(safe-area-inset-left) + var(--gutter));
+    overflow-y: auto;
+    background: var(--ground);
+    border-right: 1px solid var(--rule);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+        transform 250ms var(--ease),
+        visibility 250ms;
+}
+
+.notes-nav--open {
+    transform: none;
+    visibility: visible;
+}
+
+.notes-list {
+    list-style: none;
+    margin-top: 0.75rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.notes-list a {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-decoration: none;
+    color: var(--ink-3);
+    transition: color 150ms var(--ease);
+}
+
+.notes-list a:hover,
+.notes-list a[aria-current="page"] {
+    color: var(--ink);
+}
+
+.notes-list a[aria-current="page"] {
+    font-weight: 600;
+}
+
+.notes-panel {
+    display: none;
+}
+
+/* From 1024px up the list is a plain column on the left of the article,
+   starting at the hairline under the byline and scrolling with the page.
+   The columns stay centred while the margin can hold the panel, then shift
+   right to keep clear of it. */
+@media (min-width: 1024px) {
+    .notes-nav__toggle,
+    .notes-nav__backdrop,
+    .notes-nav {
+        display: none;
+    }
+
+    .page--notes .shell {
+        margin-left: max(16rem, (100% - var(--measure)) / 2 - var(--gutter));
+    }
+
+    .page--notes .d-post {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+    }
+
+    .page--notes .d-article {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 16rem 1fr;
+        padding-top: 0;
+    }
+
+    /* In the column beside the panel: its own margin, measured from the
+       panel, lands it where the header and title start. */
+    .page--notes .d-article > .shell {
+        margin-left: max(0px, (100% - var(--measure)) / 2 - var(--gutter) - 8rem);
+        padding-block: 2rem 5rem;
+    }
+
+    .notes-panel {
+        display: block;
+        padding: 2rem;
+    }
+}
+
 /* ===== Small screens ======================================= */
 
 @media (max-width: 640px) {

@@ -2,7 +2,11 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+/* Each collection is a folder of markdown under content/: "blog" is the
+   public Writing section; "notes" and "writeups" are hidden sections built on it. */
+function contentDir(collection: string): string {
+  return path.join(process.cwd(), "content", collection);
+}
 
 export interface BlogPostMeta {
   slug: string;
@@ -43,15 +47,16 @@ export function formatPostDate(date: string): string {
   });
 }
 
-export function getAllPosts(): BlogPostMeta[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
+export function getAllPosts(collection = "blog"): BlogPostMeta[] {
+  const dir = contentDir(collection);
+  if (!fs.existsSync(dir)) return [];
 
   return fs
-    .readdirSync(BLOG_DIR)
+    .readdirSync(dir)
     .filter((file) => file.endsWith(".md"))
     .map((file) => {
       const slug = file.replace(/\.md$/, "");
-      const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf8");
+      const raw = fs.readFileSync(path.join(dir, file), "utf8");
       const { data } = matter(raw);
       return {
         slug,
@@ -64,8 +69,8 @@ export function getAllPosts(): BlogPostMeta[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
-  const filePath = path.join(BLOG_DIR, `${slug}.md`);
+export function getPostBySlug(slug: string, collection = "blog"): BlogPost | null {
+  const filePath = path.join(contentDir(collection), `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf8");
@@ -82,10 +87,11 @@ export function getPostBySlug(slug: string): BlogPost | null {
   };
 }
 
-export function getAllSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
+export function getAllSlugs(collection = "blog"): string[] {
+  const dir = contentDir(collection);
+  if (!fs.existsSync(dir)) return [];
   return fs
-    .readdirSync(BLOG_DIR)
+    .readdirSync(dir)
     .filter((file) => file.endsWith(".md"))
     .map((file) => file.replace(/\.md$/, ""));
 }
