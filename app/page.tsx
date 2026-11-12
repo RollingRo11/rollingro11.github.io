@@ -61,7 +61,7 @@ export default function Home() {
           </p>
 
           <p>
-            I&apos;m currently a researcher at <Out href="https://parallx.ai/">Parallax</Out>.
+            I&apos;m currently a visiting researcher at <Out href="https://parallx.ai/">Parallax</Out>.
             I&apos;ve previously worked with the <Out href="https://baulab.info/">Bau Lab</Out>,
             through the{" "}
             <Out href="https://www.cbai.ai/">Cambridge&ndash;Boston Alignment Initiative</Out>,{" "}
