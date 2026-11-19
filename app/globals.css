@@ -560,11 +560,53 @@ img {
     display: block;
     width: 100%;
     margin-bottom: 0.75em;
+    cursor: zoom-in;
 }
 
 /* Dark-mode figure inversion — invert lightness, restore hue. */
-.theme-dark .prose img[data-invert] {
+.theme-dark .prose img[data-invert],
+.theme-dark .lightbox img[data-invert] {
     filter: invert(1) hue-rotate(180deg);
+}
+
+/* Click-to-enlarge popup (components/blog/lightbox.tsx): the figure on the
+   page ground, as large as the screen allows. Any click closes it. */
+.lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: var(--gutter);
+    border: 0;
+    background: var(--ground);
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 120ms var(--ease);
+}
+
+.lightbox[open] {
+    opacity: 1;
+}
+
+@starting-style {
+    .lightbox[open] {
+        opacity: 0;
+    }
+}
+
+.lightbox::backdrop {
+    background: none;
+}
+
+.lightbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+html:has(.lightbox[open]) {
+    overflow: hidden;
 }
 
 .prose hr {

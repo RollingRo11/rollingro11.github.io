@@ -10,6 +10,7 @@ import remarkGfm from "remark-gfm";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import "katex/dist/katex.min.css";
+import { Lightbox } from "./lightbox";
 
 // Figures load lazily as you scroll. Without a size in the HTML each one
 // arrives zero-height and shoves everything below it down, and the margin
@@ -31,33 +32,37 @@ export async function Prose({ content }: { content: string }) {
   const sizes = await imageSizes(content);
 
   return (
-    <div className="prose">
-      <ReactMarkdown
-        remarkPlugins={[remarkMath, remarkGfm]}
-        rehypePlugins={[rehypeKatex, rehypeSlug]}
-        components={{
-          // Figures have transparent backgrounds, so in dark mode their ink is
-          // flipped to read against the dark ground. Full-colour artwork opts
-          // out with the markdown title slot: ![alt](/art.webp "keep-colors").
-          // The title is consumed as a directive, never forwarded to the DOM,
-          // so it can't surface as a tooltip.
-          img: ({ src, alt, title }) => {
-            if (typeof src !== "string") return null;
-            return (
-              <img
-                src={src}
-                alt={alt ?? ""}
-                {...sizes.get(src)}
-                loading="lazy"
-                decoding="async"
-                data-invert={title === "keep-colors" ? undefined : ""}
-              />
-            );
-          },
-        }}
-      >
-        {content}
-      </ReactMarkdown>
-    </div>
+    <>
+      <div className="prose">
+        <ReactMarkdown
+          remarkPlugins={[remarkMath, remarkGfm]}
+          rehypePlugins={[rehypeKatex, rehypeSlug]}
+          components={{
+            // Figures have transparent backgrounds, so in dark mode their ink is
+            // flipped to read against the dark ground. Full-colour artwork opts
+            // out with the markdown title slot: ![alt](/art.webp "keep-colors").
+            // The title is consumed as a directive, never forwarded to the DOM,
+            // so it can't surface as a tooltip.
+            img: ({ src, alt, title }) => {
+              if (typeof src !== "string") return null;
+              return (
+                <img
+                  src={src}
+                  alt={alt ?? ""}
+                  {...sizes.get(src)}
+                  loading="lazy"
+                  decoding="async"
+                  data-invert={title === "keep-colors" ? undefined : ""}
+                />
+              );
+            },
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
+      {/* Finds its article as its previous sibling. */}
+      <Lightbox />
+    </>
   );
 }
