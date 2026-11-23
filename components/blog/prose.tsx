@@ -11,6 +11,17 @@ import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import "katex/dist/katex.min.css";
 import { Lightbox } from "./lightbox";
+import { CotHeatmap, type HeatmapSample } from "@/components/notes/cot-heatmap";
+
+// A fenced ```cot-heatmap block embeds token heatmaps instead of showing
+// code: one "label | /path/to/sample.json" per line.
+function heatmapSamples(text: string): HeatmapSample[] {
+  return text
+    .split("\n")
+    .map((line) => line.split("|").map((part) => part.trim()))
+    .filter(([label, src]) => label && src)
+    .map(([label, src]) => ({ label, src }));
+}
 
 // Figures load lazily as you scroll. Without a size in the HTML each one
 // arrives zero-height and shoves everything below it down, and the margin
@@ -38,6 +49,18 @@ export async function Prose({ content }: { content: string }) {
           remarkPlugins={[remarkMath, remarkGfm]}
           rehypePlugins={[rehypeKatex, rehypeSlug]}
           components={{
+            pre: ({ node, children }) => {
+              const code = node?.children[0];
+              if (
+                code?.type === "element" &&
+                code.tagName === "code" &&
+                String(code.properties.className ?? "").includes("language-cot-heatmap")
+              ) {
+                const text = code.children.map((c) => (c.type === "text" ? c.value : "")).join("");
+                return <CotHeatmap samples={heatmapSamples(text)} />;
+              }
+              return <pre>{children}</pre>;
+            },
             // Figures have transparent backgrounds, so in dark mode their ink is
             // flipped to read against the dark ground. Full-colour artwork opts
             // out with the markdown title slot: ![alt](/art.webp "keep-colors").

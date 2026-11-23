@@ -668,6 +668,177 @@ html:has(.lightbox[open]) {
     border-bottom-color: var(--rule-2);
 }
 
+/* ===== CoT heatmap (components/notes/cot-heatmap.tsx) =========
+   Token heatmaps embedded in notes. Plain divs inside, so no prose
+   heading or paragraph rules apply. Colours are tints over the page
+   ground (red = close, blue = far), so both themes read the same. */
+
+.prose > .heatmap {
+    margin-block: 2em 2.5em;
+}
+
+.heatmap {
+    font-family: var(--font-sans);
+}
+
+.heatmap__tabs {
+    display: flex;
+    gap: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+}
+
+.heatmap__tab {
+    appearance: none;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    margin-bottom: -1px;
+    padding: 0 0 0.45rem;
+    font: 500 0.7rem/1.4 var(--font-sans);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    cursor: pointer;
+}
+
+.heatmap__tab[aria-selected="true"] {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+.heatmap__meta {
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 1.5em;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+}
+
+.heatmap__rb { color: #15803d; }
+.heatmap__nr { color: #b91c1c; }
+.theme-dark .heatmap__rb { color: #4ade80; }
+.theme-dark .heatmap__nr { color: #f87171; }
+
+.heatmap__problem {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin: 0.25rem 0 0.5rem;
+}
+
+.heatmap__problem summary {
+    cursor: pointer;
+}
+
+.heatmap__problem > div {
+    margin-top: 0.4rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--tint);
+    border-radius: 2px;
+    font: 12px/1.6 var(--font-mono);
+    white-space: pre-wrap;
+    color: var(--ink-2);
+}
+
+.heatmap__legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: var(--ink-4);
+    margin-bottom: 0.75rem;
+}
+
+.heatmap__ramp {
+    display: inline-flex;
+    outline: 1px solid var(--rule);
+}
+
+.heatmap__ramp span {
+    width: 11px;
+    height: 10px;
+}
+
+.heatmap__panes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 720px) {
+    .heatmap__panes {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.heatmap__pane {
+    min-width: 0;
+}
+
+.heatmap__title {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin-bottom: 0.35rem;
+}
+
+.heatmap__title span {
+    font-weight: 400;
+    color: var(--ink-4);
+}
+
+.heatmap__cot {
+    height: 380px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font: 12px/1.85 var(--font-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: var(--ink);
+}
+
+@media (max-width: 719px) {
+    .heatmap__cot {
+        height: 260px;
+    }
+}
+
+.heatmap__cot span {
+    border-radius: 2px;
+}
+
+.heatmap__caption {
+    margin-top: 0.75rem;
+    font: 13px/1.5 var(--font-body);
+    color: var(--ink-3);
+}
+
+.heatmap .h0 { background: rgb(178 24 43 / 0.720); }
+.heatmap .h1 { background: rgb(178 24 43 / 0.648); }
+.heatmap .h2 { background: rgb(178 24 43 / 0.576); }
+.heatmap .h3 { background: rgb(178 24 43 / 0.504); }
+.heatmap .h4 { background: rgb(178 24 43 / 0.432); }
+.heatmap .h5 { background: rgb(178 24 43 / 0.360); }
+.heatmap .h6 { background: rgb(178 24 43 / 0.288); }
+.heatmap .h7 { background: rgb(178 24 43 / 0.216); }
+.heatmap .h8 { background: rgb(178 24 43 / 0.144); }
+.heatmap .h9 { background: rgb(178 24 43 / 0.072); }
+.heatmap .h10 { background: transparent; }
+.heatmap .h11 { background: rgb(33 102 172 / 0.072); }
+.heatmap .h12 { background: rgb(33 102 172 / 0.144); }
+.heatmap .h13 { background: rgb(33 102 172 / 0.216); }
+.heatmap .h14 { background: rgb(33 102 172 / 0.288); }
+.heatmap .h15 { background: rgb(33 102 172 / 0.360); }
+.heatmap .h16 { background: rgb(33 102 172 / 0.432); }
+.heatmap .h17 { background: rgb(33 102 172 / 0.504); }
+.heatmap .h18 { background: rgb(33 102 172 / 0.576); }
+.heatmap .h19 { background: rgb(33 102 172 / 0.648); }
+.heatmap .h20 { background: rgb(33 102 172 / 0.720); }
+
 /* ===== Math ================================================ */
 
 .katex {
